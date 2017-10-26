@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">MrMini</string>
+    <string name="app_name">MRScanner</string>
+    <string name="info">Info video</string>
+    <string name="settings">Indstillinger</string>
+    <string name="scanner">Prøv MR scanneren</string>
+    <string name="spil">Sjov og spas</string>
 </resources>

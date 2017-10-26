@@ -1,4 +1,4 @@
-package mrmini.hold1e17.dk.mrmini;
+package com.brugerinteraktion.gruppe01.mrscanner;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("mrmini.hold1e17.dk.mrmini", appContext.getPackageName());
+        assertEquals("com.brugerinteraktion.gruppe01.mrscanner", appContext.getPackageName());
     }
 }
