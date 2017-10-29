@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:label="@string/settings"
-    tools:context="com.brugerinteraktion.gruppe01.mrscanner.Indstillinger">
+    tools:context="mrmini.hold1e17.dk.mrmini.Indstillinger">
 
     <TextView
         android:id="@+id/textView"
