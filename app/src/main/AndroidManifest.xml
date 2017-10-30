@@ -9,13 +9,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Hovedmenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".InfoVideo"
+            android:label="@string/info"
+            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
+        <activity
+            android:name=".Indstillinger"
+            android:label="@string/settings"
+            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
+        <activity
+            android:name=".Scanner"
+            android:label="@string/scanner"
+            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
+        <activity android:name=".Spil"
+            android:label="@string/spil"
+            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
     </application>
 
 </manifest>
