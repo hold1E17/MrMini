@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Hovedmenu">
+        <activity android:name=".Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,8 +17,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Hovedmenu"
+            android:label="Hovedmenu"/>
+        <activity
+            android:name=".Login"
+            android:label="Log på"/>
+        <activity
             android:name=".HospitalsInfo"
-            android:label="@string/info"
+            android:label="Hospitals Info"
             android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
         <activity
             android:name=".Indstillinger"
@@ -31,6 +37,9 @@
         <activity android:name=".Spil"
             android:label="@string/spil"
             android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
+        <activity android:name=".Scanner_Toy"
+            android:label="Scan med legetøj"
+            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Scanner"/>
     </application>
 
 </manifest>
