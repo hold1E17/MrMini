@@ -26,7 +26,7 @@ Button info, scanner, spil;
 
     public void onClick(View v) {
         if(v == info){
-            Intent i = new Intent(this, InfoVideo.class);
+            Intent i = new Intent(this, HospitalsInfo.class);
             startActivity(i);
         } else if(v == scanner){
             Intent i = new Intent(this, Scanner.class);
