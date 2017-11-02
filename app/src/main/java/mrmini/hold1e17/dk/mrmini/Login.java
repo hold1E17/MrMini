@@ -1,4 +1,4 @@
-package com.brugerinteraktion.gruppe01.mrscanner;
+package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,17 +29,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         logBut.setOnClickListener(this);
         noLogBut.setOnClickListener(this);
 
-}
-
-public void onClick(View v) {
-
-    if (v == logBut) {
-        Intent i = new Intent(this, Hovedmenu.class);
-        startActivity(i);
-    } else if (v == noLogBut) {
-        Intent i = new Intent(this, Hovedmenu.class);
-        startActivity(i);
     }
 
-}
+    public void onClick(View v) {
+
+        if (v == logBut) {
+            Intent i = new Intent(this, Hovedmenu.class);
+            startActivity(i);
+        } else if (v == noLogBut) {
+            Intent i = new Intent(this, Hovedmenu.class);
+            startActivity(i);
+        }
+
+    }
 }

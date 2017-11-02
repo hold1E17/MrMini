@@ -1,4 +1,4 @@
-package com.brugerinteraktion.gruppe01.mrscanner;
+package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Intent;
 import android.os.Bundle;
