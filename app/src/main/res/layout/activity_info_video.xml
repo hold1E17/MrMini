@@ -6,9 +6,14 @@
     android:layout_height="match_parent"
     tools:context="mrmini.hold1e17.dk.mrmini.HospitalsInfo">
 
-    <WebView
+    <com.google.android.youtube.player.YouTubePlayerView
+        android:id="@+id/youtube_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <!--<WebView
         android:layout_width="368dp"
         android:layout_height="495dp"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp" />
+        tools:layout_editor_absoluteY="8dp" />-->
 </android.support.constraint.ConstraintLayout>
