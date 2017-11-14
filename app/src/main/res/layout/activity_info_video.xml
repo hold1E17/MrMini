@@ -4,19 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mrmini.hold1e17.dk.mrmini.HospitalsInfo"
-    tools:layout_editor_absoluteY="81dp">
+    tools:context="mrmini.hold1e17.dk.mrmini.HospitalsInfo">
 
     <WebView
-        android:id="@+id/webView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="21dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="21dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="368dp"
+        android:layout_height="495dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 </android.support.constraint.ConstraintLayout>
