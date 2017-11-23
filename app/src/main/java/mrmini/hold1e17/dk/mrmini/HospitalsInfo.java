@@ -1,54 +1,70 @@
 package mrmini.hold1e17.dk.mrmini;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.net.Uri;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.webkit.WebView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
+public class HospitalsInfo extends AppCompatActivity {
+    String vidAddress = "http://www.html5videoplayer.net/videos/toystory.mp4";
+    String webAddress = "http://www.dr.dk";
 
-public class HospitalsInfo extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener{
-    private static final int RECOVERY_REQUEST = 1;
-    private YouTubePlayerView youTubeView;
+    private int position = 0;
+    public VideoView vidView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_video);
 
-        youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
-        youTubeView.initialize("AIzaSyALz0Tqbd66R3nFapHxcL6UUymJySgJhqo", this);
-    }
+        vidView = (VideoView)findViewById(R.id.videoView);
+        WebView web = (WebView)findViewById(R.id.webView);
 
-    @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer player, boolean wasRestored) {
-        if (!wasRestored) {
-            player.cueVideo("fhWaJi1Hsfo"); // Plays https://www.youtube.com/watch?v=fhWaJi1Hsfo
+        try{
+            web.loadUrl(webAddress);
+        } catch (Exception e) {
+            Log.e("Error", e.getMessage());
+            e.printStackTrace();
         }
-    }
-
-    @Override
-    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult errorReason) {
-        if (errorReason.isUserRecoverableError()) {
-            errorReason.getErrorDialog(this, RECOVERY_REQUEST).show();
-        } else {
-            String error = String.format(getString(R.string.player_error), errorReason.toString());
-            Toast.makeText(this, error, Toast.LENGTH_LONG).show();
+        try{
+            vidView.setVideoURI(Uri.parse(vidAddress));
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), "Fejl: Video kunne ikke loades", Toast.LENGTH_SHORT).show();
+            Log.e("Error", e.getMessage());
+            e.printStackTrace();
         }
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RECOVERY_REQUEST) {
-            // Retry initialization if user performed a recovery action
-            getYouTubePlayerProvider().initialize("AIzaSyALz0Tqbd66R3nFapHxcL6UUymJySgJhqo", this);
-        }
-    }
 
-    protected YouTubePlayer.Provider getYouTubePlayerProvider() {
-        return youTubeView;
+        vidView.requestFocus();
+
+        // we also set an setOnPreparedListener in order to know when the video
+        // file is ready for playback
+
+        vidView.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
+        {
+
+            public void onPrepared(MediaPlayer mediaPlayer)
+            {
+                // if we have a position on savedInstanceState, the video
+                // playback should start from here
+                vidView.seekTo(position);
+
+                System.out.println("video is ready for playing");
+
+                if (position == 0)
+                {
+                    vidView.start();
+                } else
+                {
+                    // if we come from a resumed activity, video playback will
+                    // be paused
+                    vidView.pause();
+                }
+            }
+        });
     }
 }
