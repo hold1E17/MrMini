@@ -6,15 +6,17 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.webkit.WebView;
+import android.widget.MediaController;
 import android.widget.Toast;
 import android.widget.VideoView;
 
 public class HospitalsInfo extends AppCompatActivity {
     String vidAddress = "http://www.html5videoplayer.net/videos/toystory.mp4";
-    String webAddress = "http://www.dr.dk";
+    String webAddress = "https://responsivedesign.is/examples/";
 
     private int position = 0;
     public VideoView vidView;
+    private MediaController mediaController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +25,16 @@ public class HospitalsInfo extends AppCompatActivity {
 
         vidView = (VideoView)findViewById(R.id.videoView);
         WebView web = (WebView)findViewById(R.id.webView);
+
+        if (mediaController == null) {
+            mediaController = new MediaController(HospitalsInfo.this);
+
+            // Set the videoView that acts as the anchor for the MediaController.
+            mediaController.setAnchorView(vidView);
+
+            // Set MediaController for VideoView
+            vidView.setMediaController(mediaController);
+        }
 
         try{
             web.loadUrl(webAddress);
@@ -38,11 +50,7 @@ public class HospitalsInfo extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
         vidView.requestFocus();
-
-        // we also set an setOnPreparedListener in order to know when the video
-        // file is ready for playback
 
         vidView.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
         {
@@ -53,18 +61,28 @@ public class HospitalsInfo extends AppCompatActivity {
                 // playback should start from here
                 vidView.seekTo(position);
 
-                System.out.println("video is ready for playing");
-
-                if (position == 0)
-                {
-                    vidView.start();
-                } else
-                {
-                    // if we come from a resumed activity, video playback will
-                    // be paused
-                    vidView.pause();
-                }
+                vidView.start();
             }
         });
+    }
+    // When you change direction of phone, this method will be called.
+    // It store the state of video (Current position)
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+
+        // Store current position.
+        savedInstanceState.putInt("CurrentPosition", vidView.getCurrentPosition());
+        vidView.pause();
+
+    }
+    // After rotating the phone. This method is called.
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        // Get saved position.
+        position = savedInstanceState.getInt("CurrentPosition");
+        vidView.seekTo(position);
     }
 }
