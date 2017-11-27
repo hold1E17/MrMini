@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mrmini.hold1e17.dk.mrmini">
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-feature android:name="android.hardware.camera2"></uses-feature>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -41,6 +42,9 @@
         <activity android:name=".Scanner_Toy"
             android:label="Scan med legetøj"
             android:parentActivityName="mrmini.hold1e17.dk.mrmini.Scanner"/>
+        <activity android:name=".Scanner_app"
+            android:label="Scan med app"
+            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Scanner_app"/>
     </application>
 
 </manifest>

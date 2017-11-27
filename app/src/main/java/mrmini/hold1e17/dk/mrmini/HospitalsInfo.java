@@ -1,5 +1,6 @@
 package mrmini.hold1e17.dk.mrmini;
 
+import android.content.res.AssetManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.net.Uri;
@@ -13,6 +14,8 @@ import android.widget.VideoView;
 public class HospitalsInfo extends AppCompatActivity {
     String vidAddress = "http://www.html5videoplayer.net/videos/toystory.mp4";
     String webAddress = "https://responsivedesign.is/examples/";
+    String localVideo;
+
 
     private int position = 0;
     public VideoView vidView;
@@ -25,6 +28,10 @@ public class HospitalsInfo extends AppCompatActivity {
 
         vidView = (VideoView)findViewById(R.id.videoView);
         WebView web = (WebView)findViewById(R.id.webView);
+
+        localVideo = "android.resource://" + getPackageName() + "/" + R.raw.testvideo;
+
+        web.getSettings().setJavaScriptEnabled(true);
 
         if (mediaController == null) {
             mediaController = new MediaController(HospitalsInfo.this);
@@ -45,9 +52,9 @@ public class HospitalsInfo extends AppCompatActivity {
         try{
             vidView.setVideoURI(Uri.parse(vidAddress));
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Fejl: Video kunne ikke loades", Toast.LENGTH_SHORT).show();
             Log.e("Error", e.getMessage());
             e.printStackTrace();
+            //vidView.setVideoURI(Uri.parse(localVideo));
         }
 
         vidView.requestFocus();
