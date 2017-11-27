@@ -30,7 +30,8 @@ public class Scanner extends AppCompatActivity implements View.OnClickListener {
             Intent i = new Intent(this, Scanner_Toy.class);
             startActivity(i);
         } else if (v == scanBut2) {
-
+            Intent j = new Intent(this, Scanner_app.class);
+            startActivity(j);
         }
     }
 }
