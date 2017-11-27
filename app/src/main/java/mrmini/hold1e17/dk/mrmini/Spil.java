@@ -20,6 +20,8 @@ public class Spil extends AppCompatActivity {
 
 
     // At den er under fingeren.
+    // Så den starter i midten
+    // Info skærm der forklarer hvad det går ud på
     // Canvas?
 
     ImageView iv1, iv2, iv3, iv4, iv5, iv6;
@@ -57,7 +59,7 @@ public class Spil extends AppCompatActivity {
                 case MotionEvent.ACTION_DOWN:
                     RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
                     xd = x - lParams.leftMargin;
-                    yd= y - lParams.topMargin;
+                    yd = y - lParams.topMargin;
                     break;
                 case MotionEvent.ACTION_UP:
                     break;
@@ -82,7 +84,6 @@ public class Spil extends AppCompatActivity {
             rootLayout.invalidate();
             return true;
         }
-
 
         }
     }
