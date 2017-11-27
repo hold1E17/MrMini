@@ -49,6 +49,7 @@ public class Spil extends AppCompatActivity {
     }
 
 
+
     private final class OnTouchListen implements View.OnTouchListener {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
