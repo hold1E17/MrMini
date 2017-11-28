@@ -1,20 +1,21 @@
 package mrmini.hold1e17.dk.mrmini;
 
-import android.content.res.AssetManager;
+import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.webkit.WebView;
 import android.widget.MediaController;
-import android.widget.Toast;
 import android.widget.VideoView;
 
+
 public class HospitalsInfo extends AppCompatActivity {
-    String vidAddress = "http://www.html5videoplayer.net/videos/toystory.mp4";
-    String webAddress = "https://responsivedesign.is/examples/";
-    String localVideo;
+    String vidAddress;
+    String webAddress;
 
 
     private int position = 0;
@@ -26,11 +27,9 @@ public class HospitalsInfo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_video);
 
+        // Init
         vidView = (VideoView)findViewById(R.id.videoView);
         WebView web = (WebView)findViewById(R.id.webView);
-
-        localVideo = "android.resource://" + getPackageName() + "/" + R.raw.testvideo;
-
         web.getSettings().setJavaScriptEnabled(true);
 
         if (mediaController == null) {
@@ -41,6 +40,17 @@ public class HospitalsInfo extends AppCompatActivity {
 
             // Set MediaController for VideoView
             vidView.setMediaController(mediaController);
+        }
+
+
+        //Set local video name (no extension, from raw folder)
+        String localVideoName = "testvideo";
+        vidAddress = "android.resource://"+getPackageName()+"/raw/"+localVideoName;
+        webAddress = "file:///android_asset/webview/index.html";
+
+        if(isNetworkAvailable()){
+            vidAddress = "http://www.html5videoplayer.net/videos/toystory.mp4";
+            webAddress = "https://www.w3schools.com/html/tryhtml_responsive_media_query3.htm";
         }
 
         try{
@@ -54,7 +64,6 @@ public class HospitalsInfo extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
             e.printStackTrace();
-            //vidView.setVideoURI(Uri.parse(localVideo));
         }
 
         vidView.requestFocus();
@@ -71,9 +80,13 @@ public class HospitalsInfo extends AppCompatActivity {
                 vidView.start();
             }
         });
+
     }
+
+
     // When you change direction of phone, this method will be called.
     // It store the state of video (Current position)
+    //TODO()
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -91,5 +104,12 @@ public class HospitalsInfo extends AppCompatActivity {
         // Get saved position.
         position = savedInstanceState.getInt("CurrentPosition");
         vidView.seekTo(position);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
