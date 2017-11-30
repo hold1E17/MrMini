@@ -9,6 +9,7 @@
     <string name="logBut">Login</string>
     <string name="noLogBut">Fortsæt uden login</string>
     <string-array name="hospitalList">
+        <item></item>
         <item>Gentofte</item>
         <item>Herlev</item>
         <item>Rigshospitalet</item>
