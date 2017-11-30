@@ -4,4 +4,5 @@
     <string name="settings">Indstillinger</string>
     <string name="scanner">Prøv MR scanneren</string>
     <string name="spil">Sjov og spas</string>
+    <string name="player_error">Error initializing YouTube player: %s</string>
 </resources>
