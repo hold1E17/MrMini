@@ -26,11 +26,13 @@ public class Launcher extends AppCompatActivity {
         if (login == "" && hospital == "") {
             Intent i = new Intent(this, Login.class);
             startActivity(i);
+            finish();
         } else {
             Intent i = new Intent(this, Hovedmenu.class);
             i.putExtra("login", login);
             i.putExtra("hospital", hospital);
             startActivity(i);
+            finish();
         }
 
         setTitle("MR Scanner");
