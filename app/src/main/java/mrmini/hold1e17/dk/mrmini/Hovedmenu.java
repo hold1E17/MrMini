@@ -16,7 +16,7 @@ String hospital, brugernavn;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hovedmenu);
 
-        brugernavn = getIntent().getStringExtra("login");
+        brugernavn = getIntent().getStringExtra("navn");
         hospital = getIntent().getStringExtra("hospital");
 
         info = (Button) findViewById(R.id.info);
@@ -31,6 +31,7 @@ String hospital, brugernavn;
     public void onClick(View v) {
         if(v == info){
             Intent i = new Intent(this, HospitalsInfo.class);
+            i.putExtra("hospital", hospital);
             startActivity(i);
         } else if(v == scanner){
             Intent i = new Intent(this, Scanner.class);
