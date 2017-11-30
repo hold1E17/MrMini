@@ -23,13 +23,13 @@ public class Launcher extends AppCompatActivity {
 
         loadData();
 
-        if (login != "" && hospital != "") {
+        if (login == "" && hospital == "") {
             Intent i = new Intent(this, Login.class);
-            i.putExtra("login", login);
-            i.putExtra("hospital", hospital);
             startActivity(i);
         } else {
             Intent i = new Intent(this, Hovedmenu.class);
+            i.putExtra("login", login);
+            i.putExtra("hospital", hospital);
             startActivity(i);
         }
 

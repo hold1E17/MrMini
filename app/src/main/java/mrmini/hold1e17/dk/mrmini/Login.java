@@ -55,10 +55,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
 
         if (v == logBut) {
+            Intent i = new Intent(this, Hovedmenu.class);
             if (rememberMe.isChecked()) {
                 saveLogin();
+                i.putExtra("login", userName.getText().toString());
+                i.putExtra("hospital", hospitalChoice.getSelectedItem().toString());
             }
-            Intent i = new Intent(this, Hovedmenu.class);
             startActivity(i);
         } else if (v == noLogBut) {
             Intent i = new Intent(this, Hovedmenu.class);
