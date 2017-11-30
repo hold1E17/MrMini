@@ -32,6 +32,8 @@ public class HospitalsInfo extends AppCompatActivity {
         WebView web = (WebView)findViewById(R.id.webView);
         web.getSettings().setJavaScriptEnabled(true);
 
+        String hospitalnavn = getIntent().getStringExtra("hospital");
+
         //Set local video name (no extension, located in raw folder)
         String localVideoName = "testvideo";
         vidAddress = "android.resource://"+getPackageName()+"/raw/"+localVideoName;
@@ -39,8 +41,17 @@ public class HospitalsInfo extends AppCompatActivity {
 
         // Online video and web resources
         if(isNetworkAvailable()){
-            vidAddress = "https://region-hovedstaden-ekstern.23video.com/9826383/10357633/a5865685bedff3d06215fdf40b4c41e6/video_medium/mr-skanning-video.mp4";
-            webAddress = "https://www.rigshospitalet.dk/afdelinger-og-klinikker/diagnostisk/radiologisk-klinik/undersoegelse-og-behandling/Sider/mr-skanning.aspx";
+            System.out.println(hospitalnavn);
+            if(hospitalnavn.equals("Rigshospitalet")) {
+                vidAddress = "https://region-hovedstaden-ekstern.23video.com/9826383/10357633/a5865685bedff3d06215fdf40b4c41e6/video_medium/mr-skanning-video.mp4";
+                webAddress = "https://www.rigshospitalet.dk/afdelinger-og-klinikker/diagnostisk/radiologisk-klinik/undersoegelse-og-behandling/Sider/mr-skanning.aspx";
+            } else if(hospitalnavn.equals("Gentofte")) {
+                vidAddress = "https://region-hovedstaden-ekstern.23video.com/9826383/10357633/a5865685bedff3d06215fdf40b4c41e6/video_medium/mr-skanning-video.mp4";
+                webAddress = "https://www.gentoftehospital.dk/undersoegelse-og-behandling/undersoegelser/Sider/MR-skanning.aspx";
+            } else if(hospitalnavn.equals("Herlev")) {
+                vidAddress = "https://region-hovedstaden-ekstern.23video.com/9826383/10357633/a5865685bedff3d06215fdf40b4c41e6/video_medium/mr-skanning-video.mp4";
+                webAddress = "https://www.herlevhospital.dk/afdelinger-og-klinikker/radiologisk/undersoegelse-og-behandling/Sider/MR-skanning.aspx";
+            }
         }
 
         //Video playback controls
