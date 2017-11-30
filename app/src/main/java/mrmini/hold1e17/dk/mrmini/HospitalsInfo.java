@@ -32,27 +32,25 @@ public class HospitalsInfo extends AppCompatActivity {
         WebView web = (WebView)findViewById(R.id.webView);
         web.getSettings().setJavaScriptEnabled(true);
 
-        if (mediaController == null) {
-            mediaController = new MediaController(HospitalsInfo.this);
-
-            // Set the videoView that acts as the anchor for the MediaController.
-            mediaController.setAnchorView(vidView);
-
-            // Set MediaController for VideoView
-            vidView.setMediaController(mediaController);
-        }
-
-
-        //Set local video name (no extension, from raw folder)
+        //Set local video name (no extension, located in raw folder)
         String localVideoName = "testvideo";
         vidAddress = "android.resource://"+getPackageName()+"/raw/"+localVideoName;
         webAddress = "file:///android_asset/webview/index.html";
 
+        // Online video and web resources
         if(isNetworkAvailable()){
-            vidAddress = "http://www.html5videoplayer.net/videos/toystory.mp4";
-            webAddress = "https://www.w3schools.com/html/tryhtml_responsive_media_query3.htm";
+            vidAddress = "https://region-hovedstaden-ekstern.23video.com/9826383/10357633/a5865685bedff3d06215fdf40b4c41e6/video_medium/mr-skanning-video.mp4";
+            webAddress = "https://www.rigshospitalet.dk/afdelinger-og-klinikker/diagnostisk/radiologisk-klinik/undersoegelse-og-behandling/Sider/mr-skanning.aspx";
         }
 
+        //Video playback controls
+        if (mediaController == null) {
+            mediaController = new MediaController(HospitalsInfo.this);
+            mediaController.setAnchorView(vidView);
+            vidView.setMediaController(mediaController);
+        }
+
+        // Loads the vidAddress and webAddress variables into the view
         try{
             web.loadUrl(webAddress);
         } catch (Exception e) {
@@ -66,8 +64,9 @@ public class HospitalsInfo extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // requestFocus() viser vores playback controls midlertidigt i begyndelse af playback
+        // og starter video, når mediaplayeren er klar
         vidView.requestFocus();
-
         vidView.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
         {
 
@@ -76,7 +75,6 @@ public class HospitalsInfo extends AppCompatActivity {
                 // if we have a position on savedInstanceState, the video
                 // playback should start from here
                 vidView.seekTo(position);
-
                 vidView.start();
             }
         });
