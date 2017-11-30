@@ -4,5 +4,13 @@
     <string name="settings">Indstillinger</string>
     <string name="scanner">Prøv MR scanneren</string>
     <string name="spil">Sjov og spas</string>
-    <string name="player_error">Error initializing YouTube player: %s</string>
+    <string name="loginName">Skriv dit navn her</string>
+    <string name="rememberMe">Husk mig</string>
+    <string name="logBut">Login</string>
+    <string name="noLogBut">Fortsæt uden login</string>
+    <string-array name="hospitalList">
+        <item>Gentofte</item>
+        <item>Herlev</item>
+        <item>Rigshospitalet</item>
+    </string-array>
 </resources>
