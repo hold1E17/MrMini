@@ -19,9 +19,11 @@ public class Launcher extends AppCompatActivity {
         if (savedInstanceState == null) {
             Intent i = new Intent(this, Login.class);
             startActivity(i);
+            finish();
         } else {
             Intent i = new Intent(this, Hovedmenu.class);
             startActivity(i);
+            finish();
         }
 
         setTitle("MR Scanner");
