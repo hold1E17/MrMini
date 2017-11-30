@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class SpilJacob extends AppCompatActivity {
 
-// Skal samle ting op/eller de skal forsvinde (Sætte sig på magneten eller forsvinde),
+
 // skal sige lyde, skal slutte når alle tingene er samlet op
 
 
@@ -38,8 +38,9 @@ public class SpilJacob extends AppCompatActivity {
         setContentView(R.layout.activity_spil);
         rootLayout = (ViewGroup) findViewById(R.id.view_root);
 
-        objektliste = new ArrayList<Brik>();
+        objektliste = new ArrayList<Brik>(); // array af brikker
         int[] ividl = new int[]{R.id.iv1, R.id.iv2, R.id.iv3, R.id.iv4, R.id.iv5, R.id.iv6, R.id.iv6};
+        // forloop der opretter de forskellige brikker
         for (int id : ividl) {
             Brik b = new Brik();
             b.view = (ImageView) findViewById(id);
@@ -47,8 +48,9 @@ public class SpilJacob extends AppCompatActivity {
             objektliste.add(b);
         }
 
-        magneten = objektliste.get(objektliste.size()-1); // det er den sidste - grimt hack :-)
-        objektliste.remove(objektliste.size()-1);
+       // magneten er det sidste objekt, derfor -1
+        magneten = objektliste.get(objektliste.size()-1); //
+        objektliste.remove(objektliste.size()-1); // Fjerne det fra listen
 
         rootLayout.setOnTouchListener(new OnTouchListen());
 
@@ -66,7 +68,7 @@ public class SpilJacob extends AppCompatActivity {
         super.onPause();
         handler.removeCallbacks(opdateringRunnable);
     }
-
+// skal få brikkerne til at bevæge sig mod magneten
     private Runnable opdateringRunnable = new Runnable() {
         @Override
         public void run() {
@@ -81,6 +83,7 @@ public class SpilJacob extends AppCompatActivity {
         }
     };
 
+    // Magneten flytter sig onTouch
     private final class OnTouchListen implements View.OnTouchListener {
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
@@ -121,6 +124,7 @@ public class SpilJacob extends AppCompatActivity {
         }
     }
 
+   // Positionen er baseret på brik center
     private void opdaterPosPåSkærm(Brik valgt) {
         valgt.view.setX( valgt.pos.x - valgt.view.getWidth()/2 );
         valgt.view.setY( valgt.pos.y - valgt.view.getHeight()/2 );
@@ -134,6 +138,11 @@ public class SpilJacob extends AppCompatActivity {
         public ImageView view;
         public Point pos;
     }
+
+    // metode når alle er ramt, noget med distance 0 og en counter alt efter hvor mange objekter der er
+    // Når slut skal den spørge om spil igen eller slut
+
+
 }
 
 
