@@ -9,11 +9,15 @@ import android.widget.Button;
 
 public class Hovedmenu extends AppCompatActivity implements OnClickListener {
 Button info, scanner, spil;
+String hospital, brugernavn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hovedmenu);
+
+        brugernavn = getIntent().getStringExtra("login");
+        hospital = getIntent().getStringExtra("hospital");
 
         info = (Button) findViewById(R.id.info);
         scanner = (Button) findViewById(R.id.scanner);
