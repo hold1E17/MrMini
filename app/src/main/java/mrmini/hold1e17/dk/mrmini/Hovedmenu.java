@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class Hovedmenu extends AppCompatActivity implements OnClickListener {
 Button info, scanner, spil;
+String brugernavn, hospital;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
