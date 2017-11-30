@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-public class Spil extends AppCompatActivity {
+public class SpilJacob extends AppCompatActivity {
 
 
 // skal sige lyde, skal slutte når alle tingene er samlet op
@@ -21,6 +21,7 @@ public class Spil extends AppCompatActivity {
     // At den er under fingeren.
     // Så den starter i midten
     // Info skærm der forklarer hvad det går ud på
+    // Canvas?
 
     ImageView iv1, iv2, iv3, iv4, iv5, iv6;
     private int xd, yd;
@@ -47,7 +48,7 @@ public class Spil extends AppCompatActivity {
             objektliste.add(b);
         }
 
-        // magneten er det sidste objekt, derfor -1
+       // magneten er det sidste objekt, derfor -1
         magneten = objektliste.get(objektliste.size()-1); //
         objektliste.remove(objektliste.size()-1); // Fjerne det fra listen
 
@@ -67,15 +68,15 @@ public class Spil extends AppCompatActivity {
         super.onPause();
         handler.removeCallbacks(opdateringRunnable);
     }
-    // skal få brikkerne til at bevæge sig mod magneten
+// skal få brikkerne til at bevæge sig mod magneten
     private Runnable opdateringRunnable = new Runnable() {
         @Override
         public void run() {
             handler.postDelayed(opdateringRunnable, 10000);
             for (Brik b : objektliste) {
                 if (Math.abs(b.pos.x - magneten.pos.x) + Math.abs(b.pos.y - magneten.pos.y) <20 ) {
-                    b.pos.x = (9*b.pos.x+ 1*magneten.pos.x + 5)/1; // Den rykke sig kun én gang, den bevæger sig ikke
-                    b.pos.y = (9*b.pos.y+ 1*magneten.pos.y + 5)/1;
+                    b.pos.x = (9*b.pos.x+ 1*magneten.pos.x + 5)/10;
+                    b.pos.y = (9*b.pos.y+ 1*magneten.pos.y + 5)/10;
                     opdaterPosPåSkærm(b);
                 }
             }
@@ -123,15 +124,15 @@ public class Spil extends AppCompatActivity {
         }
     }
 
-    // Positionen er baseret på brik centeret
-    // b var valgt før
-    private void opdaterPosPåSkærm(Brik b) {
-        b.view.setX( b.pos.x - b.view.getWidth()/2 );
-        b.view.setY( b.pos.y - b.view.getHeight()/2 );
+   // Positionen er baseret på brik center
+    private void opdaterPosPåSkærm(Brik valgt) {
+        valgt.view.setX( valgt.pos.x - valgt.view.getWidth()/2 );
+        valgt.view.setY( valgt.pos.y - valgt.view.getHeight()/2 );
     }
 
-
-
+    /**
+     * Created by j on 27-11-17.
+     */
 
     static class Brik {
         public ImageView view;
@@ -143,4 +144,5 @@ public class Spil extends AppCompatActivity {
 
 
 }
+
 
