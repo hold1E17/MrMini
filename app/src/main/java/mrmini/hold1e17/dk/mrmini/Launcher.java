@@ -22,10 +22,8 @@ public class Launcher extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         loadData();
-        System.out.println(login);
-        System.out.println(hospital);
 
-        if (login == "" && hospital == "") {
+        if (login != "" && hospital != "") {
             Intent i = new Intent(this, Login.class);
             i.putExtra("login", login);
             i.putExtra("hospital", hospital);
