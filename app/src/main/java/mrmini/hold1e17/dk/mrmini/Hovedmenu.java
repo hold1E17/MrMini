@@ -57,7 +57,6 @@ String hospital, brugernavn;
 
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_name) {
             System.out.println("TEST");
             return true;
