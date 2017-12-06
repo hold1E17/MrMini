@@ -1,5 +1,6 @@
 package mrmini.hold1e17.dk.mrmini;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -46,6 +47,7 @@ String hospital, brugernavn;
 
     }
 
+    @SuppressLint("ResourceType")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.xml.menu, menu);
@@ -58,7 +60,9 @@ String hospital, brugernavn;
         int id = item.getItemId();
 
         if (id == R.id.action_name) {
-            System.out.println("TEST");
+
+            startActivity(new Intent(this, Indstillinger.class));
+
             return true;
         }
 

@@ -3,6 +3,8 @@ package mrmini.hold1e17.dk.mrmini;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -64,6 +66,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             i.putExtra("login", userName.getText().toString());
             i.putExtra("hospital", hospitalChoice.getSelectedItem().toString());
             startActivity(i);
+            finish();
         } else if (v == noLogBut) {
             Intent i = new Intent(this, Hovedmenu.class);
             startActivity(i);
@@ -75,8 +78,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
 
+        editor.putString("pref_key_hospital", hospitalChoice.getSelectedItem().toString());
+
         editor.putString("login", userName.getText().toString());
-        editor.putString("hospital", hospitalChoice.getSelectedItem().toString());
         editor.apply();
 
     }

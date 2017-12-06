@@ -3,6 +3,8 @@ package mrmini.hold1e17.dk.mrmini;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -21,7 +23,9 @@ public class Launcher extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        loadData();
+        login = PreferenceManager.getDefaultSharedPreferences(this).getString("login", "");
+
+        hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
 
         if (login == "" && hospital == "") {
             Intent i = new Intent(this, Login.class);
@@ -37,16 +41,6 @@ public class Launcher extends AppCompatActivity {
 
         setTitle("MR Scanner");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-    }
-
-    public void loadData() {
-        // Function that loads the data stored in the SharedPreferences
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-
-        login = preferences.getString("login", "");
-        hospital = preferences.getString("hospital", "");
 
     }
 

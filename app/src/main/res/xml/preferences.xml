@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/pref_catSound"
+        android:key="pref_key_sound_settings">
+        <CheckBoxPreference
+            android:key="pref_key_mute"
+            android:summary="@string/pref_sum_mute"
+            android:title="@string/pref_title_mute"
+            android:defaultValue="false"/>
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_catHospital">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/hospitalSetting"
+            android:entryValues="@array/hospitalSetting"
+            android:key="pref_key_hospital"
+            android:title="@string/pref_title_hospital" />
+    </PreferenceCategory>
+
+</PreferenceScreen>
