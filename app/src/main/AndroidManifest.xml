@@ -28,6 +28,7 @@
         <activity
             android:name=".HospitalsInfo"
             android:label="Hospitals Info"
+            android:screenOrientation="portrait"
             android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
         <activity
             android:name=".Indstillinger"
