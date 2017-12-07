@@ -27,7 +27,13 @@ public class Launcher extends AppCompatActivity {
 
         hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
 
-        if (login == "" && hospital == "") {
+        if (login == "") {
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.clear().commit();
+
             Intent i = new Intent(this, Login.class);
             startActivity(i);
             finish();

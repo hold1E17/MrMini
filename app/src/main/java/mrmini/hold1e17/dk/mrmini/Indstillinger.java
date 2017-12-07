@@ -43,8 +43,16 @@ public class Indstillinger extends PreferenceActivity {
                     @Override
                     public boolean onPreferenceClick(Preference arg0) {
                         Intent i = new Intent(getActivity(), Login.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                        SharedPreferences.Editor editor = preferences.edit();
+
+                        editor.clear().commit();
+
                         startActivity(i);
-                   //     finish();
+                        getActivity().finish();
+
                         return true;
                     }
                 });
@@ -63,4 +71,5 @@ public class Indstillinger extends PreferenceActivity {
 
         }
     }
+
 }
