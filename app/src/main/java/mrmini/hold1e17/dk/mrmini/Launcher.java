@@ -33,8 +33,6 @@ public class Launcher extends AppCompatActivity {
             finish();
         } else {
             Intent i = new Intent(this, Hovedmenu.class);
-            i.putExtra("login", login);
-            i.putExtra("hospital", hospital);
             startActivity(i);
             finish();
         }

@@ -1,5 +1,6 @@
 package mrmini.hold1e17.dk.mrmini;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -35,6 +36,20 @@ public class Indstillinger extends PreferenceActivity {
             pref.setSummary(PreferenceManager.getDefaultSharedPreferences(getActivity()).getString("pref_key_hospital", ""));
 
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+            Preference button = (Preference) getPreferenceManager().findPreference("pref_key_logout");
+            if (button != null) {
+                button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference arg0) {
+                        Intent i = new Intent(getActivity(), Login.class);
+                        startActivity(i);
+                   //     finish();
+                        return true;
+                    }
+                });
+
+            }
 
         }
 

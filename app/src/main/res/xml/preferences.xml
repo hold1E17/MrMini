@@ -20,4 +20,8 @@
             android:title="@string/pref_title_hospital" />
     </PreferenceCategory>
 
+    <Preference android:title="@string/logout"
+        android:key="pref_key_logout"
+        android:summary="@string/pref_sum_logout"/>
+
 </PreferenceScreen>

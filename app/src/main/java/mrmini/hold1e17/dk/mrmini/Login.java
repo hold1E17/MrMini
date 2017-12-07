@@ -63,8 +63,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 saveLogin();
 
             }
-            i.putExtra("login", userName.getText().toString());
-            i.putExtra("hospital", hospitalChoice.getSelectedItem().toString());
             startActivity(i);
             finish();
         } else if (v == noLogBut) {
