@@ -1,22 +1,16 @@
 package mrmini.hold1e17.dk.mrmini;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
-import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.SoundEffectConstants;
 import android.view.View;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -31,8 +25,14 @@ public class Spil extends AppCompatActivity {
     class Thing {
         RectF rectF = new RectF();
 
+        String str;
+
         Thing(String string, int x, int y) {
+            str = string;
             rectF = new RectF(x + 2, y + 2, x + 38, y + 38);
+        }
+        public String toString() {
+            return str;
         }
     }
 
@@ -59,14 +59,16 @@ public class Spil extends AppCompatActivity {
 
             nonMagnetic.add(new Thing("6", 30, 30));
             nonMagnetic.add(new Thing("+", 80, 80));
-            magnetic.add(new Thing("2", 140, 40));
-            magnetic.add(new Thing("=", 130, 90));
-            magnetic.add(new Thing("8", 170, 130));
+            magnetic.add(new Thing("1", 140, 40));
+            magnetic.add(new Thing("2", 130, 90));
+            magnetic.add(new Thing("3", 170, 130));
 
         }
 
         @Override
         protected void onDraw(Canvas c) {
+        //    Resources res = getResources();
+        //    Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.magnet);
             // Spillet er beregnet til en skærm der er 480 punkter bred...
             float skærmSkala = getWidth() / 480f; // ... så skalér derefter
             c.scale(skærmSkala, skærmSkala);
@@ -107,8 +109,12 @@ public class Spil extends AppCompatActivity {
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
                 for (Thing s : nonMagnetic) {
                     if (s.rectF.contains(ex, ey)) {
+                        if (!(caught.contains(s))) {
+                            caught.add(s);
+                            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            v.vibrate(400);
+                        }
                         magnetObj = s;
-                        System.out.println("magnetObjt=" + s);
                         break;
                     }
                 }
@@ -116,10 +122,17 @@ public class Spil extends AppCompatActivity {
             if (e.getAction() == MotionEvent.ACTION_MOVE) {
                 for (Thing s : magnetic) {
                     if (s.rectF.contains(ex, ey)) {
+                        if (!(caught.contains(s))) {
+                            caught.add(s);
+                            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                            v.vibrate(400);
+                        }
                         magnetObj = s;
-                        System.out.println("magnetObjt=" + s);
                         break;
                     }
+                }
+                for (Thing c : caught) {
+                    c.rectF.offsetTo(finger.x, finger.y);
                 }
             }
             if (e.getAction() == MotionEvent.ACTION_UP && magnetObj != null) {
@@ -127,7 +140,7 @@ public class Spil extends AppCompatActivity {
                 rectF.offsetTo(finger.x - rectF.width() / 2, finger.y - rectF.height() / 2);
           //      fixerTilBane(rectF);
                 System.out.println("magnetObj.rectF=" + magnetObj.rectF);
-                magnetObj = null;
+       //         magnetObj = null;
       //          boolean korrekt = true;
                 for (int i = 0; i < magnetic.size(); i++) {
                     Thing s1 = magnetic.get(i);
