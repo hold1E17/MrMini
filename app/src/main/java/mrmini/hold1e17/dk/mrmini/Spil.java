@@ -36,10 +36,9 @@ public class Spil extends AppCompatActivity {
 
     class MagnetView extends View {
         PointF finger = new PointF();
-        ArrayList<Thing> things = new ArrayList<>();
+        ArrayList<Thing> nonMagnetic = new ArrayList<>();
         ArrayList<Thing> magnetic = new ArrayList<>();
-        Thing valgtBrik = null;
-        Paint tekstStregtype = new Paint();
+        Thing magnetObj = null;
         Paint brikStregtype = new Paint();
         Paint magnet;
 
@@ -54,11 +53,11 @@ public class Spil extends AppCompatActivity {
             magnet.setStyle(Paint.Style.STROKE);
             magnet.setColor(Color.RED);
 
-            things.add(new Thing("6", 30, 30));
-            things.add(new Thing("+", 80, 80));
-            things.add(new Thing("2", 140, 40));
-            things.add(new Thing("=", 130, 90));
-            things.add(new Thing("8", 170, 130));
+            nonMagnetic.add(new Thing("6", 30, 30));
+            nonMagnetic.add(new Thing("+", 80, 80));
+            magnetic.add(new Thing("2", 140, 40));
+            magnetic.add(new Thing("=", 130, 90));
+            magnetic.add(new Thing("8", 170, 130));
 
         }
 
@@ -69,14 +68,18 @@ public class Spil extends AppCompatActivity {
             c.scale(skærmSkala, skærmSkala);
 
             // Tegn først alle brikker, undtagen den valgte
-            for (Thing thing : things) {
-                if (thing == valgtBrik) continue;
+            for (Thing thing : nonMagnetic) {
+                if (thing == magnetObj) continue;
+                c.drawRoundRect(thing.rectF, 10, 10, brikStregtype);
+            }
+            for (Thing thing : magnetic) {
+                if (thing == magnetObj) continue;
                 c.drawRoundRect(thing.rectF, 10, 10, brikStregtype);
             }
 
             // Tegn den valgte brik til sidst, på fingerens plads
-            if (valgtBrik != null) {
-                RectF rectF = new RectF(valgtBrik.rectF);
+            if (magnetObj != null) {
+                RectF rectF = new RectF(magnetObj.rectF);
                 rectF.offsetTo(finger.x - rectF.width() / 2, finger.y - rectF.height() / 2);
                 c.drawRoundRect(rectF, 10, 10, brikStregtype);
                 //fixerTilBane(rectF);
@@ -98,29 +101,33 @@ public class Spil extends AppCompatActivity {
             finger.y = ey;
 
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                for (Thing s : things) {
+                for (Thing s : nonMagnetic) {
                     if (s.rectF.contains(ex, ey)) {
-                        valgtBrik = s;
-                        System.out.println("valgtBrik=" + s);
+                        magnetObj = s;
+                        System.out.println("magnetObjt=" + s);
                         break;
                     }
                 }
             }
             if (e.getAction() == MotionEvent.ACTION_MOVE) {
-                if (valgtBrik != null) {
-                    System.out.println("finger=" + finger);
+                for (Thing s : magnetic) {
+                    if (s.rectF.contains(ex, ey)) {
+                        magnetObj = s;
+                        System.out.println("magnetObjt=" + s);
+                        break;
+                    }
                 }
             }
-            if (e.getAction() == MotionEvent.ACTION_UP && valgtBrik != null) {
-                RectF rectF = valgtBrik.rectF;
+            if (e.getAction() == MotionEvent.ACTION_UP && magnetObj != null) {
+                RectF rectF = magnetObj.rectF;
                 rectF.offsetTo(finger.x - rectF.width() / 2, finger.y - rectF.height() / 2);
                 fixerTilBane(rectF);
-                System.out.println("valgtBrik.rectF=" + valgtBrik.rectF);
-                valgtBrik = null;
+                System.out.println("magnetObj.rectF=" + magnetObj.rectF);
+                magnetObj = null;
                 boolean korrekt = true;
-                for (int i = 0; i < 4; i++) {
-                    Thing s1 = things.get(i);
-                    Thing s2 = things.get(i + 1);
+                for (int i = 0; i < magnetic.size(); i++) {
+                    Thing s1 = magnetic.get(i);
+                    Thing s2 = magnetic.get(i + 1);
                     float afstandTilKorrekt = Math.abs(s1.rectF.top - s2.rectF.top) + Math.abs(s1.rectF.left + 40 - s2.rectF.left);
                 //    Log.d("Braetspil", s1.tekst + " til " + s2.tekst + " afstandTilKorrekt = " + afstandTilKorrekt);
                     if (afstandTilKorrekt > 1) korrekt = false;
