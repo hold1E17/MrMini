@@ -38,6 +38,7 @@ public class Spil extends AppCompatActivity {
         PointF finger = new PointF();
         ArrayList<Thing> nonMagnetic = new ArrayList<>();
         ArrayList<Thing> magnetic = new ArrayList<>();
+        ArrayList<Thing> caught = new ArrayList<>();
         Thing magnetObj = null;
         Paint brikStregtype = new Paint();
         Paint magnet;
@@ -127,10 +128,9 @@ public class Spil extends AppCompatActivity {
                 boolean korrekt = true;
                 for (int i = 0; i < magnetic.size(); i++) {
                     Thing s1 = magnetic.get(i);
-                    Thing s2 = magnetic.get(i + 1);
-                    float afstandTilKorrekt = Math.abs(s1.rectF.top - s2.rectF.top) + Math.abs(s1.rectF.left + 40 - s2.rectF.left);
+             //       float afstandTilKorrekt = Math.abs(s1.rectF.top - s2.rectF.top) + Math.abs(s1.rectF.left + 40 - s2.rectF.left);
                 //    Log.d("Braetspil", s1.tekst + " til " + s2.tekst + " afstandTilKorrekt = " + afstandTilKorrekt);
-                    if (afstandTilKorrekt > 1) korrekt = false;
+           //         if (afstandTilKorrekt > 1) korrekt = false;
                 }
         //        if (korrekt) MediaPlayer.create(getContext(), R.raw.dyt).start();
           //      else this.playSoundEffect(SoundEffectConstants.CLICK);
