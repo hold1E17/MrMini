@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.media.MediaPlayer;
@@ -15,6 +16,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -46,6 +48,7 @@ public class Spil extends AppCompatActivity {
         // programmatisk konstruktør
         public MagnetView(Context context) {
             super(context);
+
             brikStregtype.setColor(Color.GRAY);
             brikStregtype.setStyle(Paint.Style.FILL);
             brikStregtype.setAntiAlias(true);
@@ -122,10 +125,10 @@ public class Spil extends AppCompatActivity {
             if (e.getAction() == MotionEvent.ACTION_UP && magnetObj != null) {
                 RectF rectF = magnetObj.rectF;
                 rectF.offsetTo(finger.x - rectF.width() / 2, finger.y - rectF.height() / 2);
-                fixerTilBane(rectF);
+          //      fixerTilBane(rectF);
                 System.out.println("magnetObj.rectF=" + magnetObj.rectF);
                 magnetObj = null;
-                boolean korrekt = true;
+      //          boolean korrekt = true;
                 for (int i = 0; i < magnetic.size(); i++) {
                     Thing s1 = magnetic.get(i);
              //       float afstandTilKorrekt = Math.abs(s1.rectF.top - s2.rectF.top) + Math.abs(s1.rectF.left + 40 - s2.rectF.left);
