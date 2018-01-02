@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class SpilJacob extends AppCompatActivity {
 
-
+    /**
 // skal sige lyde, skal slutte når alle tingene er samlet op
 
 
@@ -116,7 +116,7 @@ public class SpilJacob extends AppCompatActivity {
                     layoutParams.rightMargin = -250;
                     layoutParams.bottomMargin = -250;
                     view.setLayoutParams(layoutParams);
-                    */
+
                     break;
             }
             rootLayout.invalidate();
@@ -130,9 +130,9 @@ public class SpilJacob extends AppCompatActivity {
         valgt.view.setY( valgt.pos.y - valgt.view.getHeight()/2 );
     }
 
-    /**
+
      * Created by j on 27-11-17.
-     */
+
 
     static class Brik {
         public ImageView view;
@@ -142,7 +142,7 @@ public class SpilJacob extends AppCompatActivity {
     // metode når alle er ramt, noget med distance 0 og en counter alt efter hvor mange objekter der er
     // Når slut skal den spørge om spil igen eller slut
 
-
+*/
 }
 
 

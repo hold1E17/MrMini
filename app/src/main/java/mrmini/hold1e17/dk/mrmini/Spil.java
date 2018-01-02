@@ -2,11 +2,16 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -39,16 +44,20 @@ public class Spil extends AppCompatActivity {
         ArrayList<Thing> nonMagnetic = new ArrayList<>();
         ArrayList<Thing> magnetic = new ArrayList<>();
         Thing magnetObj = null;
-        Paint brikStregtype = new Paint();
+        Paint brikStregtype = new Paint ();
         Paint magnet;
 
         // programmatisk konstruktør
         public MagnetView(Context context) {
             super(context);
+            Resources res = getResources();
+            Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.aeble);
+            Canvas canvas = new Canvas(bitmap.copy(Bitmap.Config.ARGB_8888, true));
+            /*
             brikStregtype.setColor(Color.GRAY);
             brikStregtype.setStyle(Paint.Style.FILL);
             brikStregtype.setAntiAlias(true);
-            brikStregtype.setStrokeWidth(2);
+            brikStregtype.setStrokeWidth(2); */
             magnet = new Paint(brikStregtype);
             magnet.setStyle(Paint.Style.STROKE);
             magnet.setColor(Color.RED);
@@ -60,6 +69,8 @@ public class Spil extends AppCompatActivity {
             magnetic.add(new Thing("8", 170, 130));
 
         }
+
+
 
         @Override
         protected void onDraw(Canvas c) {
