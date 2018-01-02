@@ -1,8 +1,12 @@
 package mrmini.hold1e17.dk.mrmini;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,8 +20,9 @@ String hospital, brugernavn;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hovedmenu);
 
-        brugernavn = getIntent().getStringExtra("login");
-        hospital = getIntent().getStringExtra("hospital");
+        brugernavn = PreferenceManager.getDefaultSharedPreferences(this).getString("login", "");
+
+        hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
 
         info = (Button) findViewById(R.id.info);
         scanner = (Button) findViewById(R.id.scanner);
@@ -41,4 +46,28 @@ String hospital, brugernavn;
         }
 
     }
+
+    @SuppressLint("ResourceType")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.xml.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.action_name) {
+
+            Intent i = new Intent(this, Indstillinger.class);
+            startActivityForResult(i,0);
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }

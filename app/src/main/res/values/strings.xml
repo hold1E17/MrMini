@@ -8,7 +8,22 @@
     <string name="rememberMe">Husk mig</string>
     <string name="logBut">Login</string>
     <string name="noLogBut">Fortsæt uden login</string>
+    <string name="pref_catSound">Lydniveau</string>
+    <string name="pref_sum_mute">Slå lyden fra</string>
+    <string name="pref_title_mute">Mute</string>
+    <string name="pref_title_hospital">Skift hospital</string>
+    <string name="noHosp">Intet hospital</string>
+    <string name="pref_catHospital">Hospital</string>
+    <string name="logout">Log ud</string>
+    <string name="pref_sum_logout">Tryk her for at logge ud</string>
     <string-array name="hospitalList">
+        <item>@string/noHosp</item>
+        <item>Gentofte</item>
+        <item>Herlev</item>
+        <item>Rigshospitalet</item>
+    </string-array>
+    <string-array name="hospitalSetting">
+        <item>@string/noHosp</item>
         <item>Gentofte</item>
         <item>Herlev</item>
         <item>Rigshospitalet</item>

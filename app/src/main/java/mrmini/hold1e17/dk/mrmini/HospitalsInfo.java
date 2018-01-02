@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.webkit.WebView;
@@ -21,6 +22,8 @@ public class HospitalsInfo extends AppCompatActivity {
     private int position = 0;
     public VideoView vidView;
     private MediaController mediaController;
+    private String login;
+    private String hospital;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,8 @@ public class HospitalsInfo extends AppCompatActivity {
         vidView = (VideoView)findViewById(R.id.videoView);
         WebView web = (WebView)findViewById(R.id.webView);
         web.getSettings().setJavaScriptEnabled(true);
+        login = PreferenceManager.getDefaultSharedPreferences(this).getString("login", "");
+        hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
 
         //Set local video name (no extension, located in raw folder)
         String localVideoName = "testvideo";
@@ -39,8 +44,16 @@ public class HospitalsInfo extends AppCompatActivity {
 
         // Online video and web resources
         if(isNetworkAvailable()){
-            vidAddress = "https://region-hovedstaden-ekstern.23video.com/9826383/10357633/a5865685bedff3d06215fdf40b4c41e6/video_medium/mr-skanning-video.mp4";
-            webAddress = "https://www.rigshospitalet.dk/afdelinger-og-klinikker/diagnostisk/radiologisk-klinik/undersoegelse-og-behandling/Sider/mr-skanning.aspx";
+            if(hospital.equals("Rigshospitalet")) {
+                vidAddress = "https://region-hovedstaden-ekstern.23video.com/9826383/10357633/a5865685bedff3d06215fdf40b4c41e6/video_medium/mr-skanning-video.mp4";
+                webAddress = "https://www.rigshospitalet.dk/afdelinger-og-klinikker/diagnostisk/radiologisk-klinik/undersoegelse-og-behandling/Sider/mr-skanning.aspx";
+            } else if(hospital.equals("Gentofte")) {
+                vidAddress = "https://region-hovedstaden-ekstern.23video.com/9826383/10357633/a5865685bedff3d06215fdf40b4c41e6/video_medium/mr-skanning-video.mp4";
+                webAddress = "https://www.gentoftehospital.dk/undersoegelse-og-behandling/undersoegelser/Sider/MR-skanning.aspx";
+            } else if(hospital.equals("Herlev")) {
+                vidAddress = "https://region-hovedstaden-ekstern.23video.com/9826383/10357633/a5865685bedff3d06215fdf40b4c41e6/video_medium/mr-skanning-video.mp4";
+                webAddress = "https://www.herlevhospital.dk/afdelinger-og-klinikker/radiologisk/undersoegelse-og-behandling/Sider/MR-skanning.aspx";
+            }
         }
 
         //Video playback controls
