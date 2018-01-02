@@ -58,13 +58,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         if (v == logBut) {
             Intent i = new Intent(this, Hovedmenu.class);
-            if (rememberMe.isChecked()) {
 
-                saveLogin();
-
-            }
+            saveLogin();
             startActivity(i);
             finish();
+
         } else if (v == noLogBut) {
             Intent i = new Intent(this, Hovedmenu.class);
             startActivity(i);
@@ -77,6 +75,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putString("pref_key_hospital", hospitalChoice.getSelectedItem().toString());
+        if (rememberMe.isChecked()) {
+            editor.putString("pref_key_save", "true");
+        }
 
         editor.putString("login", userName.getText().toString());
         editor.apply();

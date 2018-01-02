@@ -16,6 +16,7 @@
     <string name="pref_catHospital">Hospital</string>
     <string name="logout">Log ud</string>
     <string name="pref_sum_logout">Tryk her for at logge ud</string>
+    <string name="pref_title_sound">Volume</string>
     <string-array name="hospitalList">
         <item>@string/noHosp</item>
         <item>Gentofte</item>
