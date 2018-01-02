@@ -1,146 +1,143 @@
 package mrmini.hold1e17.dk.mrmini;
 
-import android.graphics.Point;
+import android.app.Activity;
+import android.content.Context;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PointF;
+import android.graphics.RectF;
+import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+import android.view.SoundEffectConstants;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 public class Spil extends AppCompatActivity {
 
-
-// skal sige lyde, skal slutte når alle tingene er samlet op
-
-
-
-    // At den er under fingeren.
-    // Så den starter i midten
-    // Info skærm der forklarer hvad det går ud på
-
-    ImageView iv1, iv2, iv3, iv4, iv5, iv6;
-    private int xd, yd;
-    private ViewGroup rootLayout;
-    private ArrayList<Brik> objektliste;
-    private ArrayList<Point> ivp;
-    private Brik magneten;
-    private Handler handler;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_spil);
-        rootLayout = (ViewGroup) findViewById(R.id.view_root);
+        setContentView(new MagnetView(this));
+    }
 
-        objektliste = new ArrayList<Brik>(); // array af brikker
-        int[] ividl = new int[]{R.id.iv1, R.id.iv2, R.id.iv3, R.id.iv4, R.id.iv5, R.id.iv6, R.id.iv6};
-        // forloop der opretter de forskellige brikker
-        for (int id : ividl) {
-            Brik b = new Brik();
-            b.view = (ImageView) findViewById(id);
-            b.pos = new Point(50, 50);
-            objektliste.add(b);
+    class Thing {
+        RectF rectF = new RectF();
+
+        Thing(String string, int x, int y) {
+            rectF = new RectF(x + 2, y + 2, x + 38, y + 38);
+        }
+    }
+
+    class MagnetView extends View {
+        PointF finger = new PointF();
+        ArrayList<Thing> things = new ArrayList<>();
+        ArrayList<Thing> magnetic = new ArrayList<>();
+        Thing valgtBrik = null;
+        Paint tekstStregtype = new Paint();
+        Paint brikStregtype = new Paint();
+        Paint magnet;
+
+        // programmatisk konstruktør
+        public MagnetView(Context context) {
+            super(context);
+            brikStregtype.setColor(Color.GRAY);
+            brikStregtype.setStyle(Paint.Style.FILL);
+            brikStregtype.setAntiAlias(true);
+            brikStregtype.setStrokeWidth(2);
+            magnet = new Paint(brikStregtype);
+            magnet.setStyle(Paint.Style.STROKE);
+            magnet.setColor(Color.RED);
+
+            things.add(new Thing("6", 30, 30));
+            things.add(new Thing("+", 80, 80));
+            things.add(new Thing("2", 140, 40));
+            things.add(new Thing("=", 130, 90));
+            things.add(new Thing("8", 170, 130));
+
         }
 
-        // magneten er det sidste objekt, derfor -1
-        magneten = objektliste.get(objektliste.size()-1); //
-        objektliste.remove(objektliste.size()-1); // Fjerne det fra listen
-
-        rootLayout.setOnTouchListener(new OnTouchListen());
-
-        handler = new Handler();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        handler.post(opdateringRunnable);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        handler.removeCallbacks(opdateringRunnable);
-    }
-    // skal få brikkerne til at bevæge sig mod magneten
-    private Runnable opdateringRunnable = new Runnable() {
         @Override
-        public void run() {
-            handler.postDelayed(opdateringRunnable, 10000);
-            for (Brik b : objektliste) {
-                if (Math.abs(b.pos.x - magneten.pos.x) + Math.abs(b.pos.y - magneten.pos.y) <20 ) {
-                    b.pos.x = (9*b.pos.x+ 1*magneten.pos.x + 5)/1; // Den rykke sig kun én gang, den bevæger sig ikke
-                    b.pos.y = (9*b.pos.y+ 1*magneten.pos.y + 5)/1;
-                    opdaterPosPåSkærm(b);
+        protected void onDraw(Canvas c) {
+            // Spillet er beregnet til en skærm der er 480 punkter bred...
+            float skærmSkala = getWidth() / 480f; // ... så skalér derefter
+            c.scale(skærmSkala, skærmSkala);
+
+            // Tegn først alle brikker, undtagen den valgte
+            for (Thing thing : things) {
+                if (thing == valgtBrik) continue;
+                c.drawRoundRect(thing.rectF, 10, 10, brikStregtype);
+            }
+
+            // Tegn den valgte brik til sidst, på fingerens plads
+            if (valgtBrik != null) {
+                RectF rectF = new RectF(valgtBrik.rectF);
+                rectF.offsetTo(finger.x - rectF.width() / 2, finger.y - rectF.height() / 2);
+                c.drawRoundRect(rectF, 10, 10, brikStregtype);
+                //fixerTilBane(rectF);
+                c.drawRoundRect(rectF, 12, 12, magnet);
+            } else {
+                // Ingen brik valgt - tegn finger
+                c.drawCircle(finger.x, finger.y, 15, magnet);
+            }
+        }
+
+        @Override
+        public boolean onTouchEvent(MotionEvent e) {
+            //System.out.println(e);
+            // Spillet er beregnet til en skærm der er 480 punkter bred...
+            float skærmSkala = getWidth() / 480f; // ... så skalér derefter
+            float ex = e.getX() / skærmSkala;
+            float ey = e.getY() / skærmSkala;
+            finger.x = ex;
+            finger.y = ey;
+
+            if (e.getAction() == MotionEvent.ACTION_DOWN) {
+                for (Thing s : things) {
+                    if (s.rectF.contains(ex, ey)) {
+                        valgtBrik = s;
+                        System.out.println("valgtBrik=" + s);
+                        break;
+                    }
                 }
             }
-        }
-    };
-
-    // Magneten flytter sig onTouch
-    private final class OnTouchListen implements View.OnTouchListener {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            final int x = (int) motionEvent.getX();
-            final int y = (int) motionEvent.getY();
-
-            switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-                case MotionEvent.ACTION_DOWN:
-                    magneten.pos.x = x;
-                    magneten.pos.y = y;
-                    opdaterPosPåSkærm(magneten);
-                    break;
-                case MotionEvent.ACTION_UP:
-                    break;
-                case MotionEvent.ACTION_POINTER_DOWN:
-                    break;
-                case MotionEvent.ACTION_POINTER_UP:
-                    break;
-                case MotionEvent.ACTION_MOVE:
-                    magneten.pos.x = x;
-                    magneten.pos.y = y;
-                    opdaterPosPåSkærm(magneten);
-                    /*
-                    view.setX(x);
-                    view.setY(y);
-                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view
-                            .getLayoutParams();
-                    layoutParams.leftMargin = x - xd;
-                    layoutParams.topMargin = y - yd;
-                    layoutParams.rightMargin = -250;
-                    layoutParams.bottomMargin = -250;
-                    view.setLayoutParams(layoutParams);
-                    */
-                    break;
+            if (e.getAction() == MotionEvent.ACTION_MOVE) {
+                if (valgtBrik != null) {
+                    System.out.println("finger=" + finger);
+                }
             }
-            rootLayout.invalidate();
+            if (e.getAction() == MotionEvent.ACTION_UP && valgtBrik != null) {
+                RectF rectF = valgtBrik.rectF;
+                rectF.offsetTo(finger.x - rectF.width() / 2, finger.y - rectF.height() / 2);
+                fixerTilBane(rectF);
+                System.out.println("valgtBrik.rectF=" + valgtBrik.rectF);
+                valgtBrik = null;
+                boolean korrekt = true;
+                for (int i = 0; i < 4; i++) {
+                    Thing s1 = things.get(i);
+                    Thing s2 = things.get(i + 1);
+                    float afstandTilKorrekt = Math.abs(s1.rectF.top - s2.rectF.top) + Math.abs(s1.rectF.left + 40 - s2.rectF.left);
+                //    Log.d("Braetspil", s1.tekst + " til " + s2.tekst + " afstandTilKorrekt = " + afstandTilKorrekt);
+                    if (afstandTilKorrekt > 1) korrekt = false;
+                }
+        //        if (korrekt) MediaPlayer.create(getContext(), R.raw.dyt).start();
+          //      else this.playSoundEffect(SoundEffectConstants.CLICK);
+
+            }
+            invalidate();
             return true;
         }
+
+        private void fixerTilBane(RectF rectF) {
+            int left = Math.round(rectF.left / 40) * 40 + 2;
+            int top = Math.round(rectF.top / 40) * 40 + 2;
+            rectF.offsetTo(left, top);
+
+        }
     }
-
-    // Positionen er baseret på brik centeret
-    // b var valgt før
-    private void opdaterPosPåSkærm(Brik b) {
-        b.view.setX( b.pos.x - b.view.getWidth()/2 );
-        b.view.setY( b.pos.y - b.view.getHeight()/2 );
-    }
-
-
-
-
-    static class Brik {
-        public ImageView view;
-        public Point pos;
-    }
-
-    // metode når alle er ramt, noget med distance 0 og en counter alt efter hvor mange objekter der er
-    // Når slut skal den spørge om spil igen eller slut
-
-
 }
-
