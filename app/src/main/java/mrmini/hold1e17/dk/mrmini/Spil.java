@@ -50,9 +50,7 @@ public class Spil extends AppCompatActivity {
         // programmatisk konstruktør
         public MagnetView(Context context) {
             super(context);
-            Resources res = getResources();
-            Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.aeble);
-            Canvas canvas = new Canvas(bitmap.copy(Bitmap.Config.ARGB_8888, true));
+
             /*
             brikStregtype.setColor(Color.GRAY);
             brikStregtype.setStyle(Paint.Style.FILL);
@@ -138,10 +136,10 @@ public class Spil extends AppCompatActivity {
                 boolean korrekt = true;
                 for (int i = 0; i < magnetic.size(); i++) {
                     Thing s1 = magnetic.get(i);
-                    Thing s2 = magnetic.get(i + 1);
-                    float afstandTilKorrekt = Math.abs(s1.rectF.top - s2.rectF.top) + Math.abs(s1.rectF.left + 40 - s2.rectF.left);
+                  //  Thing s2 = magnetic.get(i + 1);
+                  //  float afstandTilKorrekt = Math.abs(s1.rectF.top - s2.rectF.top) + Math.abs(s1.rectF.left + 40 - s2.rectF.left);
                 //    Log.d("Braetspil", s1.tekst + " til " + s2.tekst + " afstandTilKorrekt = " + afstandTilKorrekt);
-                    if (afstandTilKorrekt > 1) korrekt = false;
+               //     if (afstandTilKorrekt > 1) korrekt = false;
                 }
         //        if (korrekt) MediaPlayer.create(getContext(), R.raw.dyt).start();
           //      else this.playSoundEffect(SoundEffectConstants.CLICK);
