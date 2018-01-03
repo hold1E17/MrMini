@@ -1,7 +1,11 @@
 package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.Window;
@@ -12,11 +16,24 @@ import android.view.Window;
 
 public class Launcher extends AppCompatActivity {
 
+    String login = "";
+    String hospital = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (savedInstanceState == null) {
+        login = PreferenceManager.getDefaultSharedPreferences(this).getString("login", "");
+
+        hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
+
+        if (login == "") {
+
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+
+            editor.clear().commit();
+
             Intent i = new Intent(this, Login.class);
             startActivity(i);
             finish();
