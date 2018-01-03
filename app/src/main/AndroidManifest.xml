@@ -47,6 +47,9 @@
         <activity android:name=".Scanner_app"
             android:label="Scan med app"
             android:parentActivityName="mrmini.hold1e17.dk.mrmini.Scanner_app"/>
+        <activity android:name=".Scanner_app_execute"
+            android:label="Start scanning"
+            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Scanner_app_execute"/>
     </application>
 
 </manifest>
