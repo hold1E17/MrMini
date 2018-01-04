@@ -154,6 +154,7 @@ public class BluetoothService {
             device) {
         Log.d(TAG, "connected to device");
 
+        /*
         // Cancel the thread that completed the connection
         if (mConnectThread != null) {
             mConnectThread.cancel();
@@ -166,10 +167,11 @@ public class BluetoothService {
             mConnectedThread = null;
         }
 
+        */
         // Start the thread to manage the connection and perform transmissions
         //TODO()
-        //mConnectedThread = new ConnectedThread(socket);
-        //mConnectedThread.start();
+        mConnectedThread = new ConnectedThread(socket);
+        mConnectedThread.start();
 
         // Send the name of the connected device back to the UI Activity
         Message msg = mHandler.obtainMessage(MessageConstants.MESSAGE_DEVICE_NAME);
@@ -215,7 +217,7 @@ public class BluetoothService {
         public void run() {
             mmBuffer = new byte[1024];
             int numBytes; // bytes returned from read()
-
+            Log.d(TAG, "ConnectedThread run()");
             // Keep listening to the InputStream until an exception occurs.
             while (true) {
                 try {
