@@ -2,17 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/view_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
     <!--android:background="#26ce61"-->
 
-
-   <!-- <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:src="@drawable/download" />-->
 
     <ImageView
         android:id="@+id/patientBody"
@@ -32,6 +24,14 @@
         android:src="@drawable/man0" />
 
 
-    <include layout = "@layout/extras_scan"></include>
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/download" />
+
+    <include layout="@layout/extras_scan"></include>
 
 </RelativeLayout>
