@@ -27,7 +27,7 @@ import static android.app.PendingIntent.getActivity;
 // Ikke grå kasser inden i ring
 
 
-// Done = lyd og billeder 
+// Done = lyd og billeder
 public class Spil extends AppCompatActivity {
 
     @Override
