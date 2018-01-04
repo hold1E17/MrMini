@@ -6,32 +6,32 @@
     <!--android:background="#26ce61"-->
 
 
-    <ImageView
-        android:id="@+id/patientBody"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="34dp"
-        android:layout_marginRight="34dp"
-        android:contentDescription="@drawable/man1" />
-
-    <ImageView
-        android:id="@+id/patient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginEnd="34dp"
-        android:layout_marginRight="34dp"
-        android:contentDescription="@drawable/man0"/>
-
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/download" />
+        android:src="@drawable/download" />-->
+
+    <ImageView
+        android:id="@+id/patientBody"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@drawable/man1"
+        android:scaleType="fitCenter"
+        android:src="@drawable/man1"
+        android:visibility="invisible" />
+
+    <ImageView
+        android:id="@+id/patient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@drawable/man0"
+        android:scaleType="fitCenter"
+        android:src="@drawable/man0" />
 
 
+    <include layout = "@layout/extras_scan"></include>
 
 </RelativeLayout>
