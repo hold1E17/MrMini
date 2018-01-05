@@ -93,7 +93,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                 String deviceHardwareAddress = device.getAddress(); // MAC address
                 Log.d(TAG, "Name: " + deviceName + " Mac addresse: "+deviceHardwareAddress);
 
-                if(deviceHardwareAddress.equals("A0:99:9B:13:A9:B8")){ //Adresse til VirtualBox
+                if(deviceHardwareAddress.equals("20:17:01:11:58:81")){ //Adresse til MrMini
                     remoteDevice = mBluetoothAdapter.getRemoteDevice(deviceHardwareAddress);
                     mBluetoothService.connect(remoteDevice);
 
@@ -118,6 +118,8 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     Log.d(TAG, "READ: " + readMessage);
+                    Toast.makeText(context, readMessage,
+                            Toast.LENGTH_SHORT).show();
                     break;
                 case BluetoothService.MessageConstants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -144,7 +146,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         }
 
         if (v == write) {
-            mBluetoothService.mConnectedThread.write("Hello World".getBytes());
+            mBluetoothService.mConnectedThread.write("3".getBytes());
         }
 
     }
