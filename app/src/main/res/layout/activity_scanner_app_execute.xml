@@ -6,6 +6,7 @@
     <!--android:background="#26ce61"-->
 
 
+
    <ImageView
         android:id="@+id/patientBody"
         android:layout_width="wrap_content"
@@ -15,19 +16,20 @@
         android:src="@drawable/man1"
         android:visibility="invisible" />
 
-    <ImageView
+   <!-- <ImageView
         android:id="@+id/patient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@drawable/man0"
         android:scaleType="fitCenter"
-        android:src="@drawable/man0" />
+        android:src="@drawable/man0" />-->
 
 <!--<mrmini.hold1e17.dk.mrmini.CustomView
     android:id="@+id/Custom"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />-->
-   <ImageView
+
+   <!--<ImageView
         android:id="@+id/dragObj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -35,6 +37,6 @@
         android:layout_centerVertical="true"
         android:src="@drawable/square" />
 
-    <include layout="@layout/extras_scan"></include>
+    <include layout="@layout/extras_scan"></include>-->
 
 </RelativeLayout>

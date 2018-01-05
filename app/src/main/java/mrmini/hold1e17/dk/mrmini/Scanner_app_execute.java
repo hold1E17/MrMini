@@ -25,7 +25,7 @@ import android.widget.RelativeLayout;
  * Created by Sofie on 02-01-2018.
  */
 
-public class Scanner_app_execute extends Activity implements View.OnTouchListener {
+public class Scanner_app_execute extends Activity  {
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
@@ -34,66 +34,26 @@ public class Scanner_app_execute extends Activity implements View.OnTouchListene
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scanner_app_execute);
+        /*setContentView(R.layout.activity_scanner_app_execute);
         rootLayout = (ViewGroup) findViewById(R.id.view_root);
         img2 = (ImageView) rootLayout.findViewById(R.id.dragObj);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 150);
         img2.setLayoutParams(layoutParams);
-        img2.setOnTouchListener(this);
+        img2.setOnTouchListener(this);*/
         CustomView cV = new CustomView(this);
-        cV.setOnTouchListener(this);
-
-       // cT = (CustomView) rootLayout.findViewById(R.id.);
-       // RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 150);
-       // cT.setLayoutParams(layoutParams);
-       // cT.setOnTouchListener(this);
+        cV.setOnTouchListener(cV);
+        setContentView(cV);
 
 
     }
 
-    @Override
-    public boolean onTouch(View view, MotionEvent motionEvent) {
-        final int xA = (int) motionEvent.getRawX();
-        final int yA = (int) motionEvent.getRawY();
-        System.out.println("Entering onTouch");
-
-        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
-            case MotionEvent.ACTION_DOWN:
-                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                xD = xA - lParams.leftMargin;
-                yD = yA - lParams.topMargin;
-                System.out.println("Entering case 1");
-                break;
-            case MotionEvent.ACTION_UP:
-                System.out.println("Entering case 2");
-                break;
-            case MotionEvent.ACTION_POINTER_DOWN:
-                System.out.println("Entering case 3");
-                break;
-            case MotionEvent.ACTION_POINTER_UP:
-                System.out.println("Entering case 4");
-                break;
-            case MotionEvent.ACTION_MOVE:
-                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
-                layoutParams.leftMargin = xA - xD;
-                layoutParams.topMargin = yA - yD;
-                layoutParams.rightMargin = -250;
-                layoutParams.bottomMargin = -250;
-                view.setLayoutParams(layoutParams);
-                //view.performClick();
-                System.out.println("Entering case 5");
-                break;
-
-        }
-
-        rootLayout.invalidate();
-        return true;
-    }
-    public class CustomView extends View {
-        private Bitmap maskImage = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
-        private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.square);
+    public class CustomView extends View implements View.OnTouchListener {
+        private Bitmap maskPatientScanned = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
+        private Bitmap maskPatientDressed = BitmapFactory.decodeResource(getResources(),R.drawable.man0);
+        private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.goldmedal);
         private final Paint imagePaint;
         private final Paint maskPaint;
+        private final Paint overlayPaint;
         private int maskX = 0;
         private int maskY = 0;
 
@@ -103,16 +63,51 @@ public class Scanner_app_execute extends Activity implements View.OnTouchListene
             maskPaint = new Paint();
             maskPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
+            overlayPaint = new Paint();
+            overlayPaint.setXfermode((new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN)));
+
             imagePaint = new Paint();
             imagePaint.setXfermode((new PorterDuffXfermode(PorterDuff.Mode.DST_OVER)));
         }
         public void onDraw(Canvas canvas) {
             super.onDraw(canvas);
             canvas.save();
-            canvas.drawBitmap(maskFigure, 0, 0, maskPaint);
-            canvas.drawBitmap(maskImage, maskX, maskY, imagePaint);
+
+            canvas.drawBitmap(maskPatientDressed, 0, 0, overlayPaint);
+            canvas.drawBitmap(maskFigure, maskX, maskY, maskPaint);
+            canvas.drawBitmap(maskPatientScanned, 0, 0, imagePaint);
+           // canvas.drawBitmap(maskPatientScanned, maskX, maskY, imagePaint);
             canvas.restore();
 
+        }
+
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+                final int musX = (int) motionEvent.getRawX();
+                final int musY = (int) motionEvent.getRawY();
+                System.out.println("onTouch");
+            switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
+                case MotionEvent.ACTION_DOWN:
+                    System.out.println("Entering case 1");
+                    break;
+                case MotionEvent.ACTION_UP:
+                    System.out.println("Entering case 2");
+                    break;
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    System.out.println("Entering case 3");
+                    break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    System.out.println("Entering case 4");
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    maskX = musX;
+                    maskY = musY;
+                    this.invalidate();
+                    System.out.println("Entering case 5");
+                    break;
+
+            }
+            return true;
         }
     }
 
