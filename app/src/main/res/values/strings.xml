@@ -8,9 +8,6 @@
         Used image from https://tineye.com/search/7eeb00a7d604769b8cb2967fe4070ef2194c7808/ as a placeholder with unclear copyright permissions - to be replaced.
     </string>
     <string name="player_error">Error initializing YouTube player: %s</string>
-    <string name="about_app">
-        Used image from https://tineye.com/search/7eeb00a7d604769b8cb2967fe4070ef2194c7808/ as a placeholder with unclear copyright permissions - to be replaced.
-    </string>
     <string name="loginName">Skriv dit navn her</string>
     <string name="rememberMe">Husk mig</string>
     <string name="logBut">Login</string>
@@ -35,7 +32,4 @@
         <item>Herlev</item>
         <item>Rigshospitalet</item>
     </string-array>
-    <string name="about_app">
-        Used image from https://tineye.com/search/7eeb00a7d604769b8cb2967fe4070ef2194c7808/ as a placeholder with unclear copyright permissions - to be replaced.
-    </string>
 </resources>
