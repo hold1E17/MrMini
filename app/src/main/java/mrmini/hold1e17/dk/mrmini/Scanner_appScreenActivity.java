@@ -12,6 +12,8 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+// har ingen knap i menuen
+
 public class Scanner_appScreenActivity extends AppCompatActivity implements View.OnTouchListener {
 
     private Drawable man0, man1;
