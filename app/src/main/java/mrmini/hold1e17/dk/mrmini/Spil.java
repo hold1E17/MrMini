@@ -1,11 +1,15 @@
 package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +19,16 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import static android.app.PendingIntent.getActivity;
+
+// Gøres hurtigere
+// Flere forskellige magnetisk/ikke magnetisk
+// Starter random steder
+// Magnet i stedet for ring
+// Ikke grå kasser inden i ring
+
+
+// Done = lyd og billeder
 public class Spil extends AppCompatActivity {
 
     @Override
@@ -68,8 +82,9 @@ public class Spil extends AppCompatActivity {
 
         @Override
         protected void onDraw(Canvas c) {
-        //    Resources res = getResources();
-        //    Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.magnet);
+            //Resources res = getResources();
+            // Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.aeble);
+
             // Spillet er beregnet til en skærm der er 480 punkter bred...
             float skærmSkala = getWidth() / 480f; // ... så skalér derefter
             c.scale(skærmSkala, skærmSkala);
@@ -77,11 +92,19 @@ public class Spil extends AppCompatActivity {
             // Tegn først alle brikker, undtagen den valgte
             for (Thing thing : nonMagnetic) {
                 if (thing == magnetObj) continue;
-                c.drawRoundRect(thing.rectF, 10, 10, brikStregtype);
+                Resources res = getResources();
+                Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.aeble);
+               BitmapFactory.decodeResource(res,R.drawable.aeble);
+               c.drawBitmap(bitmap, null, thing.rectF, brikStregtype) ;
+              //  c.drawRoundRect(thing.rectF, 10, 10, brikStregtype);
             }
             for (Thing thing : magnetic) {
                 if (thing == magnetObj) continue;
-                c.drawRoundRect(thing.rectF, 10, 10, brikStregtype);
+             //   c.drawRoundRect(thing.rectF, 10, 10, brikStregtype);
+                Resources res = getResources();
+                Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.gaffel);
+                BitmapFactory.decodeResource(res,R.drawable.gaffel);
+                c.drawBitmap(bitmap, null, thing.rectF, brikStregtype) ;
             }
 
             // Tegn den valgte brik til sidst, på fingerens plads
@@ -94,6 +117,7 @@ public class Spil extends AppCompatActivity {
             } else {
                 // Ingen brik valgt - tegn finger
                 c.drawCircle(finger.x, finger.y, 15, magnet);
+                // Indsæt magneten osm bitmap
             }
         }
 
@@ -135,6 +159,10 @@ public class Spil extends AppCompatActivity {
 
                             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             v.vibrate(400);
+                           // Spiller kling lyd
+                            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.chime_bell_ding);
+                            mediaPlayer.start();
+
 
                             if (caught.size() == magnetic.size()) {
 
@@ -163,9 +191,6 @@ public class Spil extends AppCompatActivity {
                 //    Log.d("Braetspil", s1.tekst + " til " + s2.tekst + " afstandTilKorrekt = " + afstandTilKorrekt);
            //         if (afstandTilKorrekt > 1) korrekt = false;
                 }
-        //        if (korrekt) MediaPlayer.create(getContext(), R.raw.dyt).start();
-          //      else this.playSoundEffect(SoundEffectConstants.CLICK);
-
             }
             invalidate();
             return true;
