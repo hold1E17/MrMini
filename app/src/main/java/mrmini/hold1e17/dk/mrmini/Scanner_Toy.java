@@ -135,9 +135,29 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     Toast.makeText(context, msg.getData().getString(BluetoothService.MessageConstants.TOAST),
                             Toast.LENGTH_SHORT).show();
                     break;
+                case BluetoothService.MessageConstants.MESSAGE_STATE_CHANGE:
+                    switch (msg.arg1) {
+                        case BluetoothService.STATE_CONNECTED:
+                            Log.d(TAG, "STATE: Connected to :" + mConnectedDeviceName);
+                            //setStatus(getString("Connected to: ", mConnectedDeviceName));
+                            break;
+                        case BluetoothService.STATE_CONNECTING:
+                            //setStatus(R.string.title_connecting);
+                            Log.d(TAG, "STATE: Connecting");
+                            break;
+                        case BluetoothService.STATE_NONE:
+                            Log.d(TAG, "STATE: Not connected");
+                            //setStatus(R.string.title_not_connected);
+                            break;
+                    }
+                    break;
             }
         }
     };
+
+    private void setStatus(String status){
+        
+    }
 
 
     public void read(String messageRead) {

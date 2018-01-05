@@ -28,12 +28,14 @@ public class BluetoothService {
         public BluetoothConnectThread mConnectThread;
         public ConnectedThread mConnectedThread;
 
+        private int mState = STATE_NONE;
+        private int mNewState;
+
 
         // Constants that indicate the current connection state
-        public static final int STATE_NONE = 3;       // we're doing nothing
-        public static final int STATE_LISTEN = 2;     // now listening for incoming connections
+        public static final int STATE_NONE = 0;       // we're doing nothing
         public static final int STATE_CONNECTING = 1; // now initiating an outgoing connection
-        public static final int STATE_CONNECTED = 0;  // now connected to a remote device
+        public static final int STATE_CONNECTED = 2;  // now connected to a remote device
 
         // Defines several constants used when transmitting messages between the
         // service and the UI.
@@ -42,10 +44,11 @@ public class BluetoothService {
             public static final int MESSAGE_READ = 1;
             public static final int MESSAGE_DEVICE_NAME = 2;
             public static final int MESSAGE_TOAST = 3;
+            public static final int MESSAGE_STATE_CHANGE = 4;
+
 
             public static final String DEVICE_NAME = "device_name";
             public static final String TOAST = "toast";
-
 
 
             // ... (Add other message types here as needed.)
@@ -54,6 +57,22 @@ public class BluetoothService {
         public BluetoothService(Context context, Handler handler) {
             mAdapter = BluetoothAdapter.getDefaultAdapter();
             mHandler = handler;
+        }
+
+        private synchronized void updateUserInterfaceTitle() {
+            mState = getState();
+            Log.d(TAG, "updateUserInterfaceTitle() " + mNewState + " -> " + mState);
+            mNewState = mState;
+
+            // Give the new state to the Handler so the UI Activity can update
+            mHandler.obtainMessage(MessageConstants.MESSAGE_STATE_CHANGE, mNewState, -1).sendToTarget();
+        }
+
+        /**
+         * Return the current connection state.
+         */
+        public synchronized int getState() {
+            return mState;
         }
 
         public synchronized void connect(BluetoothDevice device) {
@@ -71,6 +90,7 @@ public class BluetoothService {
             mConnectThread = new BluetoothConnectThread(device); //Kører constructor
             mConnectThread.start(); // Kører run() metoden
 
+            updateUserInterfaceTitle();
         }
 
         private void sendToastTilUI(String msg) {
@@ -92,7 +112,7 @@ public class BluetoothService {
         private final BluetoothDevice mmDevice;
 
         BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        UUID MY_UUID = UUID.fromString("80656309-6185-42af-932b-d0f7c9ef9034");
+        UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
 
         public BluetoothConnectThread(BluetoothDevice device) {
             // Use a temporary object that is later assigned to mmSocket
@@ -108,6 +128,7 @@ public class BluetoothService {
                 Log.e(TAG, "Socket's create() method failed", e);
             }
             mmSocket = tmp;
+            mState = STATE_CONNECTING;
         }
 
         public void run() {
@@ -120,6 +141,7 @@ public class BluetoothService {
                 mmSocket.connect();
             } catch (IOException connectException) {
                 // Unable to connect; close the socket and return.
+                connectionFailed();
                 try {
                     mmSocket.close();
                 } catch (IOException closeException) {
@@ -131,6 +153,14 @@ public class BluetoothService {
             // The connection attempt succeeded. Perform work associated with
             // the connection in a separate thread.
             connected(mmSocket, mmDevice);
+        }
+
+        private void connectionFailed() {
+            sendToastTilUI("Unable to connect device");
+
+            mState = STATE_NONE;
+            // Update UI title
+            updateUserInterfaceTitle();
         }
 
         // Closes the client socket and causes the thread to finish.
@@ -180,6 +210,7 @@ public class BluetoothService {
         msg.setData(bundle);
         mHandler.sendMessage(msg);
 
+        updateUserInterfaceTitle();
 
     }
 
@@ -212,6 +243,8 @@ public class BluetoothService {
 
             mmInStream = tmpIn;
             mmOutStream = tmpOut;
+
+            mState = STATE_CONNECTED;
         }
 
         public void run() {
@@ -230,6 +263,7 @@ public class BluetoothService {
                     readMsg.sendToTarget();
                 } catch (IOException e) {
                     Log.d(TAG, "Input stream was disconnected", e);
+                    connectionLost();
                     break;
                 }
             }
@@ -265,6 +299,15 @@ public class BluetoothService {
             } catch (IOException e) {
                 Log.e(TAG, "Could not close the connect socket", e);
             }
+        }
+
+        private void connectionLost() {
+            sendToastTilUI("Device connection was lost");
+
+            mState = STATE_NONE;
+            // Update UI title
+            updateUserInterfaceTitle();
+
         }
     }
 }
