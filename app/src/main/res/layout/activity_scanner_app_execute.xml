@@ -23,18 +23,18 @@
         android:scaleType="fitCenter"
         android:src="@drawable/man0" />
 
-<mrmini.hold1e17.dk.mrmini.CustomView
+<!--<mrmini.hold1e17.dk.mrmini.CustomView
     android:id="@+id/Custom"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-   <!-- <ImageView
+    android:layout_height="wrap_content" />-->
+   <ImageView
         android:id="@+id/dragObj"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/square" />-->
+        android:src="@drawable/square" />
 
-  <!--  <include layout="@layout/extras_scan"></include>-->
+    <include layout="@layout/extras_scan"></include>
 
 </RelativeLayout>

@@ -29,19 +29,24 @@ public class Scanner_app_execute extends Activity implements View.OnTouchListene
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
-    private CustomView cT;
+    //private CustomView cT;
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_app_execute);
-       rootLayout = (ViewGroup) findViewById(R.id.view_root);
-        //img2 = (ImageView) rootLayout.findViewById(R.id.dragObj);
-       // img2.setOnTouchListener(this);
-        cT = (CustomView) rootLayout.findViewById(R.id.Custom);
+        rootLayout = (ViewGroup) findViewById(R.id.view_root);
+        img2 = (ImageView) rootLayout.findViewById(R.id.dragObj);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 150);
-        cT.setLayoutParams(layoutParams);
-        cT.setOnTouchListener(this);
+        img2.setLayoutParams(layoutParams);
+        img2.setOnTouchListener(this);
+        CustomView cV = new CustomView(this);
+        cV.setOnTouchListener(this);
+
+       // cT = (CustomView) rootLayout.findViewById(R.id.);
+       // RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 150);
+       // cT.setLayoutParams(layoutParams);
+       // cT.setOnTouchListener(this);
 
 
     }
@@ -50,23 +55,23 @@ public class Scanner_app_execute extends Activity implements View.OnTouchListene
     public boolean onTouch(View view, MotionEvent motionEvent) {
         final int xA = (int) motionEvent.getRawX();
         final int yA = (int) motionEvent.getRawY();
-        System.out.println("log");
+        System.out.println("Entering onTouch");
 
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN:
                 RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
                 xD = xA - lParams.leftMargin;
                 yD = yA - lParams.topMargin;
-                System.out.println("hello");
+                System.out.println("Entering case 1");
                 break;
             case MotionEvent.ACTION_UP:
-                System.out.println("there");
+                System.out.println("Entering case 2");
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:
-                System.out.println("nice");
+                System.out.println("Entering case 3");
                 break;
             case MotionEvent.ACTION_POINTER_UP:
-                System.out.println("to");
+                System.out.println("Entering case 4");
                 break;
             case MotionEvent.ACTION_MOVE:
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
@@ -76,13 +81,39 @@ public class Scanner_app_execute extends Activity implements View.OnTouchListene
                 layoutParams.bottomMargin = -250;
                 view.setLayoutParams(layoutParams);
                 //view.performClick();
-                System.out.println("meet");
+                System.out.println("Entering case 5");
                 break;
 
         }
 
         rootLayout.invalidate();
         return true;
+    }
+    public class CustomView extends View {
+        private Bitmap maskImage = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
+        private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.square);
+        private final Paint imagePaint;
+        private final Paint maskPaint;
+        private int maskX = 0;
+        private int maskY = 0;
+
+        public CustomView(final Context context) {
+            super(context);
+            System.out.println("Kald til CustomView");
+            maskPaint = new Paint();
+            maskPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+
+            imagePaint = new Paint();
+            imagePaint.setXfermode((new PorterDuffXfermode(PorterDuff.Mode.DST_OVER)));
+        }
+        public void onDraw(Canvas canvas) {
+            super.onDraw(canvas);
+            canvas.save();
+            canvas.drawBitmap(maskFigure, 0, 0, maskPaint);
+            canvas.drawBitmap(maskImage, maskX, maskY, imagePaint);
+            canvas.restore();
+
+        }
     }
 
 
