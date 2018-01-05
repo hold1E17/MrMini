@@ -14,6 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Objects;
@@ -25,7 +28,10 @@ import static android.content.ContentValues.TAG;
 
 public class Scanner_Toy extends AppCompatActivity implements View.OnClickListener {
 
-    Button startScan, write;
+    Button startScan, connectbtn, afbrydbtn;
+    TextView statusText;
+    ProgressBar progressBar;
+    ImageView checkImage;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private final int REQUEST_ENABLE_BT = 99;
 
@@ -42,6 +48,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     private String mConnectedDeviceName = null;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,8 +56,14 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
 
         startScan = (Button) findViewById(R.id.startScan);
         startScan.setOnClickListener(this);
-        write = (Button) findViewById(R.id.write);
-        write.setOnClickListener(this);
+        connectbtn = (Button) findViewById(R.id.connectbtn);
+        connectbtn.setOnClickListener(this);
+        afbrydbtn = (Button) findViewById(R.id.afbrydbtn);
+        afbrydbtn.setOnClickListener(this);
+
+        statusText = (TextView) findViewById(R.id.statusView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        checkImage = (ImageView) findViewById(R.id.checkImage);
 
         context = getApplicationContext();
     }
@@ -139,15 +152,15 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     switch (msg.arg1) {
                         case BluetoothService.STATE_CONNECTED:
                             Log.d(TAG, "STATE: Connected to :" + mConnectedDeviceName);
-                            //setStatus(getString("Connected to: ", mConnectedDeviceName));
+                            setStatus((getString(R.string.title_connected)) + " " +mConnectedDeviceName);
                             break;
                         case BluetoothService.STATE_CONNECTING:
-                            //setStatus(R.string.title_connecting);
+                            setStatus(getString(R.string.title_connecting));
                             Log.d(TAG, "STATE: Connecting");
                             break;
                         case BluetoothService.STATE_NONE:
                             Log.d(TAG, "STATE: Not connected");
-                            //setStatus(R.string.title_not_connected);
+                            setStatus(getString(R.string.title_not_connected));
                             break;
                     }
                     break;
@@ -156,7 +169,31 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     };
 
     private void setStatus(String status){
-        
+        statusText.setText(status);
+/*
+        String connected = getString(R.string.title_connected)+ " " + mConnectedDeviceName;
+
+        String connecting = getString(R.string.title_connecting);
+        String notconnected = getString(R.string.title_not_connected);
+*/
+        if(mBluetoothService.getState() == 1){
+            progressBar.setVisibility(View.VISIBLE);
+            connectbtn.setVisibility(View.INVISIBLE);
+
+
+        } else if(mBluetoothService.getState() == 2) {
+            progressBar.setVisibility(View.INVISIBLE);
+            checkImage.setVisibility(View.VISIBLE);
+            afbrydbtn.setVisibility(View.VISIBLE);
+            startScan.setVisibility(View.VISIBLE);
+
+        } else if(mBluetoothService.getState() == 0) {
+            progressBar.setVisibility(View.INVISIBLE);
+            checkImage.setVisibility(View.INVISIBLE);
+            startScan.setVisibility(View.INVISIBLE);
+            afbrydbtn.setVisibility(View.INVISIBLE);
+            connectbtn.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -202,12 +239,16 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
 
         if (v == startScan) {
             if(remoteDevice != null){
-                mBluetoothService.connect(remoteDevice);
+                mBluetoothService.mConnectedThread.write("3".getBytes());
             }
         }
 
-        if (v == write) {
-            mBluetoothService.mConnectedThread.write("3".getBytes());
+        if (v == connectbtn) {
+            mBluetoothService.connect(remoteDevice);
+        }
+
+        if (v == afbrydbtn) {
+            mBluetoothService.mConnectedThread.cancel();
         }
 
     }
