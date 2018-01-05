@@ -19,8 +19,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import static android.app.PendingIntent.getActivity;
-
 // Gøres hurtigere
 // Flere forskellige magnetisk/ikke magnetisk
 // Starter random steder
