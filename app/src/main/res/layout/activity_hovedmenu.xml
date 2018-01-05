@@ -10,8 +10,10 @@
 
     <Button
         android:id="@+id/info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/round_button"
+        android:gravity="center_vertical|center_horizontal"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="20dp"
@@ -47,5 +49,13 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/info" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/myFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/knap3"
+        app:elevation="4dp" />
+
 
 </android.support.constraint.ConstraintLayout>
