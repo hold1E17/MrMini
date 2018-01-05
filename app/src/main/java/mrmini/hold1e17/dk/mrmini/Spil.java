@@ -11,6 +11,7 @@ import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -111,8 +112,15 @@ public class Spil extends AppCompatActivity {
                     if (s.rectF.contains(ex, ey)) {
                         if (!(caught.contains(s))) {
                             caught.add(s);
+
                             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             v.vibrate(400);
+
+                            if (caught.size() == magnetic.size()) {
+
+                                endGame();
+
+                            }
                         }
                         magnetObj = s;
                         break;
@@ -124,8 +132,15 @@ public class Spil extends AppCompatActivity {
                     if (s.rectF.contains(ex, ey)) {
                         if (!(caught.contains(s))) {
                             caught.add(s);
+
                             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             v.vibrate(400);
+
+                            if (caught.size() == magnetic.size()) {
+
+                                endGame();
+
+                            }
                         }
                         magnetObj = s;
                         break;
@@ -160,6 +175,19 @@ public class Spil extends AppCompatActivity {
             int left = Math.round(rectF.left / 40) * 40 + 2;
             int top = Math.round(rectF.top / 40) * 40 + 2;
             rectF.offsetTo(left, top);
+
+        }
+
+        private void endGame() {
+
+            System.out.println("TEST");
+
+            CharSequence text = "You win!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(getContext(), text, duration);
+
+            toast.show();
 
         }
     }
