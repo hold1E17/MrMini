@@ -5,15 +5,18 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -30,7 +33,6 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     private BluetoothService.ConnectedThread mConnectedThread;
     private BluetoothService mBluetoothService = null;
     private BluetoothDevice remoteDevice = null;
-    public String messageRead;
 
     private Context context;
 
@@ -119,7 +121,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     Log.d(TAG, "READ: " + readMessage);
-                    messageRead = readMessage;
+                    read(readMessage);
                     Toast.makeText(context, readMessage,
                             Toast.LENGTH_SHORT).show();
                     break;
@@ -138,43 +140,41 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     };
 
 
-    public void read() {
+    public void read(String messageRead) {
 
-        if(messageRead )
-
-        {
-            int Message = 11;
-            String readMessage;
-            switch (Message) {
-                case 1:  readMessage = "1";
+            switch (messageRead) {
+                case "1":
+                    System.out.println("Dukken er blevet fjernet, og derfor afbrydes scanningen");
                     break;
-                case 2:  readMessage = "2";
+                case "2":
+                    System.out.println("Ingen dukke");
                     break;
-                case 3:  readMessage = "3";
+                case "3":
+                    System.out.println("Dukken er placeret korrekt");
                     break;
-                case 4:  readMessage = "4";
+                case "4":
+                    System.out.println("MR scanneren er ved at bevæge sig ind");
                     break;
-                case 5:  readMessage = "5";
+                case "5":
+                    System.out.println("MR scanneren er ved at bevæge sig ud");
                     break;
-                case 6:  readMessage = "6";
+                case "6":
+                    System.out.println("Scanningen er igang");
                     break;
-                case 7:  readMessage = "7";
+                case "7":
+                    System.out.println("Dukken der er blevet placeret er en dreng");
                     break;
-                case 8:  readMessage = "8";
+                case "8":
+                    System.out.println("Dukken der er blevet placeret er en pige");
                     break;
-                case 9:  readMessage = "9";
-                    break;
-                case 10: readMessage = "10";
+                case "9":
+                    System.out.println("Dukken der er blevet placeret er en skildpadde");
                     break;
 
             }
-        }
 
-
-        {
 
         }
-    }
 
 
     @Override
