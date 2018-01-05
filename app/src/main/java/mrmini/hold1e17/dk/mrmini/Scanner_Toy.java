@@ -30,6 +30,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     private BluetoothService.ConnectedThread mConnectedThread;
     private BluetoothService mBluetoothService = null;
     private BluetoothDevice remoteDevice = null;
+    public String messageRead;
 
     private Context context;
 
@@ -118,6 +119,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     Log.d(TAG, "READ: " + readMessage);
+                    messageRead = readMessage;
                     Toast.makeText(context, readMessage,
                             Toast.LENGTH_SHORT).show();
                     break;
@@ -134,6 +136,45 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
             }
         }
     };
+
+
+    public void read() {
+
+        if(messageRead )
+
+        {
+            int Message = 11;
+            String readMessage;
+            switch (Message) {
+                case 1:  readMessage = "1";
+                    break;
+                case 2:  readMessage = "2";
+                    break;
+                case 3:  readMessage = "3";
+                    break;
+                case 4:  readMessage = "4";
+                    break;
+                case 5:  readMessage = "5";
+                    break;
+                case 6:  readMessage = "6";
+                    break;
+                case 7:  readMessage = "7";
+                    break;
+                case 8:  readMessage = "8";
+                    break;
+                case 9:  readMessage = "9";
+                    break;
+                case 10: readMessage = "10";
+                    break;
+
+            }
+        }
+
+
+        {
+
+        }
+    }
 
 
     @Override
