@@ -1,13 +1,10 @@
 package mrmini.hold1e17.dk.mrmini;
 
 import android.app.Activity;
-import android.content.ClipData;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.DragEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,7 +17,7 @@ import android.widget.ImageView;
 
 public class Scanner_app extends Activity implements View.OnClickListener {
     Button button, startScan;
-    ImageView imageView;
+    ImageView imageViewPhotoSnap;
     static final int CAM_REQUEST = 1;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +26,7 @@ public class Scanner_app extends Activity implements View.OnClickListener {
 
     button = (Button) findViewById(R.id.button);
     startScan = (Button) findViewById(R.id.startScan);
-    imageView = (ImageView) findViewById(R.id.imageView);
+    imageViewPhotoSnap = (ImageView) findViewById(R.id.imageViewPhotoSnap);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +50,6 @@ public class Scanner_app extends Activity implements View.OnClickListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        imageView.setImageBitmap(bitmap);
+        imageViewPhotoSnap.setImageBitmap(bitmap);
     }
 }

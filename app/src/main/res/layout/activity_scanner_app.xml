@@ -20,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/image_view"
+        android:id="@+id/imageViewPhotoSnap"
         android:layout_width="350dp"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
