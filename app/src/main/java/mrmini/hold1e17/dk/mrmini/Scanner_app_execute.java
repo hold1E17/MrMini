@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -50,7 +52,7 @@ public class Scanner_app_execute extends Activity  {
     public class CustomView extends View implements View.OnTouchListener {
         private Bitmap maskPatientScanned = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
         private Bitmap maskPatientDressed = BitmapFactory.decodeResource(getResources(),R.drawable.man0);
-        private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.goldmedal);
+        private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.rectangle);
         private final Paint imagePaint;
         private final Paint maskPaint;
         private final Paint overlayPaint;
@@ -72,10 +74,16 @@ public class Scanner_app_execute extends Activity  {
         public void onDraw(Canvas canvas) {
             super.onDraw(canvas);
             canvas.save();
-
-            canvas.drawBitmap(maskPatientDressed, 0, 0, overlayPaint);
+            int dWidth = maskPatientDressed.getWidth()/2;
+            int dHeight = maskPatientDressed.getHeight()/2;
+            canvas.drawBitmap(maskPatientDressed, new Rect(0,0,maskPatientDressed.getWidth(), maskPatientDressed.getHeight())
+                    ,new Rect(0,0,dWidth,dHeight), overlayPaint);
+           // canvas.drawBitmap(maskPatientDressed, 0, 0, overlayPaint);
             canvas.drawBitmap(maskFigure, maskX, maskY, maskPaint);
-            canvas.drawBitmap(maskPatientScanned, 0, 0, imagePaint);
+            canvas.drawBitmap(maskPatientScanned, new Rect(0,0,maskPatientScanned.getWidth(),maskPatientScanned.getHeight()),
+                    new Rect(0,0,dWidth, dHeight), imagePaint);
+            System.out.println("WIDTH = "+canvas.getWidth());
+            System.out.println("HEIGHT = "+canvas.getHeight());
            // canvas.drawBitmap(maskPatientScanned, maskX, maskY, imagePaint);
             canvas.restore();
 
@@ -100,8 +108,13 @@ public class Scanner_app_execute extends Activity  {
                     System.out.println("Entering case 4");
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    maskX = musX;
-                    maskY = musY;
+                    maskX = musX-500;
+                    maskY = musY-100;
+                   if(motionEvent.getRawX() < 0) {
+                        maskX = 0;
+                    } else if ((motionEvent.getRawX() + maskFigure.getWidth() > 320)) {
+                        maskX = 320 - maskFigure.getWidth();
+                    }
                     this.invalidate();
                     System.out.println("Entering case 5");
                     break;

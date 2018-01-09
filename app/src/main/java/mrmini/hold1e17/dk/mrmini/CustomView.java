@@ -7,15 +7,17 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.view.View;
 
 /**
  * Created by Sofie on 5/01/2018.
  */
 
-public class CustomView extends View {
-        private Bitmap maskImage = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
-        private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.square);
+public class CustomView/* extends View */{
+      /*  private Bitmap maskImage = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
+        private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.rectangle);
         private final Paint imagePaint;
         private final Paint maskPaint;
         private int maskX = 0;
@@ -25,6 +27,7 @@ public class CustomView extends View {
             super(context);
             maskPaint = new Paint();
             maskPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+
 
             imagePaint = new Paint();
             imagePaint.setXfermode((new PorterDuffXfermode(PorterDuff.Mode.DST_OVER)));
@@ -36,5 +39,5 @@ public class CustomView extends View {
             canvas.drawBitmap(maskImage, maskX, maskY, imagePaint);
             canvas.restore();
 
-    }
+    }*/
 }
