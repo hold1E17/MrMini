@@ -265,6 +265,13 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     }
 
     @Override
+    protected void onStop() {
+        // call the superclass method first
+        super.onStop();
+        mBluetoothService.mConnectedThread.cancel();
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         if(mBluetoothService != null){
             if(mBluetoothService.getState() == 2){
