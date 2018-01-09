@@ -20,10 +20,9 @@ import java.util.UUID;
  * Created by christofferpiilmann on 02/01/2018.
  */
 
-public class BluetoothService implements Parcelable {
+public class BluetoothService{
 
         private static final String TAG = "BluetoothDebug";
-        private int mData;
 
         private final BluetoothAdapter mAdapter;
         private final Handler mHandler; // handler that gets info from Bluetooth service
@@ -40,26 +39,6 @@ public class BluetoothService implements Parcelable {
         public static final int STATE_CONNECTING = 1; // now initiating an outgoing connection
         public static final int STATE_CONNECTED = 2;  // now connected to a remote device
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-                 dest.writeStringArray(new String[] {this.mAdapter, this.mHandler, this.grade});
-    }
-
-    public static final Parcelable.Creator<BluetoothService> CREATOR
-            = new Parcelable.Creator<BluetoothService>() {
-        public BluetoothService createFromParcel(Parcel in) {
-            return new BluetoothService(in);
-        }
-
-        public BluetoothService[] newArray(int size) {
-            return new BluetoothService[size];
-        }
-    };
     
 
 
@@ -85,9 +64,6 @@ public class BluetoothService implements Parcelable {
             mHandler = handler;
         }
 
-        public BluetoothService(Parcel in) {
-            mData = in.readInt();
-        }
 
         public synchronized void updateUserInterfaceTitle() {
             mState = getState();

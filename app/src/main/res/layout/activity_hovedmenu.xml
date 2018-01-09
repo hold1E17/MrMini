@@ -52,19 +52,6 @@
 
 
     <Button
-<<<<<<< HEAD
-        android:id="@+id/spil"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="20dp"
-        android:text="Spil og spas"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/info" />
-=======
         android:id="@+id/indstillinger"
         android:layout_width="119dp"
         android:layout_height="128dp"
@@ -95,7 +82,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
->>>>>>> master
 
     <Button
         android:id="@+id/spil"

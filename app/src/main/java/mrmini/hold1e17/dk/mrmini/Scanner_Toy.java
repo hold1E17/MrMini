@@ -106,7 +106,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     }
 
     private void setup() {
-        mBluetoothService = new BluetoothService(this, mHandler, null);
+        mBluetoothService = new BluetoothService(this, mHandler);
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         //TODO();
         //if(mBluetoothService != null){
