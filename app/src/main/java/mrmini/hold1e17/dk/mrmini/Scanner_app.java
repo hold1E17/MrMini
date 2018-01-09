@@ -23,6 +23,7 @@ public class Scanner_app extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_app);
 
+
         button = (Button) findViewById(R.id.button);
         imageView = (ImageView) findViewById(R.id.image_view);
 

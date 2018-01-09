@@ -14,6 +14,7 @@ public class Scanner extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         scanBut1 = (Button) findViewById(R.id.scanBut1);
         scanBut2 = (Button) findViewById(R.id.scanBut2);
