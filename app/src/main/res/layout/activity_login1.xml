@@ -10,8 +10,8 @@
 
     <Button
         android:id="@+id/noLogBut"
-        android:layout_width="126dp"
-        android:layout_height="118dp"
+        android:layout_width="104dp"
+        android:layout_height="97dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -19,13 +19,12 @@
         android:background="@drawable/roundedbutton4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.765"
+        app:layout_constraintHorizontal_bias="0.69"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.71000004"
+        app:layout_constraintVertical_bias="0.656"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
-
 
 
     <ImageView
@@ -38,17 +37,17 @@
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.187"
         app:srcCompat="@drawable/bg" />
 
 
     <Button
         android:id="@+id/logBut"
-        android:layout_width="167dp"
-        android:layout_height="138dp"
+        android:layout_width="144dp"
+        android:layout_height="118dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -56,18 +55,18 @@
         android:background="@drawable/roundedbutton3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintHorizontal_bias="0.18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.701"
+        app:layout_constraintVertical_bias="0.65999997"
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintTop_creator="1" />
 
 
     <EditText
         android:id="@+id/userName"
-        android:layout_width="291dp"
-        android:layout_height="35dp"
+        android:layout_width="256dp"
+        android:layout_height="37dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -106,8 +105,8 @@
 
     <Spinner
         android:id="@+id/hospitalChoice"
-        android:layout_width="291dp"
-        android:layout_height="27dp"
+        android:layout_width="260dp"
+        android:layout_height="34dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -137,12 +136,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.49" />
 
-    <!--<ImageView
-        android:id="@+id/imageView"
-        android:layout_width="156dp"
-        android:layout_height="86dp"
-        app:srcCompat="@drawable/ambulance"
-        tools:layout_editor_absoluteX="212dp"
-        tools:layout_editor_absoluteY="423dp" />-->
+    <Button
+        android:id="@+id/ambulance"
+        android:layout_width="143dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/ambulance"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
 
 </android.support.constraint.ConstraintLayout>

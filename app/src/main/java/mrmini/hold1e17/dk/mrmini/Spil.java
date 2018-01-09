@@ -1,5 +1,6 @@
 package mrmini.hold1e17.dk.mrmini;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 
 
 // Done = lyd og billeder
+
 public class Spil extends AppCompatActivity {
 
     @Override
@@ -77,6 +79,7 @@ public class Spil extends AppCompatActivity {
             magnetic.add(new Thing("3", 170, 130));
 
         }
+
 
         @Override
         protected void onDraw(Canvas c) {
@@ -214,4 +217,6 @@ public class Spil extends AppCompatActivity {
 
         }
     }
+
+
 }
