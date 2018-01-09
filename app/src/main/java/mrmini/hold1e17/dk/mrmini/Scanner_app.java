@@ -55,6 +55,4 @@ public class Scanner_app extends Activity implements View.OnClickListener {
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
         imageView.setImageBitmap(bitmap);
     }
-
-
 }

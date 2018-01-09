@@ -2,16 +2,13 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 public class Indstillinger extends PreferenceActivity {
-
-    static Preference pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +34,7 @@ public class Indstillinger extends PreferenceActivity {
 
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-            Preference button = (Preference) getPreferenceManager().findPreference("pref_key_logout");
+            Preference button = getPreferenceManager().findPreference("pref_key_logout");
             if (button != null) {
                 button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                     @Override
@@ -48,7 +45,7 @@ public class Indstillinger extends PreferenceActivity {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                         SharedPreferences.Editor editor = preferences.edit();
 
-                        editor.clear().commit();
+                        editor.clear().apply();
 
                         startActivity(i);
                         getActivity().finish();
@@ -64,9 +61,15 @@ public class Indstillinger extends PreferenceActivity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
 
+            // TODO implement volume change on slider change
+
             if(key.equals("pref_key_hospital")) {
                 Preference pref = findPreference(key);
                 pref.setSummary(sharedPreferences.getString(key, ""));
+            }
+
+            if(key.equals("pref_key_sound")) {
+               // TODO implement mute function
             }
 
         }
