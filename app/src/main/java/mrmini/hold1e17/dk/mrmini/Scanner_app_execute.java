@@ -76,11 +76,12 @@ public class Scanner_app_execute extends Activity  {
             canvas.save();
             int dWidth = maskPatientDressed.getWidth()/2;
             int dHeight = maskPatientDressed.getHeight()/2;
+            int sHeight = maskFigure.getHeight()/2;
             canvas.drawBitmap(maskPatientDressed, new Rect(0,0,maskPatientDressed.getWidth(), maskPatientDressed.getHeight())
                     ,new Rect(0,0,dWidth,dHeight), overlayPaint);
            // canvas.drawBitmap(maskPatientDressed, 0, 0, overlayPaint);
             canvas.drawBitmap(maskFigure, maskX, maskY, maskPaint);
-            canvas.drawBitmap(maskPatientScanned, new Rect(0,0,maskPatientScanned.getWidth(),maskPatientScanned.getHeight()),
+            canvas.drawBitmap(maskPatientScanned, new Rect(0,0,(maskPatientScanned.getWidth()),maskPatientScanned.getHeight()),
                     new Rect(0,0,dWidth, dHeight), imagePaint);
             System.out.println("WIDTH = "+canvas.getWidth());
             System.out.println("HEIGHT = "+canvas.getHeight());
@@ -108,17 +109,21 @@ public class Scanner_app_execute extends Activity  {
                     System.out.println("Entering case 4");
                     break;
                 case MotionEvent.ACTION_MOVE:
-                    maskX = musX-500;
-                    maskY = musY-100;
+                    maskX = musX;
+                    maskY = musY;
                    if(motionEvent.getRawX() < 0) {
-                        maskX = 0;
-                    } else if ((motionEvent.getRawX() + maskFigure.getWidth() > 320)) {
+                       maskX = 0;
+                   } else if(motionEvent.getRawY() < 0) {
+                       maskY = 0;
+                   }
+                   else if((motionEvent.getRawX() + maskFigure.getWidth() > 320)) {
                         maskX = 320 - maskFigure.getWidth();
-                    }
+                    }else if((motionEvent.getRawY() + maskFigure.getHeight() > 455)) {
+                       maskY = 455 - maskFigure.getHeight();
+                   }
                     this.invalidate();
                     System.out.println("Entering case 5");
                     break;
-
             }
             return true;
         }
