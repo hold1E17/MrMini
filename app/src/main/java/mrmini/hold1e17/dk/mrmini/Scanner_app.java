@@ -42,6 +42,4 @@ public class Scanner_app extends Activity {
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
         imageView.setImageBitmap(bitmap);
     }
-
-
 }
