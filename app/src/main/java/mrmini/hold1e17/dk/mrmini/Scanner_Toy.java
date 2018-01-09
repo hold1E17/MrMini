@@ -109,10 +109,9 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         mBluetoothService = new BluetoothService(this, mHandler);
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         //TODO();
-        //if(mBluetoothService != null){
         updateUIStatus();
-            //mBluetoothService. SET STATE = 2
-        //} else {
+
+            search:
             if (pairedDevices.size() > 0) {
                 // There are paired devices. Get the name and address of each paired device.
                 for (BluetoothDevice device : pairedDevices) {
@@ -123,11 +122,22 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     if(deviceHardwareAddress.equals("20:17:01:11:58:81")){ //Adresse til MrMini
                         remoteDevice = mBluetoothAdapter.getRemoteDevice(deviceHardwareAddress);
                         mBluetoothService.connect(remoteDevice);
-
+                        break search;
                     }
                 }
+                // No device paired
+                notPaired();
+            } else {
+                notPaired();
             }
         }
+
+    private void notPaired(){
+        Log.d(TAG, "MrMini not paired");
+        Toast.makeText(this, R.string.bt_ikke_paired,
+                Toast.LENGTH_LONG).show();
+        this.finish();
+    }
 
     private final Handler mHandler = new Handler() {
         @Override
