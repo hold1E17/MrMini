@@ -16,12 +16,17 @@
     <string name="pref_catHospital">Hospital</string>
     <string name="logout">Log ud</string>
     <string name="pref_sum_logout">Tryk her for at logge ud</string>
+<<<<<<< HEAD
     <string name="bt_ikke_aktiv">Bluetooth skal være aktiveret</string>
     <string name="title_connected">Tilsluttet:</string>
     <string name="title_not_connected">Enhed ikke tilsluttet</string>
     <string name="title_connecting">Tilslutter...</string>
 
 
+=======
+    <string name="pref_title_sound">Volume</string>
+    <string name="volume"></string>
+>>>>>>> master
     <string-array name="hospitalList">
         <item>@string/noHosp</item>
         <item>Gentofte</item>

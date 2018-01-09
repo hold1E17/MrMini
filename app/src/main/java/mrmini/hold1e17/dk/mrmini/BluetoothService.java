@@ -7,6 +7,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.io.IOException;
@@ -18,9 +20,10 @@ import java.util.UUID;
  * Created by christofferpiilmann on 02/01/2018.
  */
 
-public class BluetoothService {
+public class BluetoothService implements Parcelable {
 
         private static final String TAG = "BluetoothDebug";
+        private int mData;
 
         private final BluetoothAdapter mAdapter;
         private final Handler mHandler; // handler that gets info from Bluetooth service
@@ -37,7 +40,30 @@ public class BluetoothService {
         public static final int STATE_CONNECTING = 1; // now initiating an outgoing connection
         public static final int STATE_CONNECTED = 2;  // now connected to a remote device
 
-        // Defines several constants used when transmitting messages between the
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+                 dest.writeStringArray(new String[] {this.mAdapter, this.mHandler, this.grade});
+    }
+
+    public static final Parcelable.Creator<BluetoothService> CREATOR
+            = new Parcelable.Creator<BluetoothService>() {
+        public BluetoothService createFromParcel(Parcel in) {
+            return new BluetoothService(in);
+        }
+
+        public BluetoothService[] newArray(int size) {
+            return new BluetoothService[size];
+        }
+    };
+    
+
+
+    // Defines several constants used when transmitting messages between the
         // service and the UI.
         public interface MessageConstants {
             public static final int MESSAGE_WRITE = 0;
@@ -59,7 +85,11 @@ public class BluetoothService {
             mHandler = handler;
         }
 
-        private synchronized void updateUserInterfaceTitle() {
+        public BluetoothService(Parcel in) {
+            mData = in.readInt();
+        }
+
+        public synchronized void updateUserInterfaceTitle() {
             mState = getState();
             Log.d(TAG, "updateUserInterfaceTitle() " + mNewState + " -> " + mState);
             mNewState = mState;
@@ -87,8 +117,10 @@ public class BluetoothService {
             }
 
             // Start the thread to connect with the given device
-            mConnectThread = new BluetoothConnectThread(device); //Kører constructor
-            mConnectThread.start(); // Kører run() metoden
+            if(mConnectedThread == null){
+                mConnectThread = new BluetoothConnectThread(device); //Kører constructor
+                mConnectThread.start(); // Kører run() metoden
+            }
 
             updateUserInterfaceTitle();
         }
@@ -183,21 +215,6 @@ public class BluetoothService {
     public synchronized void connected(BluetoothSocket socket, BluetoothDevice
             device) {
         Log.d(TAG, "connected to device");
-
-        /*
-        // Cancel the thread that completed the connection
-        if (mConnectThread != null) {
-            mConnectThread.cancel();
-            mConnectThread = null;
-        }
-
-        // Cancel any thread currently running a connection
-        if (mConnectedThread != null) {
-            mConnectedThread.cancel();
-            mConnectedThread = null;
-        }
-
-        */
         // Start the thread to manage the connection and perform transmissions
         //TODO()
         mConnectedThread = new ConnectedThread(socket);
