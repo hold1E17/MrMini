@@ -29,6 +29,8 @@ public class HospitalsInfo extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_video);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
 
         // Init
         vidView = (VideoView)findViewById(R.id.videoView);
@@ -123,4 +125,7 @@ public class HospitalsInfo extends AppCompatActivity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+
+
 }

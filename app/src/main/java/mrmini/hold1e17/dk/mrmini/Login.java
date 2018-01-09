@@ -36,6 +36,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login1);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         logBut = (Button) findViewById(R.id.logBut);
         noLogBut = (Button) findViewById(R.id.noLogBut);

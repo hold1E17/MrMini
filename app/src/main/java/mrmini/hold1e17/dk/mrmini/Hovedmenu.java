@@ -9,10 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.media.MediaPlayer;
 
 public class Hovedmenu extends AppCompatActivity implements OnClickListener {
@@ -25,6 +23,7 @@ String hospital, brugernavn;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hovedmenu);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         brugernavn = PreferenceManager.getDefaultSharedPreferences(this).getString("login", "");
 
@@ -36,7 +35,7 @@ String hospital, brugernavn;
         spil = (Button) findViewById(R.id.spil);
         ambulance = (Button) findViewById(R.id.ambulance);
         sygeplejeske = (Button)findViewById(R.id.sygeplejeske);
-        hoved = (Button)findViewById(R.id.sygeplejeske);
+        hoved = (Button)findViewById(R.id.hoved);
 
         hoved.setOnClickListener(this);
         info.setOnClickListener(this);
