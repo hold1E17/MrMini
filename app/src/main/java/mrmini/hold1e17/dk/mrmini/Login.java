@@ -4,19 +4,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.preference.Preference;
-import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 
 /**
@@ -31,7 +26,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     CheckBox rememberMe;
     int counter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,11 +38,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         hospitalChoice = (Spinner) findViewById(R.id.hospitalChoice);
         rememberMe = (CheckBox) findViewById(R.id.rememberMe);
         ambulance = (Button) findViewById(R.id.ambulance);
-
-     //   logBut.setText(R.string.logBut);
-       // noLogBut.setText(R.string.noLogBut);
-        //userName.setHint(R.string.loginName);
-        //rememberMe.setText(R.string.rememberMe);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.hospitalList, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
