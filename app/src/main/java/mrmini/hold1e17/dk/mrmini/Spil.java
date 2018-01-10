@@ -1,7 +1,7 @@
 package mrmini.hold1e17.dk.mrmini;
 
-import android.app.ActionBar;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,14 +11,19 @@ import android.graphics.Paint;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.renderscript.Sampler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 // Gøres hurtigere
 // Flere forskellige magnetisk/ikke magnetisk
@@ -30,6 +35,11 @@ import java.util.ArrayList;
 // Done = lyd og billeder
 
 public class Spil extends AppCompatActivity {
+
+    int magCount = 0;
+    int nonMagCount = 0;
+    int[] magDrawables = new int[]{R.drawable.magnetic1, R.drawable.magnetic2, R.drawable.magnetic3, R.drawable.magnetic4, R.drawable.magnetic5};
+    int[] nonMagDrawables = new int[]{R.drawable.nonmagnetic1, R.drawable.nonmagnetic2, R.drawable.nonmagnetic3, R.drawable.nonmagnetic4, R.drawable.nonmagnetic5};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +67,10 @@ public class Spil extends AppCompatActivity {
         ArrayList<Thing> magnetic = new ArrayList<>();
         ArrayList<Thing> caught = new ArrayList<>();
         Thing magnetObj = null;
+        Thing mag = new Thing("x", 0, 0);
         Paint brikStregtype = new Paint();
         Paint magnet;
 
-        // programmatisk konstruktør
         public MagnetView(Context context) {
             super(context);
 
@@ -72,74 +82,78 @@ public class Spil extends AppCompatActivity {
             magnet.setStyle(Paint.Style.STROKE);
             magnet.setColor(Color.RED);
 
-            nonMagnetic.add(new Thing("6", 30, 30));
-            nonMagnetic.add(new Thing("+", 80, 80));
-            magnetic.add(new Thing("1", 140, 40));
-            magnetic.add(new Thing("2", 130, 90));
-            magnetic.add(new Thing("3", 170, 130));
+            Random rand = new Random();
+
+            nonMagnetic.add(new Thing("6", rand.nextInt(450), rand.nextInt(550)));
+            nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
+            nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
+            nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
+            nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
+            magnetic.add(new Thing("1", rand.nextInt(450), rand.nextInt(550)));
+            magnetic.add(new Thing("2", rand.nextInt(450), rand.nextInt(550)));
+            magnetic.add(new Thing("3", rand.nextInt(450), rand.nextInt(550)));
+            magnetic.add(new Thing("3", rand.nextInt(450), rand.nextInt(550)));
+            magnetic.add(new Thing("3", rand.nextInt(450), rand.nextInt(550)));
 
         }
 
 
         @Override
         protected void onDraw(Canvas c) {
-            //Resources res = getResources();
-            // Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.aeble);
 
-            // Spillet er beregnet til en skærm der er 480 punkter bred...
-            float skærmSkala = getWidth() / 480f; // ... så skalér derefter
+            float skærmSkala = getWidth() / 480f;
             c.scale(skærmSkala, skærmSkala);
 
-            // Tegn først alle brikker, undtagen den valgte
-            for (Thing thing : nonMagnetic) {
-                if (thing == magnetObj) continue;
+            for (int i = 0; i < nonMagnetic.size(); i++) {
+                if (nonMagnetic.get(i) == magnetObj) continue;
                 Resources res = getResources();
-                Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.aeble);
-               BitmapFactory.decodeResource(res,R.drawable.aeble);
-               c.drawBitmap(bitmap, null, thing.rectF, brikStregtype) ;
-              //  c.drawRoundRect(thing.rectF, 10, 10, brikStregtype);
+                Bitmap bitmap = BitmapFactory.decodeResource(res, nonMagDrawables[i]);
+               c.drawBitmap(bitmap, null, nonMagnetic.get(i).rectF, brikStregtype);
             }
-            for (Thing thing : magnetic) {
-                if (thing == magnetObj) continue;
-             //   c.drawRoundRect(thing.rectF, 10, 10, brikStregtype);
+            for (int i = 0; i < magnetic.size(); i++) {
+                if (magnetic.get(i) == magnetObj) continue;
                 Resources res = getResources();
-                Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.gaffel);
-                BitmapFactory.decodeResource(res,R.drawable.gaffel);
-                c.drawBitmap(bitmap, null, thing.rectF, brikStregtype) ;
+                Bitmap bitmap = BitmapFactory.decodeResource(res, magDrawables[i]);
+                BitmapFactory.decodeResource(res,magDrawables[i]);
+                c.drawBitmap(bitmap, null, magnetic.get(i).rectF, brikStregtype) ;
             }
 
-            // Tegn den valgte brik til sidst, på fingerens plads
             if (magnetObj != null) {
                 RectF rectF = new RectF(magnetObj.rectF);
                 rectF.offsetTo(finger.x - rectF.width() / 2, finger.y - rectF.height() / 2);
-                c.drawRoundRect(rectF, 10, 10, brikStregtype);
-                //fixerTilBane(rectF);
-                c.drawRoundRect(rectF, 12, 12, magnet);
+                Resources res = getResources();
+                Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.magnet);
+                BitmapFactory.decodeResource(res,R.drawable.magnet);
+                c.drawBitmap(bitmap, null, rectF, magnet) ;
             } else {
-                // Ingen brik valgt - tegn finger
-                c.drawCircle(finger.x, finger.y, 15, magnet);
-                // Indsæt magneten osm bitmap
+                RectF rectF = new RectF(mag.rectF);
+                Resources res = getResources();
+                Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.magnet);
+                BitmapFactory.decodeResource(res,R.drawable.magnet);
+                c.drawBitmap(bitmap, null, rectF, magnet) ;
             }
         }
 
         @Override
         public boolean onTouchEvent(MotionEvent e) {
-            //System.out.println(e);
-            // Spillet er beregnet til en skærm der er 480 punkter bred...
-            float skærmSkala = getWidth() / 480f; // ... så skalér derefter
-            float ex = e.getX() / skærmSkala;
-            float ey = e.getY() / skærmSkala;
+            float screen = getWidth() / 480f;
+            float ex = e.getX() / screen;
+            float ey = e.getY() / screen;
             finger.x = ex;
             finger.y = ey;
 
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                for (Thing s : nonMagnetic) {
+                for (Thing s : magnetic) {
                     if (s.rectF.contains(ex, ey)) {
                         if (!(caught.contains(s))) {
                             caught.add(s);
 
                             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
                             v.vibrate(400);
+                            // Spiller kling lyd
+                            MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.chime_bell_ding);
+                            mediaPlayer.start();
+
 
                             if (caught.size() == magnetic.size()) {
 
@@ -149,7 +163,14 @@ public class Spil extends AppCompatActivity {
                         }
                         magnetObj = s;
                         break;
+
+                    } else {
+                        mag.rectF.offsetTo(finger.x, finger.y);
                     }
+
+                }
+                for (int i = 0; i < caught.size(); i++) {
+                    caught.get(i).rectF.offsetTo(finger.x, finger.y);
                 }
             }
             if (e.getAction() == MotionEvent.ACTION_MOVE) {
@@ -173,47 +194,47 @@ public class Spil extends AppCompatActivity {
                         }
                         magnetObj = s;
                         break;
+                    } else {
+                        mag.rectF.offsetTo(finger.x, finger.y);
                     }
                 }
-                for (Thing c : caught) {
-                    c.rectF.offsetTo(finger.x, finger.y);
+                for (int i = 0; i < caught.size(); i++) {
+                    caught.get(i).rectF.offsetTo(finger.x, finger.y);
                 }
             }
             if (e.getAction() == MotionEvent.ACTION_UP && magnetObj != null) {
                 RectF rectF = magnetObj.rectF;
                 rectF.offsetTo(finger.x - rectF.width() / 2, finger.y - rectF.height() / 2);
-          //      fixerTilBane(rectF);
-                System.out.println("magnetObj.rectF=" + magnetObj.rectF);
-       //         magnetObj = null;
-      //          boolean korrekt = true;
-                for (int i = 0; i < magnetic.size(); i++) {
-                    Thing s1 = magnetic.get(i);
-             //       float afstandTilKorrekt = Math.abs(s1.rectF.top - s2.rectF.top) + Math.abs(s1.rectF.left + 40 - s2.rectF.left);
-                //    Log.d("Braetspil", s1.tekst + " til " + s2.tekst + " afstandTilKorrekt = " + afstandTilKorrekt);
-           //         if (afstandTilKorrekt > 1) korrekt = false;
-                }
+
             }
             invalidate();
             return true;
-        }
-
-        private void fixerTilBane(RectF rectF) {
-            int left = Math.round(rectF.left / 40) * 40 + 2;
-            int top = Math.round(rectF.top / 40) * 40 + 2;
-            rectF.offsetTo(left, top);
 
         }
 
         private void endGame() {
 
-            System.out.println("TEST");
-
-            CharSequence text = "You win!";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(getContext(), text, duration);
-
-            toast.show();
+            AlertDialog.Builder builder;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+            } else {
+                builder = new AlertDialog.Builder(getContext());
+            }
+            builder.setTitle("Play again")
+                    .setMessage(R.string.play_again)
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                            startActivity(getIntent());
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            onBackPressed();
+                        }
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
 
         }
     }
