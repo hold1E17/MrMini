@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class Scanner extends AppCompatActivity implements View.OnClickListener {
 
-    Button scanBut1, scanBut2;
+    Button scanBut1, scanBut2, sygeplejeske1, hoved1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,9 +18,15 @@ public class Scanner extends AppCompatActivity implements View.OnClickListener {
 
         scanBut1 = (Button) findViewById(R.id.scanBut1);
         scanBut2 = (Button) findViewById(R.id.scanBut2);
+        sygeplejeske1 = (Button) findViewById(R.id.krop1);  // Skal ændres
+        hoved1 = (Button) findViewById(R.id.hoved1);
 
         scanBut1.setOnClickListener(this);
         scanBut2.setOnClickListener(this);
+        sygeplejeske1.setOnClickListener(this);
+        hoved1.setOnClickListener(this);
+
+        hoved1.setVisibility(View.INVISIBLE);
 
     }
 
@@ -33,6 +39,12 @@ public class Scanner extends AppCompatActivity implements View.OnClickListener {
         } else if (v == scanBut2) {
             Intent j = new Intent(this, Scanner_app.class);
             startActivity(j);
-        }
+        } else if(v == sygeplejeske1){
+        hoved1.setVisibility(View.VISIBLE);
+        sygeplejeske1.setVisibility(View.INVISIBLE);
+    } else if(v == hoved1) {
+        hoved1.setVisibility(View.INVISIBLE);
+        sygeplejeske1.setVisibility(View.VISIBLE);
+    }
     }
 }

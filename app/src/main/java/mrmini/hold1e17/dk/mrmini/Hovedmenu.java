@@ -70,25 +70,14 @@ String hospital, brugernavn;
             mediaPlayer.start();
             ambulance.startAnimation(AnimationUtils.makeOutAnimation(this, false));
         } else if(v == sygeplejeske){
-            visHoved();
+            hoved.setVisibility(View.VISIBLE);
+            sygeplejeske.setVisibility(View.INVISIBLE);
         } else if(v == hoved) {
-           visSygeplejseske();
+            hoved.setVisibility(View.INVISIBLE);
+            sygeplejeske.setVisibility(View.VISIBLE);
         }
 
     }
-
-    private void visSygeplejseske() {
-        System.out.println("SYGEPLEJSERKE OP");
-        hoved.setVisibility(View.INVISIBLE);
-        sygeplejeske.setVisibility(View.VISIBLE);
-    }
-
-    private void visHoved() {
-        hoved.setVisibility(View.VISIBLE);
-        sygeplejeske.setVisibility(View.INVISIBLE);
-        System.out.println("HHOVED OP");
-    }
-
 
 
     @SuppressLint("ResourceType")
