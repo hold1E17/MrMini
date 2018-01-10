@@ -20,6 +20,7 @@ public class Spil extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(new MagnetView(this));
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 
     class MagnetView extends View {

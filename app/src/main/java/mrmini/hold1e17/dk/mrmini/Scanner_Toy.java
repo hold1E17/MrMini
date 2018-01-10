@@ -263,7 +263,9 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     protected void onStop() {
         // call the superclass method first
         super.onStop();
-        mBluetoothService.mConnectedThread.cancel();
+        if(mBluetoothService.mConnectedThread != null){
+            mBluetoothService.mConnectedThread.cancel();
+        }
     }
 
     @Override
