@@ -14,8 +14,6 @@ public class Hovedmenu extends AppCompatActivity implements OnClickListener {
 Button info, scanner, spil, ambulance, sygeplejeske, hoved, indstillinger;
 String hospital, brugernavn;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
