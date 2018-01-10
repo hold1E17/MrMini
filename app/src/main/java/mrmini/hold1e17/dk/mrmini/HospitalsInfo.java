@@ -18,9 +18,9 @@ public class HospitalsInfo extends AppCompatActivity {
     String vidAddress;
     String webAddress;
 
-
     private int position = 0;
     public VideoView vidView;
+    public WebView web;
     private MediaController mediaController;
     private String login;
     private String hospital;
@@ -31,8 +31,8 @@ public class HospitalsInfo extends AppCompatActivity {
         setContentView(R.layout.activity_info_video);
 
         // Init
-        vidView = (VideoView)findViewById(R.id.videoView);
-        WebView web = (WebView)findViewById(R.id.webView);
+        vidView = findViewById(R.id.videoView);
+        web = findViewById(R.id.webView);
         web.getSettings().setJavaScriptEnabled(true);
         login = PreferenceManager.getDefaultSharedPreferences(this).getString("login", "");
         hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");

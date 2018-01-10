@@ -1,22 +1,17 @@
 package mrmini.hold1e17.dk.mrmini;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.media.MediaPlayer;
 
 public class Hovedmenu extends AppCompatActivity implements OnClickListener {
-Button info, scanner, spil, ambulance, sygeplejeske, hoved;
+Button info, scanner, spil, ambulance, sygeplejeske, hoved, indstillinger;
 String hospital, brugernavn;
 
 
@@ -31,13 +26,15 @@ String hospital, brugernavn;
         hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
 
 
-        info = (Button) findViewById(R.id.info);
-        scanner = (Button) findViewById(R.id.scanner);
-        spil = (Button) findViewById(R.id.spil);
-        ambulance = (Button) findViewById(R.id.ambulance);
-        sygeplejeske = (Button)findViewById(R.id.sygeplejeske);
-        hoved = (Button)findViewById(R.id.sygeplejeske);
+        info = findViewById(R.id.info);
+        scanner = findViewById(R.id.scanner);
+        spil = findViewById(R.id.spil);
+        ambulance = findViewById(R.id.ambulance);
+        sygeplejeske = findViewById(R.id.sygeplejeske);
+        hoved = findViewById(R.id.sygeplejeske);
+        indstillinger = findViewById(R.id.indstillinger);
 
+        indstillinger.setOnClickListener(this);
         hoved.setOnClickListener(this);
         info.setOnClickListener(this);
         scanner.setOnClickListener(this);
@@ -74,6 +71,9 @@ String hospital, brugernavn;
             visHoved();
         } else if(v == hoved) {
            visSygeplejseske();
+        } else if(v == indstillinger) {
+            Intent i = new Intent(this, Indstillinger.class);
+            startActivityForResult(i,0);
         }
 
     }
@@ -89,32 +89,5 @@ String hospital, brugernavn;
         sygeplejeske.setVisibility(View.INVISIBLE);
         System.out.println("HHOVED OP");
     }
-
-
-
-    @SuppressLint("ResourceType")
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.xml.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-
-        if (id == R.id.action_name) {
-
-            Intent i = new Intent(this, Indstillinger.class);
-            startActivityForResult(i,0);
-
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-
 
 }
