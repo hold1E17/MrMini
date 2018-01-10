@@ -24,7 +24,6 @@ String hospital, brugernavn;
 
         hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
 
-
         info = findViewById(R.id.info);
         scanner = findViewById(R.id.scanner);
         spil = findViewById(R.id.spil);
