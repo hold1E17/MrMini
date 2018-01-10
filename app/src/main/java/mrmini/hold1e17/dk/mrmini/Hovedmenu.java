@@ -72,9 +72,13 @@ String hospital, brugernavn;
         } else if(v == sygeplejeske){
             hoved.setVisibility(View.VISIBLE);
             sygeplejeske.setVisibility(View.INVISIBLE);
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.close);
+            mediaPlayer.start();
         } else if(v == hoved) {
             hoved.setVisibility(View.INVISIBLE);
             sygeplejeske.setVisibility(View.VISIBLE);
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.open);
+            mediaPlayer.start();
         }
 
     }
