@@ -32,7 +32,7 @@ String hospital, brugernavn;
         spil = findViewById(R.id.spil);
         ambulance = findViewById(R.id.ambulance);
         sygeplejeske = findViewById(R.id.sygeplejeske);
-        hoved = findViewById(R.id.sygeplejeske);
+        hoved = findViewById(R.id.hoved);
         indstillinger = findViewById(R.id.indstillinger);
 
         indstillinger.setOnClickListener(this);
