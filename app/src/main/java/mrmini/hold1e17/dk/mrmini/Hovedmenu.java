@@ -18,7 +18,6 @@ Button info, scanner, spil, ambulance, sygeplejeske, hoved;
 String hospital, brugernavn;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +79,6 @@ String hospital, brugernavn;
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.open);
             mediaPlayer.start();
         }
-
     }
 
 

@@ -67,13 +67,13 @@
 
     <Button
         android:id="@+id/krop1"
-        android:layout_width="177dp"
-        android:layout_height="290dp"
+        android:layout_width="272dp"
+        android:layout_height="401dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/krop"
+        android:background="@drawable/talescanner"
         android:gravity="center_vertical|center_horizontal"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
