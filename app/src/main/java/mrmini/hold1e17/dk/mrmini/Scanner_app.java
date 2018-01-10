@@ -21,7 +21,7 @@ public class Scanner_app extends Activity implements View.OnClickListener {
     static final int CAM_REQUEST = 1;
 
     protected void onCreate(Bundle savedInstanceState) {
- super.onCreate(savedInstanceState);
+    super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_scanner_app);
 
     button = (Button) findViewById(R.id.button);
