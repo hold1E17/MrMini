@@ -26,7 +26,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     CheckBox rememberMe;
     int counter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
