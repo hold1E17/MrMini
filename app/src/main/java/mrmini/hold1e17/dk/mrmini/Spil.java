@@ -3,6 +3,7 @@ package mrmini.hold1e17.dk.mrmini;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -15,6 +16,9 @@ import mrmini.hold1e17.dk.mrmini.Logic.GameLogic;
 public class Spil extends AppCompatActivity {
 
     GameLogic gl = new GameLogic();
+    float width;
+    float height;
+    int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,29 +33,33 @@ public class Spil extends AppCompatActivity {
             super(context);
 
             gl.createObjects();
+            gl.mapObjects(getResources());
 
         }
 
         @Override
         protected void onDraw(Canvas c) {
 
-            float screen = getWidth() / 480f;
-            c.scale(screen, screen);
+            width = getWidth() / 480f;
+            height = getHeight() / 480f;
 
-            gl.createNonMagnetic(getResources(), c);
-            gl.createMagnetic(getResources(), c);
-            gl.createMagnet(getResources(), c);
+            System.out.println(width);
+            System.out.println(height);
+
+            c.scale(width, height);
+
+            gl.createNonMagnetic(c);
+            gl.createMagnetic(c);
+            gl.createMagnet(c);
 
         }
 
         @Override
         public boolean onTouchEvent(MotionEvent e) {
-            float screen = getWidth() / 480f;
-            float ex = e.getX() / screen;
-            float ey = e.getY() / screen;
+            float ex = e.getX() / width;
+            float ey = e.getY() / height;
 
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                //      gl.catchMagnetic(getContext(), ex, ey);
                 if (!gl.catchMagnetic(getContext(), ex, ey)) {
                     endGame();
                 }
@@ -92,4 +100,6 @@ public class Spil extends AppCompatActivity {
 
         }
     }
+
+
 }
