@@ -54,7 +54,7 @@ public class Spil extends AppCompatActivity {
 
         Thing(String string, int x, int y) {
             str = string;
-            rectF = new RectF(x + 2, y + 2, x + 38, y + 38);
+            rectF = new RectF(x + -40, y + -40, x + 20, y + 20);
         }
         public String toString() {
             return str;
@@ -195,7 +195,7 @@ public class Spil extends AppCompatActivity {
                         magnetObj = s;
                         break;
                     } else {
-                        mag.rectF.offsetTo(finger.x, finger.y);
+                        mag.rectF.offsetTo(finger.x-10, finger.y-70);
                     }
                 }
                 for (int i = 0; i < caught.size(); i++) {
