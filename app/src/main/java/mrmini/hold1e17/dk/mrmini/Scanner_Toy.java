@@ -2,14 +2,11 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -19,9 +16,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Objects;
 import java.util.Set;
-
 
 import static android.content.ContentValues.TAG;
 
@@ -109,10 +104,9 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         mBluetoothService = new BluetoothService(this, mHandler);
         Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
         //TODO();
-        //if(mBluetoothService != null){
         updateUIStatus();
-            //mBluetoothService. SET STATE = 2
-        //} else {
+
+            search:
             if (pairedDevices.size() > 0) {
                 // There are paired devices. Get the name and address of each paired device.
                 for (BluetoothDevice device : pairedDevices) {
@@ -123,11 +117,22 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     if(deviceHardwareAddress.equals("20:17:01:11:58:81")){ //Adresse til MrMini
                         remoteDevice = mBluetoothAdapter.getRemoteDevice(deviceHardwareAddress);
                         mBluetoothService.connect(remoteDevice);
-
+                        break search;
                     }
                 }
+                // No device paired
+                notPaired();
+            } else {
+                notPaired();
             }
         }
+
+    private void notPaired(){
+        Log.d(TAG, "MrMini not paired");
+        Toast.makeText(this, R.string.bt_ikke_paired,
+                Toast.LENGTH_LONG).show();
+        this.finish();
+    }
 
     private final Handler mHandler = new Handler() {
         @Override
@@ -250,6 +255,15 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
             mBluetoothService.connect(remoteDevice);
         }
         if (v == afbrydbtn) {
+            mBluetoothService.mConnectedThread.cancel();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        // call the superclass method first
+        super.onStop();
+        if(mBluetoothService.mConnectedThread != null){
             mBluetoothService.mConnectedThread.cancel();
         }
     }
