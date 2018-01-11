@@ -2,29 +2,37 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 
 /**
  * Created by Sofie on 02-01-2018.
  */
 
-public class Scanner_app_execute extends Activity  {
+public class Scanner_app_execute extends Activity {
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
-    //private CustomView cT;
+    private MediaPlayer scanningSound;
 
 
     public void onCreate(Bundle savedInstanceState) {
@@ -38,19 +46,29 @@ public class Scanner_app_execute extends Activity  {
         CustomView cV = new CustomView(this);
         cV.setOnTouchListener(cV);
         setContentView(cV);
+        scanningSound = MediaPlayer.create(Scanner_app_execute.this, R.raw.MRI_sounds);
 
+        scanningSound.setLooping(true);
+        scanningSound.start();
+    }
 
+    public void onPause() {
+        super.onPause();
+        scanningSound.stop();
     }
 
     public class CustomView extends View implements View.OnTouchListener {
         private Bitmap maskPatientScanned = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
-        private Bitmap maskPatientDressed = BitmapFactory.decodeResource(getResources(),R.drawable.man0);
+        private Bitmap maskPatientDressed = BitmapFactory.decodeResource(getResources(), R.drawable.man0);
+        private Bitmap moveSymbol = BitmapFactory.decodeResource(getResources(), R.drawable.arrows);
         private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.rectangle);
         private final Paint imagePaint;
         private final Paint maskPaint;
+        private final Paint arrowPaint;
         private final Paint overlayPaint;
         private int maskX = 0;
-        private int maskY = 0;
+        private int maskY = 270;
+        private Canvas canvas2;
 
         public CustomView(final Context context) {
             super(context);
@@ -58,36 +76,44 @@ public class Scanner_app_execute extends Activity  {
             maskPaint = new Paint();
             maskPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
 
+            arrowPaint = new Paint();
+            arrowPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN));
+
             overlayPaint = new Paint();
             overlayPaint.setXfermode((new PorterDuffXfermode(PorterDuff.Mode.LIGHTEN)));
 
             imagePaint = new Paint();
             imagePaint.setXfermode((new PorterDuffXfermode(PorterDuff.Mode.DST_OVER)));
+
         }
+
         public void onDraw(Canvas canvas) {
             super.onDraw(canvas);
+            this.canvas2 = canvas;
             canvas.save();
-            int dWidth = maskPatientDressed.getWidth()/2;
-            int dHeight = maskPatientDressed.getHeight()/2;
-            int sHeight = maskFigure.getHeight()/2;
-            canvas.drawBitmap(maskPatientDressed, new Rect(0,0,maskPatientDressed.getWidth(), maskPatientDressed.getHeight())
-                    ,new Rect(0,0,dWidth,dHeight), overlayPaint);
-           // canvas.drawBitmap(maskPatientDressed, 0, 0, overlayPaint);
+
+            Double dWidthTemp = Double.valueOf(maskPatientDressed.getWidth());
+            Double dHeightTemp = Double.valueOf(maskPatientDressed.getHeight());
+            int dWidth = (int) (dWidthTemp / 1.3);
+            int dHeight = (int) (dHeightTemp / 1.3);
+
+            canvas.drawBitmap(maskPatientDressed, new Rect(0, 0, maskPatientDressed.getWidth(), maskPatientDressed.getHeight())
+                           , new Rect(90, 0, dWidth, dHeight), overlayPaint);
             canvas.drawBitmap(maskFigure, maskX, maskY, maskPaint);
-            canvas.drawBitmap(maskPatientScanned, new Rect(0,0,(maskPatientScanned.getWidth()),maskPatientScanned.getHeight()),
-                    new Rect(0,0,dWidth, dHeight), imagePaint);
-            System.out.println("WIDTH = "+canvas.getWidth());
-            System.out.println("HEIGHT = "+canvas.getHeight());
-           // canvas.drawBitmap(maskPatientScanned, maskX, maskY, imagePaint);
+            canvas.drawBitmap(maskPatientScanned, new Rect(0, 0, (maskPatientScanned.getWidth()), maskPatientScanned.getHeight()),
+                    new Rect(90, 0, dWidth, dHeight), imagePaint);
+            System.out.println("WIDTH = " + canvas.getWidth());
+            System.out.println("HEIGHT = " + canvas.getHeight());
             canvas.restore();
+
 
         }
 
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
-                final int musX = (int) motionEvent.getRawX();
-                final int musY = (int) motionEvent.getRawY();
-                System.out.println("onTouch");
+            final int musX = (int) motionEvent.getRawX();
+            final int musY = (int) motionEvent.getRawY();
+            System.out.println("onTouch");
             switch (motionEvent.getAction() & MotionEvent.ACTION_MASK) {
                 case MotionEvent.ACTION_DOWN:
                     System.out.println("Entering case 1");
@@ -103,17 +129,24 @@ public class Scanner_app_execute extends Activity  {
                     break;
                 case MotionEvent.ACTION_MOVE:
                     maskX = musX;
-                    maskY = musY;
-                   if(motionEvent.getRawX() < 0) {
-                       maskX = 0;
-                   } else if(motionEvent.getRawY() < 0) {
-                       maskY = 0;
-                   }
-                   else if((motionEvent.getRawX() + maskFigure.getWidth() > 320)) {
-                        maskX = 320 - maskFigure.getWidth();
-                    }else if((motionEvent.getRawY() + maskFigure.getHeight() > 455)) {
-                       maskY = 455 - maskFigure.getHeight();
-                   }
+                    maskY = musY-30;
+                    System.out.println(motionEvent.getRawX());
+
+                    if(motionEvent.getRawX() < 0 && motionEvent.getRawY() < 0 ) {
+                        maskY = 0;
+                        maskX = 0;
+                    }
+                    else if(motionEvent.getRawX() < 0) {
+                        maskX = 0;
+                        // maskY = 0;
+                    }
+                     else if ((motionEvent.getRawX() + maskFigure.getWidth() > canvas2.getWidth())&&(motionEvent.getRawY() + maskFigure.getHeight() > canvas2.getHeight())) {
+                        maskX = canvas2.getWidth() - maskFigure.getWidth();
+                        maskY = canvas2.getHeight() - maskFigure.getHeight();
+                    }
+                    else if((motionEvent.getRawX() + maskFigure.getWidth() > canvas2.getWidth())) {
+                        maskX = canvas2.getWidth() - maskFigure.getWidth();
+                    }
                     this.invalidate();
                     System.out.println("Entering case 5");
                     break;
