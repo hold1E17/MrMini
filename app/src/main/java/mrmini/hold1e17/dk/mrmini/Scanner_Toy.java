@@ -148,7 +148,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
                     Log.d(TAG, "WRITE: " + writeMessage);
-                    break;
+                     break;
                 case BluetoothService.MessageConstants.MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
@@ -246,7 +246,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     System.out.println("Dukken der er blevet placeret er en skildpadde");
                     break;
             }
-        }
+         }
 
     @Override
     public void onClick(View v) {
