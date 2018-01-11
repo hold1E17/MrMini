@@ -3,7 +3,6 @@ package mrmini.hold1e17.dk.mrmini;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Canvas;
-import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -82,7 +81,7 @@ public class Spil extends AppCompatActivity {
             } else {
                 builder = new AlertDialog.Builder(getContext());
             }
-            builder.setTitle("Play again")
+            builder.setTitle("Spil igen")
                     .setMessage(R.string.play_again)
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
