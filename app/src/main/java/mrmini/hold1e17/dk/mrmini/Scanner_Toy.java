@@ -4,6 +4,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -263,6 +264,13 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     protected void onStop() {
         // call the superclass method first
         super.onStop();
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
         if(mBluetoothService.mConnectedThread != null){
             mBluetoothService.mConnectedThread.cancel();
         }
