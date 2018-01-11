@@ -9,10 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.media.MediaPlayer;
 
 public class Hovedmenu extends AppCompatActivity implements OnClickListener {
@@ -20,11 +18,11 @@ Button info, scanner, spil, ambulance, sygeplejeske, hoved;
 String hospital, brugernavn;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hovedmenu);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         brugernavn = PreferenceManager.getDefaultSharedPreferences(this).getString("login", "");
 
@@ -36,7 +34,7 @@ String hospital, brugernavn;
         spil = (Button) findViewById(R.id.spil);
         ambulance = (Button) findViewById(R.id.ambulance);
         sygeplejeske = (Button)findViewById(R.id.sygeplejeske);
-        hoved = (Button)findViewById(R.id.sygeplejeske);
+        hoved = (Button)findViewById(R.id.hoved);
 
         hoved.setOnClickListener(this);
         info.setOnClickListener(this);
@@ -71,25 +69,17 @@ String hospital, brugernavn;
             mediaPlayer.start();
             ambulance.startAnimation(AnimationUtils.makeOutAnimation(this, false));
         } else if(v == sygeplejeske){
-            visHoved();
+            hoved.setVisibility(View.VISIBLE);
+            sygeplejeske.setVisibility(View.INVISIBLE);
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.close);
+            mediaPlayer.start();
         } else if(v == hoved) {
-           visSygeplejseske();
+            hoved.setVisibility(View.INVISIBLE);
+            sygeplejeske.setVisibility(View.VISIBLE);
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.open);
+            mediaPlayer.start();
         }
-
     }
-
-    private void visSygeplejseske() {
-        System.out.println("SYGEPLEJSERKE OP");
-        hoved.setVisibility(View.INVISIBLE);
-        sygeplejeske.setVisibility(View.VISIBLE);
-    }
-
-    private void visHoved() {
-        hoved.setVisibility(View.VISIBLE);
-        sygeplejeske.setVisibility(View.INVISIBLE);
-        System.out.println("HHOVED OP");
-    }
-
 
 
     @SuppressLint("ResourceType")

@@ -36,6 +36,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login1);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         logBut = (Button) findViewById(R.id.logBut);
         noLogBut = (Button) findViewById(R.id.noLogBut);
@@ -69,9 +70,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             startActivity(i);
             finish();
 
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.buttonclick);
+            mediaPlayer.start();
+
         } else if (v == noLogBut) {
             Intent i = new Intent(this, Hovedmenu.class);
             startActivity(i);
+            MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.buttonclick);
+            mediaPlayer.start();
         } else if(v == ambulance){
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.truck);
             mediaPlayer.start();
