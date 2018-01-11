@@ -47,7 +47,6 @@
             android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
         <activity android:name=".Scanner_Toy"
             android:label="Scan med legetøj"
-            android:screenOrientation="portrait"
             android:parentActivityName="mrmini.hold1e17.dk.mrmini.Scanner"/>
         <activity android:name=".Scanner_app"
             android:label="Scan med app"

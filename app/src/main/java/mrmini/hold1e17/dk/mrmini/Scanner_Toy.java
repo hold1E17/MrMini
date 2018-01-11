@@ -31,7 +31,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     private final int REQUEST_ENABLE_BT = 99;
     private boolean connected = false;
 
-    private BluetoothService mBluetoothService = null;
+    private static BluetoothService mBluetoothService = null;
     private BluetoothDevice remoteDevice = null;
 
     private Context context;
@@ -266,6 +266,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         if(mBluetoothService.mConnectedThread != null){
             mBluetoothService.mConnectedThread.cancel();
         }
+
     }
 
     @Override
