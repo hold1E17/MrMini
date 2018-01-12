@@ -153,7 +153,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     Log.d(TAG, "READ: " + readMessage);
-                    read(readMessage);
+                    Scanner_Toy_scan.read(readMessage);
                     Toast.makeText(context, readMessage,
                             Toast.LENGTH_SHORT).show();
                     break;
@@ -254,7 +254,9 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
 
         if (v == startScan) {
             if(remoteDevice != null){
-                mBluetoothService.mConnectedThread.write("3".getBytes());
+                writeToBluetooth("2");
+                Intent i = new Intent(this, Scanner_Toy_scan.class);
+                startActivity(i);
             }
         }
         if (v == connectbtn) {
@@ -262,6 +264,12 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         }
         if (v == afbrydbtn) {
             mBluetoothService.mConnectedThread.cancel();
+        }
+    }
+
+    public void writeToBluetooth(String msg){
+        if(remoteDevice != null){
+            mBluetoothService.mConnectedThread.write(msg.getBytes());
         }
     }
 
@@ -284,7 +292,6 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                 outState.putBoolean("connected", false);
             }
         }
-
 
         super.onSaveInstanceState(outState);
     }
