@@ -1,6 +1,7 @@
 package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ public class Scanner_Toy_scan extends AppCompatActivity {
     private static ImageView scannerImg;
 
     private static String savedCase;
+    private static boolean scanning = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +35,16 @@ public class Scanner_Toy_scan extends AppCompatActivity {
                 read(savedCase);
             }
         }
+
+        context = this;
     }
 
     public static void read(String messageRead) {
+
+        if(scanning == true){
+            Scanner_app_execute.endActivity();
+            scanning = false;
+        }
 
         switch (messageRead) {
             case "1":
@@ -46,6 +55,7 @@ public class Scanner_Toy_scan extends AppCompatActivity {
             case "2":
                 statusTextScan.setText("Ingen dukke");
                 scannerImg.setImageResource(R.drawable.scanner);
+
                 savedCase = "2";
                 break;
             case "3":
@@ -66,6 +76,10 @@ public class Scanner_Toy_scan extends AppCompatActivity {
             case "6":
                 statusTextScan.setText("Scanningen er igang");
                 savedCase = "6";
+                scanning = true;
+                Intent i = new Intent(context, Scanner_app_execute.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                context.startActivity(i);
                 break;
             case "7":
                 statusTextScan.setText("Dukken der er blevet placeret er en dreng");

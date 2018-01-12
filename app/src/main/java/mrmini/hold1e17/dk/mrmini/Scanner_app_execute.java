@@ -34,6 +34,7 @@ public class Scanner_app_execute extends Activity {
     private int xD, yD;
     private MediaPlayer scanningSound;
 
+    private static Activity activity;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +51,18 @@ public class Scanner_app_execute extends Activity {
 
         scanningSound.setLooping(true);
         scanningSound.start();
+
+        activity = this;
+    }
+
+    public static void endActivity(){
+        activity.finish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
     public void onPause() {
@@ -105,7 +118,6 @@ public class Scanner_app_execute extends Activity {
             System.out.println("WIDTH = " + canvas.getWidth());
             System.out.println("HEIGHT = " + canvas.getHeight());
             canvas.restore();
-
 
         }
 
