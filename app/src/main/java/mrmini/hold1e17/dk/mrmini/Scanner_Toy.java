@@ -5,11 +5,13 @@ import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -189,6 +191,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         }
     };
 
+
     private static void updateUIStatus(){
         if(mBluetoothService != null){
             if(mBluetoothService.getState() == 1){
@@ -214,7 +217,6 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
             }
         }
     }
-
 
     public static void read(String messageRead) {
 
@@ -254,7 +256,6 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
 
         if (v == startScan) {
             if(remoteDevice != null){
-                writeToBluetooth("2");
                 Intent i = new Intent(this, Scanner_Toy_scan.class);
                 startActivity(i);
             }
@@ -267,7 +268,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public void writeToBluetooth(String msg){
+    public static void writeToBluetooth(String msg){
         if(remoteDevice != null){
             mBluetoothService.mConnectedThread.write(msg.getBytes());
         }
