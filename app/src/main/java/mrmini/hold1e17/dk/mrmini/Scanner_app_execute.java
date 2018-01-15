@@ -2,28 +2,24 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import static mrmini.hold1e17.dk.mrmini.Scanner_Toy.writeToBluetooth;
 
@@ -37,6 +33,8 @@ public class Scanner_app_execute extends Activity {
     private ViewGroup rootLayout;
     private int xD, yD;
     private int volume_level, sendVol;
+  //  Button tale;
+    //private CustomView cT;
     private MediaPlayer scanningSound;
     static AudioManager am;
 
@@ -44,7 +42,7 @@ public class Scanner_app_execute extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*setContentView(R.layout.activity_scanner_app_execute);
+      /*  setContentView(R.layout.activity_scanner_app_execute);
         rootLayout = (ViewGroup) findViewById(R.id.view_root);
         img2 = (ImageView) rootLayout.findViewById(R.id.dragObj);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 150);
@@ -65,6 +63,7 @@ public class Scanner_app_execute extends Activity {
         writeToBluetooth(""+sendVol);
     }
 
+       // tale = (Button) findViewById(R.id.tale);
     public static void endActivity(){
         activity.finish();
     }
@@ -79,6 +78,7 @@ public class Scanner_app_execute extends Activity {
         super.onPause();
         scanningSound.stop();
     }
+
 
     public class CustomView extends View implements View.OnTouchListener {
         private Bitmap maskPatientScanned = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
@@ -117,14 +117,14 @@ public class Scanner_app_execute extends Activity {
 
             Double dWidthTemp = Double.valueOf(maskPatientDressed.getWidth());
             Double dHeightTemp = Double.valueOf(maskPatientDressed.getHeight());
-            int dWidth = (int) (dWidthTemp / 1.3);
+            //int dWidth = (int) (dWidthTemp / 1);
             int dHeight = (int) (dHeightTemp / 1.3);
 
             canvas.drawBitmap(maskPatientDressed, new Rect(0, 0, maskPatientDressed.getWidth(), maskPatientDressed.getHeight())
-                           , new Rect(90, 0, dWidth, dHeight), overlayPaint);
+                           , new Rect(160, 0, maskPatientDressed.getWidth(), dHeight), overlayPaint);
             canvas.drawBitmap(maskFigure, maskX, maskY, maskPaint);
             canvas.drawBitmap(maskPatientScanned, new Rect(0, 0, (maskPatientScanned.getWidth()), maskPatientScanned.getHeight()),
-                    new Rect(90, 0, dWidth, dHeight), imagePaint);
+                    new Rect(160, 0, maskPatientScanned.getWidth(), dHeight), imagePaint);
             System.out.println("WIDTH = " + canvas.getWidth());
             System.out.println("HEIGHT = " + canvas.getHeight());
             canvas.restore();

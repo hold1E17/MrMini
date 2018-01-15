@@ -25,11 +25,14 @@ public class GameLogic {
     private ArrayList<Thing> nonMagnetic = new ArrayList<>();
     private ArrayList<Thing> magnetic = new ArrayList<>();
     private ArrayList<Thing> caught = new ArrayList<>();
+    private ArrayList<Bitmap> magMap = new ArrayList<>();
+    private ArrayList<Bitmap> nonMagMap = new ArrayList<>();
+    private Bitmap magBM;
     private Random rand = new Random();
     private int[] magDrawables = new int[]{R.drawable.magnetic1, R.drawable.magnetic2, R.drawable.magnetic3, R.drawable.magnetic4, R.drawable.magnetic5};
     private int[] nonMagDrawables = new int[]{R.drawable.nonmagnetic1, R.drawable.nonmagnetic2, R.drawable.nonmagnetic3, R.drawable.nonmagnetic4, R.drawable.nonmagnetic5};
     private Thing magnetObj = null;
-    private Thing mag = new Thing("x", 0, 0);
+    private Thing mag = new Thing(0, 0);
     private Paint object = new Paint();
     private Paint magnet = new Paint();
     PointF finger = new PointF();
@@ -37,61 +40,72 @@ public class GameLogic {
     class Thing {
         RectF rectF = new RectF();
 
-        String str;
+        Thing(int x, int y) {
+            rectF = new RectF(x - 1, y - 1, x + 38, y + 38);
+        }
+    }
 
-        Thing(String string, int x, int y) {
-            str = string;
-            rectF = new RectF(x + 2, y + 2, x + 38, y + 38);
+    public void mapObjects(Resources res) {
+
+        for (int i = 0; i < nonMagnetic.size(); i++) {
+            if (nonMagnetic.get(i) == magnetObj) continue;
+            nonMagMap.add(BitmapFactory.decodeResource(res, nonMagDrawables[i]));
         }
-        public String toString() {
-            return str;
+
+        for (int i = 0; i < magnetic.size(); i++) {
+            if (magnetic.get(i) == magnetObj) continue;
+            magMap.add(BitmapFactory.decodeResource(res, magDrawables[i]));
         }
+
+        magBM = BitmapFactory.decodeResource(res, R.drawable.magnet);
     }
 
     public void createObjects() {
 
-        nonMagnetic.add(new Thing("6", rand.nextInt(450), rand.nextInt(550)));
-        nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
-        nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
-        nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
-        nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
-        magnetic.add(new Thing("1", rand.nextInt(450), rand.nextInt(550)));
-        magnetic.add(new Thing("2", rand.nextInt(450), rand.nextInt(550)));
-        magnetic.add(new Thing("3", rand.nextInt(450), rand.nextInt(550)));
-        magnetic.add(new Thing("3", rand.nextInt(450), rand.nextInt(550)));
-        magnetic.add(new Thing("3", rand.nextInt(450), rand.nextInt(550)));
+        int w = 480;
+        int h = 480;
+
+        nonMagnetic.add(new Thing(rand.nextInt(w), rand.nextInt(h)));
+        nonMagnetic.add(new Thing(rand.nextInt(w), rand.nextInt(h)));
+        nonMagnetic.add(new Thing(rand.nextInt(w), rand.nextInt(h)));
+        nonMagnetic.add(new Thing(rand.nextInt(w), rand.nextInt(h)));
+        nonMagnetic.add(new Thing(rand.nextInt(w), rand.nextInt(h)));
+        magnetic.add(new Thing(rand.nextInt(w), rand.nextInt(h)));
+        magnetic.add(new Thing(rand.nextInt(w), rand.nextInt(h)));
+        magnetic.add(new Thing(rand.nextInt(w), rand.nextInt(h)));
+        magnetic.add(new Thing(rand.nextInt(w), rand.nextInt(h)));
+        magnetic.add(new Thing(rand.nextInt(w), rand.nextInt(h)));
 
     }
 
-    public void createNonMagnetic(Resources res, Canvas c) {
-        for (int i = 0; i < nonMagnetic.size(); i++) {
-            if (nonMagnetic.get(i) == magnetObj) continue;
-            Bitmap bitmap = BitmapFactory.decodeResource(res, nonMagDrawables[i]);
-            c.drawBitmap(bitmap, null, nonMagnetic.get(i).rectF, object);
+    public void createNonMagnetic(Canvas c) {
+
+        for (int i = 0; i < nonMagMap.size(); i++) {
+
+            System.out.println(nonMagMap.get(i).getWidth());
+            System.out.println(nonMagMap.get(i).getHeight());
+            c.drawBitmap(nonMagMap.get(i), null, nonMagnetic.get(i).rectF, object);
+
         }
     }
 
-    public void createMagnetic(Resources res, Canvas c) {
-        for (int i = 0; i < magnetic.size(); i++) {
-            if (magnetic.get(i) == magnetObj) continue;
-            Bitmap bitmap = BitmapFactory.decodeResource(res, magDrawables[i]);
-            BitmapFactory.decodeResource(res,magDrawables[i]);
-            c.drawBitmap(bitmap, null, magnetic.get(i).rectF, object) ;
+    public void createMagnetic(Canvas c) {
+
+        for(int i = 0; i < magMap.size(); i++) {
+
+            c.drawBitmap(magMap.get(i), null, magnetic.get(i).rectF, object);
+
         }
     }
 
-    public void createMagnet(Resources res, Canvas c) {
+    public void createMagnet(Canvas c) {
         if (magnetObj != null) {
             RectF rectF = new RectF(magnetObj.rectF);
             rectF.offsetTo(finger.x - rectF.width() / 2, finger.y - rectF.height() / 2);
-            Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.magnet);
-            BitmapFactory.decodeResource(res,R.drawable.magnet);
-            c.drawBitmap(bitmap, null, rectF, magnet) ;
+            c.drawBitmap(magBM, null, rectF, magnet) ;
         } else {
             RectF rectF = new RectF(mag.rectF);
-            Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.magnet);
-            BitmapFactory.decodeResource(res,R.drawable.magnet);
-            c.drawBitmap(bitmap, null, rectF, magnet) ;
+            c.drawBitmap(magBM, null, rectF, magnet) ;
         }
     }
 

@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="@string/pref_catSound"
-        android:key="pref_key_sound_settings">
-        <SeekBarPreference
-            android:key="pref_key_volume"
-            android:title="@string/pref_title_sound"
-            android:max="10"
-            android:defaultValue="0" />
-        <CheckBoxPreference
-            android:key="pref_key_mute"
-            android:summary="@string/pref_sum_mute"
-            android:title="@string/pref_title_mute"
-            android:defaultValue="false"/>
-    </PreferenceCategory>
     <PreferenceCategory android:title="@string/pref_catHospital">
 
         <ListPreference
@@ -25,8 +11,13 @@
             android:title="@string/pref_title_hospital" />
     </PreferenceCategory>
 
-    <Preference android:title="@string/logout"
+    <Preference
         android:key="pref_key_logout"
-        android:summary="@string/pref_sum_logout"/>
+        android:summary="@string/pref_sum_logout"
+        android:title="@string/logout" />
+
+    <Preference
+        android:summary="@string/about_app"
+        android:title="Om app" />
 
 </PreferenceScreen>

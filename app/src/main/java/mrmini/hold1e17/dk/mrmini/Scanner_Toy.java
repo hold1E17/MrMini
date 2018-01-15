@@ -1,5 +1,6 @@
 package mrmini.hold1e17.dk.mrmini;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
@@ -11,7 +12,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -44,10 +44,11 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
      */
     private static String mConnectedDeviceName = null;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_toy);
 
@@ -140,6 +141,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         this.finish();
     }
 
+    @SuppressLint("HandlerLeak")
     private static Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
