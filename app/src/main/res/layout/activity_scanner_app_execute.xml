@@ -11,9 +11,11 @@
         android:id="@+id/patientBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@drawable/man1"
         android:scaleType="fitCenter"
         android:src="@drawable/man1"
+        android:layout_centerInParent="true"
         android:visibility="invisible" />
 
    <!-- <ImageView

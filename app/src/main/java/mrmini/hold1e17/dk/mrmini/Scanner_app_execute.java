@@ -12,9 +12,11 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import static mrmini.hold1e17.dk.mrmini.Scanner_Toy.writeToBluetooth;
 
 
 /**
@@ -33,6 +37,7 @@ public class Scanner_app_execute extends Activity {
     private ViewGroup rootLayout;
     private int xD, yD;
     private MediaPlayer scanningSound;
+    static AudioManager am;
 
     private static Activity activity;
 
@@ -53,6 +58,7 @@ public class Scanner_app_execute extends Activity {
         scanningSound.start();
 
         activity = this;
+        am = (AudioManager) getSystemService(AUDIO_SERVICE);
     }
 
     public static void endActivity(){
@@ -165,8 +171,27 @@ public class Scanner_app_execute extends Activity {
             }
             return true;
         }
-    }
 
+    }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        int volume_level = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        int sendVol = Math.round(volume_level/3);
+
+        if(sendVol == 0){
+            sendVol++;
+        } else if(sendVol == 10){
+            sendVol--;
+        }
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
+            writeToBluetooth(""+sendVol);
+        } else if((keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
+            writeToBluetooth(""+sendVol);
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+}
 
 
 /*
@@ -422,4 +447,3 @@ public class Scanner_app_execute extends Activity {
 
 
     }*/
-}

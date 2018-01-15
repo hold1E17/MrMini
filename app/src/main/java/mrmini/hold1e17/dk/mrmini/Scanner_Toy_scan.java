@@ -93,6 +93,7 @@ public class Scanner_Toy_scan extends AppCompatActivity {
             case "9":
                 statusTextScan.setText("Dukken der er blevet placeret er en skildpadde");
                 savedCase = "9";
+                scannerImg.setImageResource(R.drawable.mrscanner_skildpadde);
                 break;
         }
     }
