@@ -1,16 +1,10 @@
 package mrmini.hold1e17.dk.mrmini;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.webkit.WebView;
 import android.widget.MediaController;
 import android.widget.VideoView;

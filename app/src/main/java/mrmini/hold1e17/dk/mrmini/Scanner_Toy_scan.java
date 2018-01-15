@@ -3,16 +3,10 @@ package mrmini.hold1e17.dk.mrmini;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import static android.content.ContentValues.TAG;
 
 public class Scanner_Toy_scan extends AppCompatActivity {
 
