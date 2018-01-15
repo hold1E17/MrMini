@@ -156,8 +156,8 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     Log.d(TAG, "READ: " + readMessage);
                     Scanner_Toy_scan.read(readMessage);
-                    Toast.makeText(context, readMessage,
-                            Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, readMessage,
+                      //      Toast.LENGTH_SHORT).show();
                     break;
                 case BluetoothService.MessageConstants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name

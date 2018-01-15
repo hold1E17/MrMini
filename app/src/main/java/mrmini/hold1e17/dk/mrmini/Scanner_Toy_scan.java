@@ -37,6 +37,8 @@ public class Scanner_Toy_scan extends AppCompatActivity {
         }
 
         context = this;
+
+        read("2"); //Default view -> Ingen dukke placeret
     }
 
     public static void read(String messageRead) {
