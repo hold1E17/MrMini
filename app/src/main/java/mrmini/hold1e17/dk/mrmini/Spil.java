@@ -92,5 +92,4 @@ public class Spil extends AppCompatActivity {
 
         }
     }
-
 }
