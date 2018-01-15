@@ -28,9 +28,9 @@ public class Scanner_app extends Activity implements View.OnClickListener {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_scanner_app);
 
-    button = (Button) findViewById(R.id.button);
-    startScan = (Button) findViewById(R.id.startScan);
-    imageViewPhotoSnap = (ImageView) findViewById(R.id.imageViewPhotoSnap);
+    button = findViewById(R.id.button);
+    startScan = findViewById(R.id.startScan);
+    imageViewPhotoSnap = findViewById(R.id.imageViewPhotoSnap);
 
 
         button.setOnClickListener(new View.OnClickListener() {
