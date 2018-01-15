@@ -54,6 +54,7 @@
         <activity android:name=".Scanner_app_execute"
             android:label="Start scanning"
             android:parentActivityName="mrmini.hold1e17.dk.mrmini.Scanner_app_execute"/>
+        <activity android:name=".CustomCamera"/>
     </application>
 
 </manifest>

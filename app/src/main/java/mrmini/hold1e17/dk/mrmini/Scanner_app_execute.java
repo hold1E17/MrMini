@@ -46,7 +46,7 @@ public class Scanner_app_execute extends Activity {
         CustomView cV = new CustomView(this);
         cV.setOnTouchListener(cV);
         setContentView(cV);
-        scanningSound = MediaPlayer.create(Scanner_app_execute.this, R.raw.MRI_sounds);
+        scanningSound = MediaPlayer.create(Scanner_app_execute.this, R.raw.mri_sound);
 
         scanningSound.setLooping(true);
         scanningSound.start();
@@ -60,7 +60,6 @@ public class Scanner_app_execute extends Activity {
     public class CustomView extends View implements View.OnTouchListener {
         private Bitmap maskPatientScanned = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
         private Bitmap maskPatientDressed = BitmapFactory.decodeResource(getResources(), R.drawable.man0);
-        private Bitmap moveSymbol = BitmapFactory.decodeResource(getResources(), R.drawable.arrows);
         private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.rectangle);
         private final Paint imagePaint;
         private final Paint maskPaint;

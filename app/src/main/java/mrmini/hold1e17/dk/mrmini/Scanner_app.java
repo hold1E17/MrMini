@@ -2,11 +2,14 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 
@@ -18,31 +21,32 @@ import android.widget.ImageView;
 public class Scanner_app extends Activity implements View.OnClickListener {
     Button button, startScan;
     ImageView imageViewPhotoSnap;
+
     static final int CAM_REQUEST = 1;
 
     protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_scanner_app);
 
+
     button = (Button) findViewById(R.id.button);
     startScan = (Button) findViewById(R.id.startScan);
     imageViewPhotoSnap = (ImageView) findViewById(R.id.imageViewPhotoSnap);
 
 
-        button.setOnClickListener(new View.OnClickListener() {
-        public void onClick(View v) {
-            Intent intent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent,0);
-        }
-    });
+        button.setOnClickListener(this);
         button.setText("Tag billede");
 
         startScan.setOnClickListener(this);
         startScan.setText("Start scan");
 }
+
     public void onClick(View v) {
         if(v == startScan){
             Intent i = new Intent(this, Scanner_app_execute.class);
+            startActivity(i);
+        }else if(v == button){
+            Intent i = new Intent(this,CustomCamera.class);
             startActivity(i);
         }
     }
