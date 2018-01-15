@@ -2,16 +2,11 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+import android.media.AudioManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import static android.content.ContentValues.TAG;
 
 public class Scanner_Toy_scan extends AppCompatActivity {
 
@@ -24,6 +19,9 @@ public class Scanner_Toy_scan extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner__toy_scan);
         statusTextScan = (TextView) findViewById(R.id.textStatusScan);
