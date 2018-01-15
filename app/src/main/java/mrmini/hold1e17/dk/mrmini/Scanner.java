@@ -18,10 +18,10 @@ public class Scanner extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_scanner);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
-        scanBut1 = (Button) findViewById(R.id.scanBut1);
-        scanBut2 = (Button) findViewById(R.id.scanBut2);
-        sygeplejeske1 = (Button) findViewById(R.id.krop1);  // Skal ændres
-        hoved1 = (Button) findViewById(R.id.hoved1);
+        scanBut1 = findViewById(R.id.scanBut1);
+        scanBut2 = findViewById(R.id.scanBut2);
+        sygeplejeske1 = findViewById(R.id.krop1);  // Skal ændres
+        hoved1 = findViewById(R.id.hoved1);
 
         scanBut1.setOnClickListener(this);
         scanBut2.setOnClickListener(this);
