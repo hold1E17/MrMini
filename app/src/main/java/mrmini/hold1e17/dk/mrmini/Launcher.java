@@ -2,6 +2,7 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,16 +13,12 @@ import android.support.v7.app.AppCompatActivity;
 
 public class Launcher extends AppCompatActivity {
 
-    String login = "";
-    String hospital = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         super.onCreate(savedInstanceState);
-
-        login = PreferenceManager.getDefaultSharedPreferences(this).getString("login", "");
-
-        hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
 
         if (!(PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_save", "").equals("true"))) {
 
@@ -34,9 +31,11 @@ public class Launcher extends AppCompatActivity {
             startActivity(i);
             finish();
         } else {
+
             Intent i = new Intent(this, Hovedmenu.class);
             startActivity(i);
             finish();
+
         }
 
         setTitle("MR Scanner");
