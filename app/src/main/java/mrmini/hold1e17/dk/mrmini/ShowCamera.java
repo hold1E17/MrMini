@@ -13,21 +13,34 @@ import java.io.IOException;
  */
 
 public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback{
-    private Camera camera;
-    private SurfaceHolder holdMe;
 
-    public ShowCamera(Context context, Camera mycam){
-        super(context);
-        camera = mycam;
-        holdMe = getHolder();
-        holdMe.addCallback(this);
-    }
+        private Camera camera;
+
+        private SurfaceHolder holdMe;
+
+public ShowCamera(Context context, Camera mycam)
+
+        {
+
+            super(context);
+
+            camera = mycam;
+
+            holdMe = getHolder();
+
+            holdMe.addCallback(this);
+
+
+
+        }
+
+
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         try {
             camera.setPreviewDisplay(holder);
             camera.startPreview();
-        } catch(IOException e ) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -41,6 +54,5 @@ public class ShowCamera extends SurfaceView implements SurfaceHolder.Callback{
     public void surfaceDestroyed(SurfaceHolder holder) {
         camera.stopPreview();
         camera.release();
-
     }
 }
