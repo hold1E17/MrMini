@@ -29,7 +29,7 @@ public class GameLogic {
     private int[] magDrawables = new int[]{R.drawable.magnetic1, R.drawable.magnetic2, R.drawable.magnetic3, R.drawable.magnetic4, R.drawable.magnetic5};
     private int[] nonMagDrawables = new int[]{R.drawable.nonmagnetic1, R.drawable.nonmagnetic2, R.drawable.nonmagnetic3, R.drawable.nonmagnetic4, R.drawable.nonmagnetic5};
     private Thing magnetObj = null;
-    private Thing mag = new Thing("x", 0, 0);
+    private Thing mag = new Thing(0, 0);
     private Paint object = new Paint();
     private Paint magnet = new Paint();
     PointF finger = new PointF();
@@ -37,29 +37,23 @@ public class GameLogic {
     class Thing {
         RectF rectF = new RectF();
 
-        String str;
-
-        Thing(String string, int x, int y) {
-            str = string;
-            rectF = new RectF(x + 2, y + 2, x + 38, y + 38);
-        }
-        public String toString() {
-            return str;
+        Thing(int x, int y) {
+            rectF = new RectF(x - 50, y - 50, x + 38, y + 38);
         }
     }
 
     public void createObjects() {
 
-        nonMagnetic.add(new Thing("6", rand.nextInt(450), rand.nextInt(550)));
-        nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
-        nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
-        nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
-        nonMagnetic.add(new Thing("+", rand.nextInt(450), rand.nextInt(550)));
-        magnetic.add(new Thing("1", rand.nextInt(450), rand.nextInt(550)));
-        magnetic.add(new Thing("2", rand.nextInt(450), rand.nextInt(550)));
-        magnetic.add(new Thing("3", rand.nextInt(450), rand.nextInt(550)));
-        magnetic.add(new Thing("3", rand.nextInt(450), rand.nextInt(550)));
-        magnetic.add(new Thing("3", rand.nextInt(450), rand.nextInt(550)));
+        nonMagnetic.add(new Thing(rand.nextInt(450), rand.nextInt(550)));
+        nonMagnetic.add(new Thing(rand.nextInt(450), rand.nextInt(550)));
+        nonMagnetic.add(new Thing(rand.nextInt(450), rand.nextInt(550)));
+        nonMagnetic.add(new Thing(rand.nextInt(450), rand.nextInt(550)));
+        nonMagnetic.add(new Thing(rand.nextInt(450), rand.nextInt(550)));
+        magnetic.add(new Thing(rand.nextInt(450), rand.nextInt(550)));
+        magnetic.add(new Thing(rand.nextInt(450), rand.nextInt(550)));
+        magnetic.add(new Thing(rand.nextInt(450), rand.nextInt(550)));
+        magnetic.add(new Thing(rand.nextInt(450), rand.nextInt(550)));
+        magnetic.add(new Thing(rand.nextInt(450), rand.nextInt(550)));
 
     }
 

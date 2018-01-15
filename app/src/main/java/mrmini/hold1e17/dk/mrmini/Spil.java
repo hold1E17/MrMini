@@ -51,12 +51,13 @@ public class Spil extends AppCompatActivity {
             float ey = e.getY() / screen;
 
             if (e.getAction() == MotionEvent.ACTION_DOWN) {
-                //      gl.catchMagnetic(getContext(), ex, ey);
+
                 if (!gl.catchMagnetic(getContext(), ex, ey)) {
                     endGame();
                 }
             }
             if (e.getAction() == MotionEvent.ACTION_MOVE) {
+
                 if (!gl.catchMagnetic(getContext(), ex, ey)) {
                     endGame();
                 }
@@ -70,7 +71,7 @@ public class Spil extends AppCompatActivity {
 
             AlertDialog.Builder builder;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+                builder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog);
             } else {
                 builder = new AlertDialog.Builder(getContext());
             }

@@ -12,16 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 
 public class Launcher extends AppCompatActivity {
 
-    String login = "";
-    String hospital = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        login = PreferenceManager.getDefaultSharedPreferences(this).getString("login", "");
-
-        hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
 
         if (!(PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_save", "").equals("true"))) {
 
@@ -34,9 +27,11 @@ public class Launcher extends AppCompatActivity {
             startActivity(i);
             finish();
         } else {
+
             Intent i = new Intent(this, Hovedmenu.class);
             startActivity(i);
             finish();
+
         }
 
         setTitle("MR Scanner");

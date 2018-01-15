@@ -36,8 +36,10 @@ public class Indstillinger extends PreferenceActivity {
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
             Preference button = getPreferenceManager().findPreference("pref_key_logout");
+
             if (button != null) {
                 button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
                     @Override
                     public boolean onPreferenceClick(Preference arg0) {
                         Intent i = new Intent(getActivity(), Login.class);
@@ -52,7 +54,9 @@ public class Indstillinger extends PreferenceActivity {
                         getActivity().finish();
 
                         return true;
+
                     }
+
                 });
 
             }
