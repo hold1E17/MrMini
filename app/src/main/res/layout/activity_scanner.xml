@@ -49,8 +49,8 @@
 
     <Button
         android:id="@+id/hoved1"
-        android:layout_width="134dp"
-        android:layout_height="124dp"
+        android:layout_width="119dp"
+        android:layout_height="112dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"

@@ -19,7 +19,7 @@ public class Scanner extends AppCompatActivity implements View.OnClickListener {
 
         scanBut1 = (Button) findViewById(R.id.scanBut1);
         scanBut2 = (Button) findViewById(R.id.scanBut2);
-        sygeplejeske1 = (Button) findViewById(R.id.krop1);  // Skal ændres
+        sygeplejeske1 = (Button) findViewById(R.id.krop1);
         hoved1 = (Button) findViewById(R.id.hoved1);
 
         scanBut1.setOnClickListener(this);

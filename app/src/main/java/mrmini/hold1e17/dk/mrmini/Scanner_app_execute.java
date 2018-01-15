@@ -2,6 +2,7 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,10 +10,12 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 
@@ -24,12 +27,13 @@ public class Scanner_app_execute extends Activity  {
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
+    Button tale;
     //private CustomView cT;
 
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*setContentView(R.layout.activity_scanner_app_execute);
+      /*  setContentView(R.layout.activity_scanner_app_execute);
         rootLayout = (ViewGroup) findViewById(R.id.view_root);
         img2 = (ImageView) rootLayout.findViewById(R.id.dragObj);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 150);
@@ -39,8 +43,10 @@ public class Scanner_app_execute extends Activity  {
         cV.setOnTouchListener(cV);
         setContentView(cV);
 
+        tale = (Button) findViewById(R.id.tale);
 
     }
+
 
     public class CustomView extends View implements View.OnTouchListener {
         private Bitmap maskPatientScanned = BitmapFactory.decodeResource(getResources(), R.drawable.man1);

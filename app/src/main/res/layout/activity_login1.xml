@@ -10,8 +10,8 @@
 
     <Button
         android:id="@+id/noLogBut"
-        android:layout_width="104dp"
-        android:layout_height="97dp"
+        android:layout_width="114dp"
+        android:layout_height="101dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -19,7 +19,7 @@
         android:background="@drawable/roundedbutton4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.69"
+        app:layout_constraintHorizontal_bias="0.77"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.656"
@@ -46,8 +46,8 @@
 
     <Button
         android:id="@+id/logBut"
-        android:layout_width="144dp"
-        android:layout_height="118dp"
+        android:layout_width="120dp"
+        android:layout_height="109dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
@@ -55,7 +55,7 @@
         android:background="@drawable/roundedbutton3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintHorizontal_bias="0.22"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.65999997"
