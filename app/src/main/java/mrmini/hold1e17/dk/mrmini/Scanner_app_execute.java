@@ -108,14 +108,14 @@ public class Scanner_app_execute extends Activity {
 
             Double dWidthTemp = Double.valueOf(maskPatientDressed.getWidth());
             Double dHeightTemp = Double.valueOf(maskPatientDressed.getHeight());
-            int dWidth = (int) (dWidthTemp / 1.3);
+            //int dWidth = (int) (dWidthTemp / 1);
             int dHeight = (int) (dHeightTemp / 1.3);
 
             canvas.drawBitmap(maskPatientDressed, new Rect(0, 0, maskPatientDressed.getWidth(), maskPatientDressed.getHeight())
-                           , new Rect(90, 0, dWidth, dHeight), overlayPaint);
+                           , new Rect(160, 0, maskPatientDressed.getWidth(), dHeight), overlayPaint);
             canvas.drawBitmap(maskFigure, maskX, maskY, maskPaint);
             canvas.drawBitmap(maskPatientScanned, new Rect(0, 0, (maskPatientScanned.getWidth()), maskPatientScanned.getHeight()),
-                    new Rect(90, 0, dWidth, dHeight), imagePaint);
+                    new Rect(160, 0, maskPatientScanned.getWidth(), dHeight), imagePaint);
             System.out.println("WIDTH = " + canvas.getWidth());
             System.out.println("HEIGHT = " + canvas.getHeight());
             canvas.restore();
