@@ -69,7 +69,6 @@ public class GameLogic {
         for (int i = 0; i < magnetic.size(); i++) {
             if (magnetic.get(i) == magnetObj) continue;
             Bitmap bitmap = BitmapFactory.decodeResource(res, magDrawables[i]);
-            BitmapFactory.decodeResource(res,magDrawables[i]);
             c.drawBitmap(bitmap, null, magnetic.get(i).rectF, object) ;
         }
     }
@@ -79,7 +78,6 @@ public class GameLogic {
             RectF rectF = new RectF(magnetObj.rectF);
             rectF.offsetTo(finger.x - rectF.width() / 2, finger.y - rectF.height() / 2);
             Bitmap bitmap = BitmapFactory.decodeResource(res, R.drawable.magnet);
-            BitmapFactory.decodeResource(res,R.drawable.magnet);
             c.drawBitmap(bitmap, null, rectF, magnet) ;
         } else {
             RectF rectF = new RectF(mag.rectF);
