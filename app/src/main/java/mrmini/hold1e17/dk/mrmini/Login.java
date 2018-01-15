@@ -14,6 +14,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import mrmini.hold1e17.dk.mrmini.Logic.PreferenceLogic;
+
 /**
  * Created by Simon on 30-10-2017.
  */
@@ -24,7 +26,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     EditText userName;
     Spinner hospitalChoice;
     CheckBox rememberMe;
-    int counter;
+
+    PreferenceLogic pl = new PreferenceLogic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +35,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login1);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
-        logBut = (Button) findViewById(R.id.logBut);
-        noLogBut = (Button) findViewById(R.id.noLogBut);
-        userName = (EditText) findViewById(R.id.userName);
-        hospitalChoice = (Spinner) findViewById(R.id.hospitalChoice);
-        rememberMe = (CheckBox) findViewById(R.id.rememberMe);
-        ambulance = (Button) findViewById(R.id.ambulance);
+        logBut = findViewById(R.id.logBut);
+        noLogBut = findViewById(R.id.noLogBut);
+        userName = findViewById(R.id.userName);
+        hospitalChoice = findViewById(R.id.hospitalChoice);
+        rememberMe = findViewById(R.id.rememberMe);
+        ambulance = findViewById(R.id.ambulance);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.hospitalList, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -73,20 +76,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             ambulance.startAnimation(AnimationUtils.makeOutAnimation(this, false));
         }
 
-
-    }
-
-    public void saveLogin() {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        SharedPreferences.Editor editor = preferences.edit();
-
-        editor.putString("pref_key_hospital", hospitalChoice.getSelectedItem().toString());
-        if (rememberMe.isChecked()) {
-            editor.putString("pref_key_save", "true");
-        }
-
-        editor.putString("login", userName.getText().toString());
-        editor.apply();
 
     }
 
