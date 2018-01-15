@@ -5,6 +5,7 @@ import android.preference.PreferenceManager;
 
 import mrmini.hold1e17.dk.mrmini.Hovedmenu;
 import mrmini.hold1e17.dk.mrmini.Login;
+import mrmini.hold1e17.dk.mrmini.Scanner;
 
 /**
  * Created by Simon on 15-01-2018.
@@ -17,7 +18,17 @@ public class PreferenceLogic {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(hovedmenu);
         SharedPreferences.Editor editor = preferences.edit();
 
-        editor.putString("pref_key_nurse", "true");
+        editor.putString("pref_key_nurse_main", "true");
+        editor.apply();
+
+    }
+
+    public void saveNurse(Scanner scan) {
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(scan);
+        SharedPreferences.Editor editor = preferences.edit();
+
+        editor.putString("pref_key_nurse_scan", "true");
         editor.apply();
 
     }

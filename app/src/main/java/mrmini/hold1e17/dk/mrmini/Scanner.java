@@ -3,14 +3,21 @@ package mrmini.hold1e17.dk.mrmini;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import mrmini.hold1e17.dk.mrmini.Logic.PreferenceLogic;
+
 public class Scanner extends AppCompatActivity implements View.OnClickListener {
 
     Button scanBut1, scanBut2, sygeplejeske1, hoved1;
+
+    String nurseStatus;
+
+    PreferenceLogic pl = new PreferenceLogic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +33,24 @@ public class Scanner extends AppCompatActivity implements View.OnClickListener {
         sygeplejeske1 = findViewById(R.id.krop1);  // Skal ændres
         hoved1 = findViewById(R.id.hoved1);
 
+        nurseStatus = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_nurse_scan", "");
+
+        if (nurseStatus.equals("true")) {
+
+            sygeplejeske1.setVisibility(View.GONE);
+            hoved1.setVisibility(View.VISIBLE);
+
+        } else {
+
+            sygeplejeske1.setVisibility(View.VISIBLE);
+            hoved1.setVisibility(View.GONE);
+
+        }
+
         scanBut1.setOnClickListener(this);
         scanBut2.setOnClickListener(this);
         sygeplejeske1.setOnClickListener(this);
         hoved1.setOnClickListener(this);
-
-        hoved1.setVisibility(View.INVISIBLE);
 
     }
 
@@ -49,6 +68,7 @@ public class Scanner extends AppCompatActivity implements View.OnClickListener {
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.buttonclick);
             mediaPlayer.start();
         } else if(v == sygeplejeske1){
+            pl.saveNurse(this);
             hoved1.setVisibility(View.VISIBLE);
             sygeplejeske1.setVisibility(View.INVISIBLE);
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.close);
