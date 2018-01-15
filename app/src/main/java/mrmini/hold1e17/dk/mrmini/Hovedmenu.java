@@ -33,7 +33,7 @@ PreferenceLogic pl = new PreferenceLogic();
 
         hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
 
-        nurseStatus = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_nurse", "");
+        nurseStatus = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_nurse_main", "");
 
         info = findViewById(R.id.info);
         scanner = findViewById(R.id.scanner);
@@ -48,7 +48,6 @@ PreferenceLogic pl = new PreferenceLogic();
             sygeplejeske.setVisibility(View.GONE);
             hoved.setVisibility(View.VISIBLE);
 
-            System.out.println("TEST");
         } else {
 
             sygeplejeske.setVisibility(View.VISIBLE);
