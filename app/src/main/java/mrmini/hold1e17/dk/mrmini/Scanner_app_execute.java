@@ -27,7 +27,7 @@ public class Scanner_app_execute extends Activity  {
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
-    Button tale;
+  //  Button tale;
     //private CustomView cT;
 
 
@@ -43,7 +43,7 @@ public class Scanner_app_execute extends Activity  {
         cV.setOnTouchListener(cV);
         setContentView(cV);
 
-        tale = (Button) findViewById(R.id.tale);
+       // tale = (Button) findViewById(R.id.tale);
 
     }
 
