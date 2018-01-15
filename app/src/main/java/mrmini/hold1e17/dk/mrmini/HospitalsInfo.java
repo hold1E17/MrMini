@@ -17,7 +17,6 @@ import android.widget.VideoView;
 
 import mrmini.hold1e17.dk.mrmini.Logic.InfoLogic;
 
-
 public class HospitalsInfo extends AppCompatActivity {
     String vidAddress;
     String webAddress;
