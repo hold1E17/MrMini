@@ -104,8 +104,8 @@
 
     <Button
         android:id="@+id/ambulance"
-        android:layout_width="145dp"
-        android:layout_height="68dp"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/ambulance"

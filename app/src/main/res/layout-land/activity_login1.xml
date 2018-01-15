@@ -10,9 +10,9 @@
 
 
     <Button
-        android:id="@+id/ambulance2"
-        android:layout_width="145dp"
-        android:layout_height="68dp"
+        android:id="@+id/ambulance"
+        android:layout_width="140dp"
+        android:layout_height="70dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:background="@drawable/ambulance"
@@ -24,11 +24,12 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/roundedbutton4"
         app:layout_constraintBottom_toBottomOf="@+id/logBut"
+        app:layout_constraintEnd_toEndOf="@+id/hospitalChoice"
         tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_editor_absoluteX="377dp" />
+        tools:layout_constraintTop_creator="1" />
 
 
     <ImageView
