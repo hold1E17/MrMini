@@ -29,4 +29,7 @@
         android:key="pref_key_logout"
         android:summary="@string/pref_sum_logout"/>
 
+    <Preference android:title="Om app"
+        android:summary="@string/about_app"
+
 </PreferenceScreen>
