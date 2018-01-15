@@ -11,11 +11,8 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-<<<<<<< HEAD
-=======
 import android.graphics.RectF;
 import android.media.AudioManager;
->>>>>>> master
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,12 +20,9 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
 import android.widget.Button;
-=======
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
->>>>>>> master
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -43,13 +37,10 @@ public class Scanner_app_execute extends Activity {
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
-<<<<<<< HEAD
   //  Button tale;
     //private CustomView cT;
-=======
     private MediaPlayer scanningSound;
     static AudioManager am;
->>>>>>> master
 
     private static Activity activity;
 
@@ -73,13 +64,10 @@ public class Scanner_app_execute extends Activity {
         am = (AudioManager) getSystemService(AUDIO_SERVICE);
     }
 
-<<<<<<< HEAD
        // tale = (Button) findViewById(R.id.tale);
-=======
     public static void endActivity(){
         activity.finish();
     }
->>>>>>> master
 
     @Override
     public void finish() {
