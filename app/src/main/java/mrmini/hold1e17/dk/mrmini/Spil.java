@@ -3,6 +3,7 @@ package mrmini.hold1e17.dk.mrmini;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Canvas;
+import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -21,6 +22,9 @@ public class Spil extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         super.onCreate(savedInstanceState);
         setContentView(new MagnetView(this));
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);

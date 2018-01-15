@@ -1,6 +1,7 @@
 package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,8 @@ public class Scanner extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);

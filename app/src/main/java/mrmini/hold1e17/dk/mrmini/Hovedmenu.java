@@ -1,6 +1,7 @@
 package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -22,6 +23,9 @@ PreferenceLogic pl = new PreferenceLogic();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         setContentView(R.layout.activity_hovedmenu);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 

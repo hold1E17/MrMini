@@ -3,6 +3,7 @@ package mrmini.hold1e17.dk.mrmini;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -21,6 +22,9 @@ public class Scanner_app extends Activity implements View.OnClickListener {
     static final int CAM_REQUEST = 1;
 
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_scanner_app);
 

@@ -2,6 +2,7 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -32,6 +33,9 @@ public class HospitalsInfo extends AppCompatActivity {
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_video);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
