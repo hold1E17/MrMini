@@ -2,6 +2,7 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -27,6 +28,8 @@ public class Indstillinger extends PreferenceActivity {
 
             super.onCreate(savedInstanceState);
 
+            getActivity().setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
             addPreferencesFromResource(R.xml.preferences);
 
             Preference pref = findPreference("pref_key_hospital");
@@ -36,8 +39,10 @@ public class Indstillinger extends PreferenceActivity {
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
             Preference button = getPreferenceManager().findPreference("pref_key_logout");
+
             if (button != null) {
                 button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
                     @Override
                     public boolean onPreferenceClick(Preference arg0) {
                         Intent i = new Intent(getActivity(), Login.class);
@@ -52,7 +57,9 @@ public class Indstillinger extends PreferenceActivity {
                         getActivity().finish();
 
                         return true;
+
                     }
+
                 });
 
             }
@@ -67,10 +74,6 @@ public class Indstillinger extends PreferenceActivity {
             if(key.equals("pref_key_hospital")) {
                 Preference pref = findPreference(key);
                 pref.setSummary(sharedPreferences.getString(key, ""));
-            }
-
-            if(key.equals("pref_key_sound")) {
-               // TODO implement mute function
             }
 
         }
