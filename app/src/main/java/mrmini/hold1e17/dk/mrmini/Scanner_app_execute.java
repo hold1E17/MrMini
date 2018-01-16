@@ -13,6 +13,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -27,12 +28,12 @@ import static mrmini.hold1e17.dk.mrmini.Scanner_Toy.writeToBluetooth;
  */
 
 public class Scanner_app_execute extends AppCompatActivity {
-    static AudioManager am;
+    private static AudioManager am;
     private static Activity activity;
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
-    private int volume_level, sendVol;
+    private int currentVolumeLevel, sendVol, maxVolume;
     //  Button tale;
     //private CustomView cT;
     private MediaPlayer scanningSound;
@@ -60,8 +61,15 @@ public class Scanner_app_execute extends AppCompatActivity {
 
         activity = this;
         am = (AudioManager) getSystemService(AUDIO_SERVICE);
-        volume_level = am.getStreamVolume(AudioManager.STREAM_MUSIC);
-        sendVol = Math.round(volume_level / 3);
+        maxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        currentVolumeLevel = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        float volumeCalculation = ((float) currentVolumeLevel / (float) maxVolume) * 10.0f;
+        sendVol = Math.round(volumeCalculation);
+        if (sendVol == 0) {
+            sendVol++;
+        } else if (sendVol == 10) {
+            sendVol--;
+        }
         writeToBluetooth("" + sendVol);
     }
 
@@ -78,17 +86,20 @@ public class Scanner_app_execute extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+        currentVolumeLevel = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        float volumeCalculation = ((float) currentVolumeLevel / (float) maxVolume) * 10.0f;
+        sendVol = Math.round(volumeCalculation);
         if (sendVol == 0) {
             sendVol++;
         } else if (sendVol == 10) {
             sendVol--;
         }
+
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
             writeToBluetooth("" + sendVol);
         } else if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
             writeToBluetooth("" + sendVol);
         }
-
         return super.onKeyDown(keyCode, event);
     }
 
