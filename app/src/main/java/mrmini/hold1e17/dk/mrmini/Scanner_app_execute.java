@@ -35,6 +35,7 @@ public class Scanner_app_execute extends Activity {
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
+    private int volume_level, sendVol;
   //  Button tale;
     //private CustomView cT;
     private MediaPlayer scanningSound;
@@ -60,6 +61,9 @@ public class Scanner_app_execute extends Activity {
 
         activity = this;
         am = (AudioManager) getSystemService(AUDIO_SERVICE);
+        volume_level = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        sendVol = Math.round(volume_level/3);
+        writeToBluetooth(""+sendVol);
     }
 
        // tale = (Button) findViewById(R.id.tale);
@@ -178,9 +182,6 @@ public class Scanner_app_execute extends Activity {
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        int volume_level = am.getStreamVolume(AudioManager.STREAM_MUSIC);
-        int sendVol = Math.round(volume_level/3);
-
         if(sendVol == 0){
             sendVol++;
         } else if(sendVol == 10){
