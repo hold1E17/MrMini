@@ -62,6 +62,9 @@
             android:name=".Scanner_app_execute"
             android:label="Start scanning"
             android:parentActivityName=".Scanner_app_execute" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e76309a1d1dc5c1d30a9533811d9e6f17e076d74" />
     </application>
 
 </manifest>
