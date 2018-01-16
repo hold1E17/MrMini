@@ -35,7 +35,7 @@ public class Scanner_app extends AppCompatActivity implements View.OnClickListen
         scanner = findViewById(R.id.scanner_app);
 
         scanner.setImageResource(R.drawable.scanner);
-        
+
         button.setOnClickListener(this);
         startScan.setOnClickListener(this);
         dreng.setOnClickListener(this);
