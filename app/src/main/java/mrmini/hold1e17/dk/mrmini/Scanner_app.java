@@ -17,8 +17,8 @@ import android.widget.ImageView;
  */
 
 public class Scanner_app extends Activity implements View.OnClickListener {
-    Button button, startScan;
-    ImageView imageViewPhotoSnap;
+    Button button, startScan, dreng, skildpadde;
+    ImageView scanner;
     static final int CAM_REQUEST = 1;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,9 @@ public class Scanner_app extends Activity implements View.OnClickListener {
 
     button = findViewById(R.id.button);
     startScan = findViewById(R.id.startScan);
-    imageViewPhotoSnap = findViewById(R.id.imageViewPhotoSnap);
+    dreng = findViewById(R.id.hoveddreng);
+    skildpadde = findViewById(R.id.hovedskildpadde);
+    scanner = findViewById(R.id.scanner_app);
 
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -40,20 +42,26 @@ public class Scanner_app extends Activity implements View.OnClickListener {
         }
     });
         button.setText("Tag billede");
-
         startScan.setOnClickListener(this);
-        startScan.setText("Start scan");
 }
+
+
     public void onClick(View v) {
         if(v == startScan){
             Intent i = new Intent(this, Scanner_app_execute.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(i);
+        } else if(v == dreng){
+            scanner.setImageResource(R.drawable.scanner_mand);
+            startScan.setVisibility(View.VISIBLE);
+        } else if(v == skildpadde){
+            scanner.setImageResource(R.drawable.mrscanner_skildpadde);
+            startScan.setVisibility(View.VISIBLE);
         }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-        imageViewPhotoSnap.setImageBitmap(bitmap);
     }
 }
