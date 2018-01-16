@@ -57,11 +57,11 @@
         <activity
             android:name=".Scanner_app"
             android:label="Scan med app"
-            android:parentActivityName=".Scanner_app" />
+            android:parentActivityName=".Hovedmenu" />
         <activity
             android:name=".Scanner_app_execute"
             android:label="Start scanning"
-            android:parentActivityName=".Scanner_app_execute" />
+            android:parentActivityName=".Scanner_app" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="e76309a1d1dc5c1d30a9533811d9e6f17e076d74" />
