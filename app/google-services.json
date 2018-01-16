@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "178055989686",
+    "firebase_url": "https://mrmini-185509.firebaseio.com",
+    "project_id": "mrmini-185509",
+    "storage_bucket": "mrmini-185509.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178055989686:android:48a096b66d07ca4f",
+        "android_client_info": {
+          "package_name": "mrmini.hold1e17.dk.mrmini"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "178055989686-hvt5uq8tscvec6e4qmrn1i76cmrm35f2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4yYIUWkKgba4d2OSYibHd6-7z21EdZ1o"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
