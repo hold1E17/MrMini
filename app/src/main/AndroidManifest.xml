@@ -32,7 +32,7 @@
             android:label="Hovedmenu" />
         <activity
             android:name=".Login"
-            android:label="MrMini" />
+            android:label="Gr01 MrMini" />
         <activity
             android:name=".HospitalsInfo"
             android:label="Hospitals Info"
