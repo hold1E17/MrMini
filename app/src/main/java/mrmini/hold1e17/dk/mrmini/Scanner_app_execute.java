@@ -16,6 +16,9 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import static mrmini.hold1e17.dk.mrmini.Scanner_Toy.writeToBluetooth;
@@ -29,6 +32,9 @@ public class Scanner_app_execute extends Activity {
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
+    private int volume_level, sendVol;
+  //  Button tale;
+    //private CustomView cT;
     private MediaPlayer scanningSound;
     static AudioManager am;
 
@@ -36,7 +42,7 @@ public class Scanner_app_execute extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*setContentView(R.layout.activity_scanner_app_execute);
+      /*  setContentView(R.layout.activity_scanner_app_execute);
         rootLayout = (ViewGroup) findViewById(R.id.view_root);
         img2 = (ImageView) rootLayout.findViewById(R.id.dragObj);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 150);
@@ -52,8 +58,12 @@ public class Scanner_app_execute extends Activity {
 
         activity = this;
         am = (AudioManager) getSystemService(AUDIO_SERVICE);
+        volume_level = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        sendVol = Math.round(volume_level/3);
+        writeToBluetooth(""+sendVol);
     }
 
+       // tale = (Button) findViewById(R.id.tale);
     public static void endActivity(){
         activity.finish();
     }
@@ -68,6 +78,7 @@ public class Scanner_app_execute extends Activity {
         super.onPause();
         scanningSound.stop();
     }
+
 
     public class CustomView extends View implements View.OnTouchListener {
         private Bitmap maskPatientScanned = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
@@ -168,9 +179,6 @@ public class Scanner_app_execute extends Activity {
     }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        int volume_level = am.getStreamVolume(AudioManager.STREAM_MUSIC);
-        int sendVol = Math.round(volume_level/3);
-
         if(sendVol == 0){
             sendVol++;
         } else if(sendVol == 10){

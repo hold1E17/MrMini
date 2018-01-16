@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.AudioManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,9 +28,11 @@ import static android.content.ContentValues.TAG;
 public class Scanner_Toy extends AppCompatActivity implements View.OnClickListener {
 
     static Button startScan, connectbtn, afbrydbtn;
-    static TextView statusText;
+    static TextView statusText, statusTextScan;
     static ProgressBar progressBar;
-    static ImageView checkImage;
+    static ImageView checkImage, scannerImg;
+
+    private static String savedCase;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     private final int REQUEST_ENABLE_BT = 99;
     private static boolean connected = false;
@@ -38,6 +41,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     private static BluetoothDevice remoteDevice = null;
 
     private static Context context;
+    private static boolean scanning = false;
 
     /**
      * Name of the connected device
@@ -62,10 +66,19 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         statusText = (TextView) findViewById(R.id.statusView);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         checkImage = (ImageView) findViewById(R.id.checkImage);
+        scannerImg = (ImageView) findViewById(R.id.scanner_empty);
+        statusTextScan = (TextView) findViewById(R.id.textStatusScan);
 
         context = getApplicationContext();
 
         updateUIStatus();
+
+        if(savedInstanceState != null){
+            savedCase = savedInstanceState.getString("savedCase");
+            if(savedCase != null){
+                read(savedCase);
+            }
+        }
 
         try{
             connected = savedInstanceState.getBoolean("connected");
@@ -157,9 +170,9 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     Log.d(TAG, "READ: " + readMessage);
-                    Scanner_Toy_scan.read(readMessage);
-                    Toast.makeText(context, readMessage,
-                            Toast.LENGTH_SHORT).show();
+                    read(readMessage);
+                    //Toast.makeText(context, readMessage,
+                      //      Toast.LENGTH_SHORT).show();
                     break;
                 case BluetoothService.MessageConstants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -198,19 +211,30 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         if(mBluetoothService != null){
             if(mBluetoothService.getState() == 1){
                 statusText.setText("Tilslutter...");
+                statusText.setVisibility(View.VISIBLE);
                 progressBar.setVisibility(View.VISIBLE);
                 connectbtn.setVisibility(View.INVISIBLE);
 
+                scannerImg.setVisibility(View.INVISIBLE);
+
 
             } else if(mBluetoothService.getState() == 2) {
-                statusText.setText("Tilsluttet: " + mConnectedDeviceName);
+                statusText.setText("");
+                statusText.setVisibility(View.INVISIBLE);
+                scannerImg.setVisibility(View.VISIBLE);
+
                 progressBar.setVisibility(View.INVISIBLE);
+                connectbtn.setVisibility(View.INVISIBLE);
                 checkImage.setVisibility(View.VISIBLE);
                 afbrydbtn.setVisibility(View.VISIBLE);
-                startScan.setVisibility(View.VISIBLE);
+
+                read("2");
+
 
             } else if(mBluetoothService.getState() == 0) {
                 statusText.setText("Enhed ikke tilsluttet");
+                statusText.setVisibility(View.VISIBLE);
+                scannerImg.setVisibility(View.INVISIBLE);
                 progressBar.setVisibility(View.INVISIBLE);
                 checkImage.setVisibility(View.INVISIBLE);
                 startScan.setVisibility(View.INVISIBLE);
@@ -220,46 +244,14 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         }
     }
 
-    public static void read(String messageRead) {
-
-            switch (messageRead) {
-                case "1":
-                    System.out.println("Dukken er blevet fjernet, og derfor afbrydes scanningen");
-                    break;
-                case "2":
-                    System.out.println("Ingen dukke");
-                    break;
-                case "3":
-                    System.out.println("Dukken er placeret korrekt");
-                    break;
-                case "4":
-                    System.out.println("MR scanneren er ved at bevæge sig ind");
-                    break;
-                case "5":
-                    System.out.println("MR scanneren er ved at bevæge sig ud");
-                    break;
-                case "6":
-                    System.out.println("Scanningen er igang");
-                    break;
-                case "7":
-                    System.out.println("Dukken der er blevet placeret er en dreng");
-                    break;
-                case "8":
-                    System.out.println("Dukken der er blevet placeret er en pige");
-                    break;
-                case "9":
-                    System.out.println("Dukken der er blevet placeret er en skildpadde");
-                    break;
-            }
-         }
-
     @Override
     public void onClick(View v) {
 
         if (v == startScan) {
             if(remoteDevice != null){
-                Intent i = new Intent(this, Scanner_Toy_scan.class);
-                startActivity(i);
+                Intent i = new Intent(context, Scanner_app_execute.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                context.startActivity(i);
             }
         }
         if (v == connectbtn) {
@@ -267,6 +259,69 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         }
         if (v == afbrydbtn) {
             mBluetoothService.mConnectedThread.cancel();
+        }
+    }
+
+    public static void read(String messageRead) {
+
+        if(scanning == true){
+            Scanner_app_execute.endActivity();
+            scanning = false;
+        }
+
+        switch (messageRead) {
+            case "1":
+                statusTextScan.setText("Dukken er blevet fjernet, og derfor afbrydes scanningen");
+                scannerImg.setImageResource(R.drawable.scanner);
+                savedCase = "1";
+                startScan.setVisibility(View.INVISIBLE);
+                break;
+            case "2":
+                statusTextScan.setText("Ingen dukke");
+                scannerImg.setImageResource(R.drawable.scanner);
+                savedCase = "2";
+                startScan.setVisibility(View.INVISIBLE);
+                break;
+            case "3":
+                statusTextScan.setText("Dukken er placeret korrekt");
+                scannerImg.setImageResource(R.drawable.scanner_mand);
+                savedCase = "3";
+                startScan.setVisibility(View.VISIBLE);
+                break;
+            case "4":
+                statusTextScan.setText("MR scanneren er ved at bevæge sig ind");
+                scannerImg.setImageResource(R.drawable.scanner_mand);
+                savedCase = "4";
+                startScan.setVisibility(View.VISIBLE);
+                break;
+            case "5":
+                statusTextScan.setText("MR scanneren er ved at bevæge sig ud");
+                scannerImg.setImageResource(R.drawable.scanner_mand);
+                savedCase = "5";
+                startScan.setVisibility(View.INVISIBLE);
+                break;
+            case "6":
+                statusTextScan.setText("Scanningen er igang");
+                savedCase = "6";
+                scanning = true;
+                Intent i = new Intent(context, Scanner_app_execute.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                context.startActivity(i);
+                break;
+            case "7":
+                statusTextScan.setText("Dukken der er blevet placeret er en dreng");
+                scannerImg.setImageResource(R.drawable.scanner_mand);
+                savedCase = "7";
+                break;
+            case "8":
+                statusTextScan.setText("Dukken der er blevet placeret er en pige");
+                savedCase = "8";
+                break;
+            case "9":
+                statusTextScan.setText("Dukken der er blevet placeret er en skildpadde");
+                savedCase = "9";
+                scannerImg.setImageResource(R.drawable.mrscanner_skildpadde);
+                break;
         }
     }
 
@@ -288,6 +343,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if(mBluetoothService != null){
+            outState.putString("savedCase", savedCase);
             outState.putString("connectedDeviceName", mConnectedDeviceName);
             if(mBluetoothService.getState() == 2){
                 outState.putBoolean("connected", true);

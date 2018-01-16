@@ -100,7 +100,6 @@ public class Spil extends AppCompatActivity {
                             onBackPressed();
                         }
                     })
-                    .setIcon(android.R.drawable.ic_dialog_alert)
                     .show();
 
         }
