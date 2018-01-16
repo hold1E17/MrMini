@@ -63,8 +63,6 @@
             android:name=".Scanner_app_execute"
             android:label="Start scanning"
             android:parentActivityName=".Scanner_app_execute" />
-        <activity android:name=".Scanner_Toy_scan"
-            android:parentActivityName=".Scanner_Toy" />
     </application>
 
 </manifest>
