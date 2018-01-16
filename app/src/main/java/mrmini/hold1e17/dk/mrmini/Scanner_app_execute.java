@@ -70,7 +70,7 @@ public class Scanner_app_execute extends AppCompatActivity {
         } else if (sendVol == 10) {
             sendVol--;
         }
-        writeToBluetooth("" + sendVol);
+        Scanner_Toy.writeToBluetooth("" + sendVol);
     }
 
     @Override
@@ -96,9 +96,9 @@ public class Scanner_app_execute extends AppCompatActivity {
         }
 
         if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
-            writeToBluetooth("" + sendVol);
+            Scanner_Toy.writeToBluetooth("" + sendVol);
         } else if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
-            writeToBluetooth("" + sendVol);
+            Scanner_Toy.writeToBluetooth("" + sendVol);
         }
         return super.onKeyDown(keyCode, event);
     }
