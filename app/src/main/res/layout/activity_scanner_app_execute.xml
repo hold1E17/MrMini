@@ -11,18 +11,31 @@
         android:id="@+id/patientBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:contentDescription="@drawable/man1"
         android:scaleType="fitCenter"
         android:src="@drawable/man1"
+        android:layout_centerInParent="true"
         android:visibility="invisible" />
 
-   <!-- <ImageView
-        android:id="@+id/patient"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@drawable/man0"
-        android:scaleType="fitCenter"
-        android:src="@drawable/man0" />-->
+    <Button
+        android:id="@+id/tale"
+        android:layout_width="272dp"
+        android:layout_height="401dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/scantale"
+        android:gravity="center_vertical|center_horizontal"
+        android:textSize="24sp" />
+
+    <!-- <ImageView
+         android:id="@+id/patient"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:contentDescription="@drawable/man0"
+         android:scaleType="fitCenter"
+         android:src="@drawable/man0" />-->
 
 <!--<mrmini.hold1e17.dk.mrmini.CustomView
     android:id="@+id/Custom"

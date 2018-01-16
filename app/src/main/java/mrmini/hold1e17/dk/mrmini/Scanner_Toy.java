@@ -1,10 +1,12 @@
 package mrmini.hold1e17.dk.mrmini;
 
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -42,10 +44,11 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
      */
     private static String mConnectedDeviceName = null;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_toy);
 
@@ -138,6 +141,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         this.finish();
     }
 
+    @SuppressLint("HandlerLeak")
     private static Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -153,7 +157,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     Log.d(TAG, "READ: " + readMessage);
-                    read(readMessage);
+                    Scanner_Toy_scan.read(readMessage);
                     Toast.makeText(context, readMessage,
                             Toast.LENGTH_SHORT).show();
                     break;
@@ -189,6 +193,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         }
     };
 
+
     private static void updateUIStatus(){
         if(mBluetoothService != null){
             if(mBluetoothService.getState() == 1){
@@ -214,7 +219,6 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
             }
         }
     }
-
 
     public static void read(String messageRead) {
 
@@ -254,7 +258,8 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
 
         if (v == startScan) {
             if(remoteDevice != null){
-                mBluetoothService.mConnectedThread.write("3".getBytes());
+                Intent i = new Intent(this, Scanner_Toy_scan.class);
+                startActivity(i);
             }
         }
         if (v == connectbtn) {
@@ -262,6 +267,12 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         }
         if (v == afbrydbtn) {
             mBluetoothService.mConnectedThread.cancel();
+        }
+    }
+
+    public static void writeToBluetooth(String msg){
+        if(remoteDevice != null){
+            mBluetoothService.mConnectedThread.write(msg.getBytes());
         }
     }
 
@@ -284,7 +295,6 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                 outState.putBoolean("connected", false);
             }
         }
-
 
         super.onSaveInstanceState(outState);
     }

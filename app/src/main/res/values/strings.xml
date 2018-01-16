@@ -4,6 +4,18 @@
     <string name="settings">Indstillinger</string>
     <string name="scanner">Prøv MR scanneren</string>
     <string name="spil">Sjov og spas</string>
+    <string name="player_error">Error initializing YouTube player: %s</string>
+    <string name="about_app">
+        App forfattere:\n
+        Mehdi Akil Al-Alak\n
+        Simon Lundorf\n
+        Sofie Freja Christensen\n
+        Emily Skovgaard Rasmussen\n
+        Christoffer Piilmann\n
+        Troels Just Christoffersen\n
+        Used image from https://tineye.com/search/7eeb00a7d604769b8cb2967fe4070ef2194c7808/ as a placeholder with unclear copyright permissions - to be replaced.
+    </string>
+
     <string name="loginName">Skriv dit navn her</string>
     <string name="rememberMe">Husk mig</string>
     <string name="logBut">Login</string>

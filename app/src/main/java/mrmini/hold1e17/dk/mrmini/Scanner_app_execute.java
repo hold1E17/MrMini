@@ -2,26 +2,26 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
-import android.graphics.RectF;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+
+import static mrmini.hold1e17.dk.mrmini.Scanner_Toy.writeToBluetooth;
 
 
 /**
@@ -32,12 +32,16 @@ public class Scanner_app_execute extends Activity {
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
+  //  Button tale;
+    //private CustomView cT;
     private MediaPlayer scanningSound;
+    static AudioManager am;
 
+    private static Activity activity;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*setContentView(R.layout.activity_scanner_app_execute);
+      /*  setContentView(R.layout.activity_scanner_app_execute);
         rootLayout = (ViewGroup) findViewById(R.id.view_root);
         img2 = (ImageView) rootLayout.findViewById(R.id.dragObj);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(150, 150);
@@ -50,6 +54,20 @@ public class Scanner_app_execute extends Activity {
 
         scanningSound.setLooping(true);
         scanningSound.start();
+
+        activity = this;
+        am = (AudioManager) getSystemService(AUDIO_SERVICE);
+    }
+
+       // tale = (Button) findViewById(R.id.tale);
+    public static void endActivity(){
+        activity.finish();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, 0);
     }
 
     public void onPause() {
@@ -153,7 +171,25 @@ public class Scanner_app_execute extends Activity {
             return true;
         }
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        int volume_level = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        int sendVol = Math.round(volume_level/3);
 
+        if(sendVol == 0){
+            sendVol++;
+        } else if(sendVol == 10){
+            sendVol--;
+        }
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
+            writeToBluetooth(""+sendVol);
+        } else if((keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
+            writeToBluetooth(""+sendVol);
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
+}
 
 
 /*
@@ -409,4 +445,3 @@ public class Scanner_app_execute extends Activity {
 
 
     }*/
-}

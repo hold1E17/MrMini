@@ -1,6 +1,7 @@
 package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,19 +11,29 @@ import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import mrmini.hold1e17.dk.mrmini.Logic.PreferenceLogic;
+
 public class Hovedmenu extends AppCompatActivity implements OnClickListener {
+
 Button info, scanner, spil, ambulance, sygeplejeske, hoved, indstillinger;
-String hospital, brugernavn;
+String hospital, brugernavn, nurseStatus;
+
+PreferenceLogic pl = new PreferenceLogic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
         setContentView(R.layout.activity_hovedmenu);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         brugernavn = PreferenceManager.getDefaultSharedPreferences(this).getString("login", "");
 
         hospital = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_hospital", "");
+
+        nurseStatus = PreferenceManager.getDefaultSharedPreferences(this).getString("pref_key_nurse", "");
 
         info = findViewById(R.id.info);
         scanner = findViewById(R.id.scanner);
@@ -32,6 +43,19 @@ String hospital, brugernavn;
         hoved = findViewById(R.id.hoved);
         indstillinger = findViewById(R.id.indstillinger);
 
+        if (nurseStatus.equals("true")) {
+
+            sygeplejeske.setVisibility(View.GONE);
+            hoved.setVisibility(View.VISIBLE);
+
+            System.out.println("TEST");
+        } else {
+
+            sygeplejeske.setVisibility(View.VISIBLE);
+            hoved.setVisibility(View.GONE);
+
+        }
+
         indstillinger.setOnClickListener(this);
         hoved.setOnClickListener(this);
         info.setOnClickListener(this);
@@ -40,23 +64,23 @@ String hospital, brugernavn;
         ambulance.setOnClickListener(this);
         sygeplejeske.setOnClickListener(this);
 
-        sygeplejeske.setVisibility(View.VISIBLE);
-        hoved.setVisibility(View.GONE);
-
     }
 
     public void onClick(View v) {
         if(v == info){
+            pl.saveNurse(this);
             Intent i = new Intent(this, HospitalsInfo.class);
             startActivity(i);
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.buttonclick);
             mediaPlayer.start();
         } else if(v == scanner){
+            pl.saveNurse(this);
             Intent i = new Intent(this, Scanner.class);
             startActivity(i);
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.buttonclick);
             mediaPlayer.start();
         } else if(v == spil){
+            pl.saveNurse(this);
             Intent i = new Intent(this, Spil.class);
             startActivity(i);
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.buttonclick);
@@ -76,6 +100,7 @@ String hospital, brugernavn;
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.open);
             mediaPlayer.start();
         } else if(v == indstillinger) {
+            pl.saveNurse(this);
             Intent i = new Intent(this, Indstillinger.class);
             startActivityForResult(i,0);
         }
