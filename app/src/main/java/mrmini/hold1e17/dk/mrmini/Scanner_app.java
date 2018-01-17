@@ -60,16 +60,26 @@ public class Scanner_app extends AppCompatActivity implements View.OnClickListen
             startActivity(i);
         } else if (v == dreng) {
             scanner.setImageResource(R.drawable.scanner_mand);
+            customScanner.setVisibility(View.INVISIBLE);
             startScan.setVisibility(View.VISIBLE);
         } else if (v == skildpadde) {
             scanner.setImageResource(R.drawable.mrscanner_skildpadde);
+            customScanner.setVisibility(View.INVISIBLE);
             startScan.setVisibility(View.VISIBLE);
         } else if (v == custom) {
-            scanner.setImageResource(R.drawable.scanner_mand);
-            customScanner.setVisibility(View.VISIBLE);
-            startScan.setVisibility(View.VISIBLE);
-        }
-        else if (v == button) {
+            String imgExists = (String) custom.getTag();
+            if(imgExists == "true"){
+                scanner.setImageResource(R.drawable.scanner_mand);
+                customScanner.setVisibility(View.VISIBLE);
+                startScan.setVisibility(View.VISIBLE);
+            } else {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, 0);
+                scanner.setImageResource(R.drawable.scanner_mand);
+                customScanner.setVisibility(View.VISIBLE);
+                startScan.setVisibility(View.VISIBLE);
+            }
+        } else if (v == button) {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             startActivityForResult(intent, 0);
         }
@@ -83,9 +93,10 @@ public class Scanner_app extends AppCompatActivity implements View.OnClickListen
         Bitmap bitmap = (Bitmap) data.getExtras().get("data");
         custom.setImageBitmap(bitmap);
         customScanner.setImageBitmap(bitmap);
+        custom.setTag("true");
+
 
         } 
-
     }
 
 }
