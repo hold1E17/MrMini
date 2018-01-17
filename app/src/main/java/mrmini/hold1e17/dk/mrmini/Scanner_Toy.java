@@ -178,7 +178,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
                 case BluetoothService.MessageConstants.MESSAGE_DEVICE_NAME:
                     // save the connected device's name
                     mConnectedDeviceName = msg.getData().getString(BluetoothService.MessageConstants.DEVICE_NAME);
-                    Toast.makeText(context, "Connected to "
+                    Toast.makeText(context, "Tilsluttet: "
                             + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
                     break;
                 case BluetoothService.MessageConstants.MESSAGE_TOAST:
@@ -250,15 +250,14 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
 
         if (v == startScan) {
             if(remoteDevice != null){
-                Intent i = new Intent(context, Scanner_app_execute.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                context.startActivity(i);
+                startScanningActivity();
             }
         }
         if (v == connectbtn) {
             mBluetoothService.connect(remoteDevice);
         }
         if (v == afbrydbtn) {
+            statusTextScan.setText("");
             mBluetoothService.mConnectedThread.cancel();
         }
     }
@@ -304,10 +303,7 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
             case "6":
                 statusTextScan.setText("Scanningen er igang");
                 savedCase = "6";
-                scanning = true;
-                Intent i = new Intent(context, Scanner_app_execute.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                context.startActivity(i);
+                startScanningActivity();
                 break;
             case "7":
                 statusTextScan.setText("Dukken der er blevet placeret er en dreng");
@@ -330,6 +326,15 @@ public class Scanner_Toy extends AppCompatActivity implements View.OnClickListen
         if(remoteDevice != null){
             mBluetoothService.mConnectedThread.write(msg.getBytes());
         }
+    }
+
+    private static void startScanningActivity(){
+        scanning = true;
+
+        Intent i = new Intent(context, Scanner_app_execute.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(i);
     }
 
     @Override

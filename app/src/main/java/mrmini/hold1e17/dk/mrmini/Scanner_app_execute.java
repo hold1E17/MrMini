@@ -12,13 +12,12 @@ import android.graphics.Rect;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import static mrmini.hold1e17.dk.mrmini.Scanner_Toy.writeToBluetooth;
@@ -28,17 +27,21 @@ import static mrmini.hold1e17.dk.mrmini.Scanner_Toy.writeToBluetooth;
  * Created by Sofie on 02-01-2018.
  */
 
-public class Scanner_app_execute extends Activity {
+public class Scanner_app_execute extends AppCompatActivity {
+    private static AudioManager am;
+    private static Activity activity;
     private ImageView img, img2;
     private ViewGroup rootLayout;
     private int xD, yD;
-    private int volume_level, sendVol;
-  //  Button tale;
+    private int currentVolumeLevel, sendVol, maxVolume;
+    //  Button tale;
     //private CustomView cT;
     private MediaPlayer scanningSound;
-    static AudioManager am;
 
-    private static Activity activity;
+    // tale = (Button) findViewById(R.id.tale);
+    public static void endActivity() {
+        activity.finish();
+    }
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,14 +61,16 @@ public class Scanner_app_execute extends Activity {
 
         activity = this;
         am = (AudioManager) getSystemService(AUDIO_SERVICE);
-        volume_level = am.getStreamVolume(AudioManager.STREAM_MUSIC);
-        sendVol = Math.round(volume_level/3);
-        writeToBluetooth(""+sendVol);
-    }
-
-       // tale = (Button) findViewById(R.id.tale);
-    public static void endActivity(){
-        activity.finish();
+        maxVolume = am.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        currentVolumeLevel = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        float volumeCalculation = ((float) currentVolumeLevel / (float) maxVolume) * 10.0f;
+        sendVol = Math.round(volumeCalculation);
+        if (sendVol == 0) {
+            sendVol++;
+        } else if (sendVol == 10) {
+            sendVol--;
+        }
+        writeToBluetooth("" + sendVol);
     }
 
     @Override
@@ -79,16 +84,34 @@ public class Scanner_app_execute extends Activity {
         scanningSound.stop();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        currentVolumeLevel = am.getStreamVolume(AudioManager.STREAM_MUSIC);
+        float volumeCalculation = ((float) currentVolumeLevel / (float) maxVolume) * 10.0f;
+        sendVol = Math.round(volumeCalculation);
+        if (sendVol == 0) {
+            sendVol++;
+        } else if (sendVol == 10) {
+            sendVol--;
+        }
+
+        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
+            writeToBluetooth("" + sendVol);
+        } else if ((keyCode == KeyEvent.KEYCODE_VOLUME_UP)) {
+            writeToBluetooth("" + sendVol);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     public class CustomView extends View implements View.OnTouchListener {
-        private Bitmap maskPatientScanned = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
-        private Bitmap maskPatientDressed = BitmapFactory.decodeResource(getResources(), R.drawable.man0);
-        //private Bitmap moveSymbol = BitmapFactory.decodeResource(getResources(), R.drawable.arrows);
-        private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.rectangle);
         private final Paint imagePaint;
         private final Paint maskPaint;
         private final Paint arrowPaint;
         private final Paint overlayPaint;
+        private Bitmap maskPatientScanned = BitmapFactory.decodeResource(getResources(), R.drawable.man1);
+        private Bitmap maskPatientDressed = BitmapFactory.decodeResource(getResources(), R.drawable.man0);
+        //private Bitmap moveSymbol = BitmapFactory.decodeResource(getResources(), R.drawable.arrows);
+        private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.rectangle);
         private int maskX = 0;
         private int maskY = 270;
         private Canvas canvas2;
@@ -121,7 +144,7 @@ public class Scanner_app_execute extends Activity {
             int dHeight = (int) (dHeightTemp / 1.3);
 
             canvas.drawBitmap(maskPatientDressed, new Rect(0, 0, maskPatientDressed.getWidth(), maskPatientDressed.getHeight())
-                           , new Rect(160, 0, maskPatientDressed.getWidth(), dHeight), overlayPaint);
+                    , new Rect(160, 0, maskPatientDressed.getWidth(), dHeight), overlayPaint);
             canvas.drawBitmap(maskFigure, maskX, maskY, maskPaint);
             canvas.drawBitmap(maskPatientScanned, new Rect(0, 0, (maskPatientScanned.getWidth()), maskPatientScanned.getHeight()),
                     new Rect(160, 0, maskPatientScanned.getWidth(), dHeight), imagePaint);
@@ -151,22 +174,19 @@ public class Scanner_app_execute extends Activity {
                     break;
                 case MotionEvent.ACTION_MOVE:
                     maskX = musX;
-                    maskY = musY-30;
+                    maskY = musY - 30;
                     System.out.println(motionEvent.getRawX());
 
-                    if(motionEvent.getRawX() < 0 && motionEvent.getRawY() < 0 ) {
+                    if (motionEvent.getRawX() < 0 && motionEvent.getRawY() < 0) {
                         maskY = 0;
                         maskX = 0;
-                    }
-                    else if(motionEvent.getRawX() < 0) {
+                    } else if (motionEvent.getRawX() < 0) {
                         maskX = 0;
                         // maskY = 0;
-                    }
-                     else if ((motionEvent.getRawX() + maskFigure.getWidth() > canvas2.getWidth())&&(motionEvent.getRawY() + maskFigure.getHeight() > canvas2.getHeight())) {
+                    } else if ((motionEvent.getRawX() + maskFigure.getWidth() > canvas2.getWidth()) && (motionEvent.getRawY() + maskFigure.getHeight() > canvas2.getHeight())) {
                         maskX = canvas2.getWidth() - maskFigure.getWidth();
                         maskY = canvas2.getHeight() - maskFigure.getHeight();
-                    }
-                    else if((motionEvent.getRawX() + maskFigure.getWidth() > canvas2.getWidth())) {
+                    } else if ((motionEvent.getRawX() + maskFigure.getWidth() > canvas2.getWidth())) {
                         maskX = canvas2.getWidth() - maskFigure.getWidth();
                     }
                     this.invalidate();
@@ -176,21 +196,6 @@ public class Scanner_app_execute extends Activity {
             return true;
         }
 
-    }
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(sendVol == 0){
-            sendVol++;
-        } else if(sendVol == 10){
-            sendVol--;
-        }
-        if ((keyCode == KeyEvent.KEYCODE_VOLUME_DOWN)) {
-            writeToBluetooth(""+sendVol);
-        } else if((keyCode == KeyEvent.KEYCODE_VOLUME_UP)){
-            writeToBluetooth(""+sendVol);
-        }
-
-        return super.onKeyDown(keyCode, event);
     }
 }
 

@@ -15,10 +15,10 @@ import mrmini.hold1e17.dk.mrmini.Logic.PreferenceLogic;
 
 public class Hovedmenu extends AppCompatActivity implements OnClickListener {
 
-Button info, scanner, spil, ambulance, sygeplejeske, hoved, indstillinger;
-String hospital, brugernavn, nurseStatus;
+    Button info, scanner, spil, ambulance, sygeplejeske, hoved, indstillinger;
+    String hospital, brugernavn, nurseStatus;
 
-PreferenceLogic pl = new PreferenceLogic();
+    PreferenceLogic pl = new PreferenceLogic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,44 +66,50 @@ PreferenceLogic pl = new PreferenceLogic();
     }
 
     public void onClick(View v) {
-        if(v == info){
+        if (v == info) {
             pl.saveNurse(this);
             Intent i = new Intent(this, HospitalsInfo.class);
             startActivity(i);
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.buttonclick);
             mediaPlayer.start();
-        } else if(v == scanner){
+        } else if (v == scanner) {
             pl.saveNurse(this);
             Intent i = new Intent(this, Scanner.class);
             startActivity(i);
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.buttonclick);
             mediaPlayer.start();
-        } else if(v == spil){
+        } else if (v == spil) {
             pl.saveNurse(this);
             Intent i = new Intent(this, Spil.class);
             startActivity(i);
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.buttonclick);
             mediaPlayer.start();
-        } else if(v == ambulance){
+        } else if (v == ambulance) {
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.truck);
             mediaPlayer.start();
             ambulance.startAnimation(AnimationUtils.makeOutAnimation(this, false));
-        } else if(v == sygeplejeske){
+        } else if (v == sygeplejeske) {
             hoved.setVisibility(View.VISIBLE);
             sygeplejeske.setVisibility(View.INVISIBLE);
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.close);
             mediaPlayer.start();
-        } else if(v == hoved) {
+        } else if (v == hoved) {
             hoved.setVisibility(View.INVISIBLE);
             sygeplejeske.setVisibility(View.VISIBLE);
             MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.open);
             mediaPlayer.start();
-        } else if(v == indstillinger) {
+        } else if (v == indstillinger) {
             pl.saveNurse(this);
             Intent i = new Intent(this, Indstillinger.class);
-            startActivityForResult(i,0);
+            startActivityForResult(i, 0);
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Udkommenteret for at disable telefonens tilbage knap, så man ikke kan komme tilbage til loginskærmen.
+        //super.onBackPressed();
     }
 
 }
