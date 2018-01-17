@@ -41,7 +41,7 @@ public class GameLogic {
         RectF rectF = new RectF();
 
         Thing(int x, int y) {
-            rectF = new RectF(x - 1, y - 1, x + 38, y + 38);
+            rectF = new RectF(x - 50, y - 50, x + 38, y + 38);
         }
     }
 

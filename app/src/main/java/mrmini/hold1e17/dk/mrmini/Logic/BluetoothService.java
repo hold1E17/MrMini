@@ -1,4 +1,4 @@
-package mrmini.hold1e17.dk.mrmini;
+package mrmini.hold1e17.dk.mrmini.Logic;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -162,7 +162,7 @@ public class BluetoothService{
         }
 
         private void connectionFailed() {
-            sendToastTilUI("Unable to connect device");
+            sendToastTilUI("Kan ikke forbinde til enhed");
 
             mState = STATE_NONE;
             // Update UI title
@@ -188,9 +188,6 @@ public class BluetoothService{
      */
     public synchronized void connected(BluetoothSocket socket, BluetoothDevice
             device) {
-        Log.d(TAG, "connected to device");
-        // Start the thread to manage the connection and perform transmissions
-        //TODO()
         mConnectedThread = new ConnectedThread(socket);
         mConnectedThread.start();
 
@@ -293,7 +290,7 @@ public class BluetoothService{
         }
 
         private void connectionLost() {
-            sendToastTilUI("Device connection was lost");
+            sendToastTilUI("Forbindelsen til enheden er mistet");
 
             mState = STATE_NONE;
             // Update UI title
