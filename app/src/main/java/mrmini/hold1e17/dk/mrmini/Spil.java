@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -28,6 +29,8 @@ public class Spil extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(new MagnetView(this));
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+
+
     }
 
     class MagnetView extends View {
@@ -42,6 +45,7 @@ public class Spil extends AppCompatActivity {
 
         @Override
         protected void onDraw(Canvas c) {
+
 
             width = getWidth() / 480f;
             height = getHeight() / 480f;
