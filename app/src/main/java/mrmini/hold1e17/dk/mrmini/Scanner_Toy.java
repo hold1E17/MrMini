@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.media.AudioManager;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Set;
+
+import mrmini.hold1e17.dk.mrmini.Logic.BluetoothService;
 
 import static android.content.ContentValues.TAG;
 
