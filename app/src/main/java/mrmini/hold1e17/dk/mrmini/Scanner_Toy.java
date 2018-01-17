@@ -25,7 +25,6 @@ import mrmini.hold1e17.dk.mrmini.Logic.BluetoothService;
 
 import static android.content.ContentValues.TAG;
 
-
 public class Scanner_Toy extends AppCompatActivity implements View.OnClickListener {
 
     static Button startScan, connectbtn, afbrydbtn;
