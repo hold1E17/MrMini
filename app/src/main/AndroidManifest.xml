@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mrmini.hold1e17.dk.mrmini">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
-    <uses-feature android:name="android.hardware.camera2"></uses-feature>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera2" />
+
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Launcher">
@@ -21,32 +29,42 @@
         </activity>
         <activity
             android:name=".Hovedmenu"
-            android:label="Hovedmenu"/>
+            android:label="Hovedmenu" />
         <activity
             android:name=".Login"
-            android:label="Log på"/>
+            android:label="Gr01 MrMini" />
         <activity
             android:name=".HospitalsInfo"
             android:label="Hospitals Info"
-            android:screenOrientation="portrait"
-            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
+            android:parentActivityName=".Hovedmenu"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Indstillinger"
             android:label="@string/settings"
-            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
+            android:parentActivityName=".Hovedmenu" />
         <activity
             android:name=".Scanner"
             android:label="@string/scanner"
-            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
-        <activity android:name=".Spil"
+            android:parentActivityName=".Hovedmenu" />
+        <activity
+            android:name=".Spil"
             android:label="@string/spil"
-            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Hovedmenu" />
-        <activity android:name=".Scanner_Toy"
+            android:parentActivityName=".Hovedmenu" />
+        <activity
+            android:name=".Scanner_Toy"
             android:label="Scan med legetøj"
-            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Scanner"/>
-        <activity android:name=".Scanner_app"
+            android:parentActivityName=".Scanner" />
+        <activity
+            android:name=".Scanner_app"
             android:label="Scan med app"
-            android:parentActivityName="mrmini.hold1e17.dk.mrmini.Scanner_app"/>
+            android:parentActivityName=".Hovedmenu" />
+        <activity
+            android:name=".Scanner_app_execute"
+            android:label="Start scanning"
+            android:parentActivityName=".Scanner_app" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="e76309a1d1dc5c1d30a9533811d9e6f17e076d74" />
     </application>
 
 </manifest>

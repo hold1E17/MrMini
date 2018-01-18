@@ -1,9 +1,21 @@
 <resources>
-    <string name="app_name">MrMini</string>
+    <string name="app_name">Gr01 MrMini</string>
     <string name="info">Info video</string>
     <string name="settings">Indstillinger</string>
     <string name="scanner">Prøv MR scanneren</string>
     <string name="spil">Sjov og spas</string>
+    <string name="player_error">Error initializing YouTube player: %s</string>
+    <string name="about_app">
+        App forfattere:\n
+        Mehdi Akil Al-Alak\n
+        Simon Lundorf\n
+        Sofie Freja Christensen\n
+        Emily Skovgaard Rasmussen\n
+        Christoffer Piilmann\n
+        Troels Just Christoffersen\n
+        Used image from https://tineye.com/search/7eeb00a7d604769b8cb2967fe4070ef2194c7808/ as a placeholder with unclear copyright permissions - to be replaced.
+    </string>
+
     <string name="loginName">Skriv dit navn her</string>
     <string name="rememberMe">Husk mig</string>
     <string name="logBut">Login</string>
@@ -16,6 +28,15 @@
     <string name="pref_catHospital">Hospital</string>
     <string name="logout">Log ud</string>
     <string name="pref_sum_logout">Tryk her for at logge ud</string>
+    <string name="bt_ikke_aktiv">Bluetooth skal være aktiveret</string>
+    <string name="title_connected">Tilsluttet:</string>
+    <string name="title_not_connected">Enhed ikke tilsluttet</string>
+    <string name="title_connecting">Tilslutter...</string>
+    <string name="pref_title_sound">Volume</string>
+    <string name="volume"></string>
+    <string name="play_again">Tillykke! Du har vundet spillet! Vil du spille igen?</string>
+    <string name="bt_ikke_paired">MrMini er ikke parret inde i telefon indstillingerne</string>
+
     <string-array name="hospitalList">
         <item>@string/noHosp</item>
         <item>Gentofte</item>

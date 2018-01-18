@@ -2,21 +2,20 @@ package mrmini.hold1e17.dk.mrmini;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 public class Indstillinger extends PreferenceActivity {
-
-    static Preference pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
 
         getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
 
@@ -29,6 +28,8 @@ public class Indstillinger extends PreferenceActivity {
 
             super.onCreate(savedInstanceState);
 
+            getActivity().setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
             addPreferencesFromResource(R.xml.preferences);
 
             Preference pref = findPreference("pref_key_hospital");
@@ -37,9 +38,11 @@ public class Indstillinger extends PreferenceActivity {
 
             getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 
-            Preference button = (Preference) getPreferenceManager().findPreference("pref_key_logout");
+            Preference button = getPreferenceManager().findPreference("pref_key_logout");
+
             if (button != null) {
                 button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+
                     @Override
                     public boolean onPreferenceClick(Preference arg0) {
                         Intent i = new Intent(getActivity(), Login.class);
@@ -48,13 +51,15 @@ public class Indstillinger extends PreferenceActivity {
                         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
                         SharedPreferences.Editor editor = preferences.edit();
 
-                        editor.clear().commit();
+                        editor.clear().apply();
 
                         startActivity(i);
                         getActivity().finish();
 
                         return true;
+
                     }
+
                 });
 
             }
@@ -63,6 +68,8 @@ public class Indstillinger extends PreferenceActivity {
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+
+            // TODO implement volume change on slider change
 
             if(key.equals("pref_key_hospital")) {
                 Preference pref = findPreference(key);
