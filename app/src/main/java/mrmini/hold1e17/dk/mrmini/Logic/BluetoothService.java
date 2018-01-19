@@ -1,4 +1,4 @@
-package mrmini.hold1e17.dk.mrmini;
+package mrmini.hold1e17.dk.mrmini.Logic;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
