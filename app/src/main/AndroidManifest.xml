@@ -57,6 +57,7 @@
         <activity
             android:name=".Scanner_app"
             android:label="Scan med app"
+            android:configChanges="orientation|screenSize"
             android:parentActivityName=".Hovedmenu" />
         <activity
             android:name=".Scanner_app_execute"
