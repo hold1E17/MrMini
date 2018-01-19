@@ -51,7 +51,6 @@ public class Scanner_app extends AppCompatActivity implements View.OnClickListen
 
     }
 
-
     public void onClick(View v) {
         if (v == startScan) {
             Intent i = new Intent(this, Scanner_app_execute.class);
