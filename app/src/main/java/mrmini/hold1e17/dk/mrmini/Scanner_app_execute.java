@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
@@ -13,7 +14,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -113,7 +114,7 @@ public class Scanner_app_execute extends AppCompatActivity {
         //private Bitmap moveSymbol = BitmapFactory.decodeResource(getResources(), R.drawable.arrows);
         private Bitmap maskFigure = BitmapFactory.decodeResource(getResources(), R.drawable.rectangle);
         private int maskX = 0;
-        private int maskY = 270;
+        private int maskY = 0;
         private Canvas canvas2;
 
         public CustomView(final Context context) {
@@ -138,16 +139,20 @@ public class Scanner_app_execute extends AppCompatActivity {
             this.canvas2 = canvas;
             canvas.save();
 
-            Double dWidthTemp = Double.valueOf(maskPatientDressed.getWidth());
-            Double dHeightTemp = Double.valueOf(maskPatientDressed.getHeight());
-            //int dWidth = (int) (dWidthTemp / 1);
-            int dHeight = (int) (dHeightTemp / 1.3);
+           // Display display = new Display();
+
+
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            int width = size.x;
+            int height = size.y;
 
             canvas.drawBitmap(maskPatientDressed, new Rect(0, 0, maskPatientDressed.getWidth(), maskPatientDressed.getHeight())
-                    , new Rect(160, 0, maskPatientDressed.getWidth(), dHeight), overlayPaint);
+                    , new Rect(0, 0, width, height), overlayPaint);
             canvas.drawBitmap(maskFigure, maskX, maskY, maskPaint);
             canvas.drawBitmap(maskPatientScanned, new Rect(0, 0, (maskPatientScanned.getWidth()), maskPatientScanned.getHeight()),
-                    new Rect(160, 0, maskPatientScanned.getWidth(), dHeight), imagePaint);
+                    new Rect(0, 0, width, height), imagePaint);
             System.out.println("WIDTH = " + canvas.getWidth());
             System.out.println("HEIGHT = " + canvas.getHeight());
             canvas.restore();
@@ -174,7 +179,7 @@ public class Scanner_app_execute extends AppCompatActivity {
                     break;
                 case MotionEvent.ACTION_MOVE:
                     maskX = musX;
-                    maskY = musY - 30;
+                    maskY = musY;
                     System.out.println(motionEvent.getRawX());
 
                     if (motionEvent.getRawX() < 0 && motionEvent.getRawY() < 0) {
